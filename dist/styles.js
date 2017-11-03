@@ -3,9 +3,8 @@
 */
 var styles;
 var editor;
-
+var styleFunction;
 $(function(){
-		
 		styles={
 		'alarm':new ol.style.Style({
 			image:new ol.style.Icon({
@@ -25,6 +24,34 @@ $(function(){
 			image:new ol.style.Icon({
 				anchor:[0.5,0.5],
 				src:'res/camera.png',
+				
+			})
+		}),
+		'agv':new ol.style.Style({
+			image:new ol.style.Icon({
+				anchor:[0.5,0.5],
+				src:'res/agv.png',
+				
+			})
+		}),
+		'qdiao':new ol.style.Style({
+			image:new ol.style.Icon({
+				anchor:[0.5,0.5],
+				src:'res/qdiao.png',
+				
+			})
+		}),
+		'ldiao':new ol.style.Style({
+			image:new ol.style.Icon({
+				anchor:[0.5,0.5],
+				src:'res/ldiao.png',
+				
+			})
+		}),
+		'gdiao':new ol.style.Style({
+			image:new ol.style.Icon({
+				anchor:[0.5,0.5],
+				src:'res/gdiao.png',
 				
 			})
 		}),
@@ -48,6 +75,12 @@ $(function(){
          image: new ol.style.Icon({
            anchor: [0.5, 1],
            src: '../res/icon2.png'
+         })
+       }),
+       'pos': new ol.style.Style({
+         image: new ol.style.Icon({
+           anchor: [0.5, 1],
+           src: '../res/pos.png'
          })
        }),
        'geoMarker': new ol.style.Style({

@@ -219,7 +219,7 @@ a.pin.active i {
     color: #333;
 }
 .map .ol-control button:hover {
-    background: #c2c2c2;
+    /*background: #c2c2c2;*/
     opacity: 1;
 	border: 1px solid #959595;
 }
@@ -536,15 +536,6 @@ a.pin.active i {
     border: 2px dashed #3399ff;
     background: rgba(51,153,255,0.2);
 }
-.ol-exit button{
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 1em;
-    top: 2px;
-    left: 2px;
-    float: left;
-   background-image:  url(../../../res/exit.png);
-}
 /**
  * THE FOLLOWING ICON RESOURCES ARE DOWNLOADED FROM:
  * https://trac.osgeo.org/osgeo/browser/graphics/trunk/toolbar-icons/
@@ -648,4 +639,41 @@ a.pin.active i {
 }
 .toolbar .ol-route  button{
     background-image: url(../res/route.png);
+}
+.toolbar .ol-realtime button{
+    background-image: url(../res/pos.png);
+}
+.toolbar .ol-equipment button{
+    background-image: url(../res/equipment.png);
+}
+.toolbar .ol-equipment button.ol-equipment-jika{
+    background-image: url(../res/jika.png);
+}
+.toolbar .ol-equipment button.ol-equipment-camera{
+    background-image: url(../res/camera.png);
+}
+.toolbar .ol-equipment button.ol-equipment-agv{
+    background-image: url(../res/agv.png);
+}
+.toolbar .ol-equipment button.ol-equipment-qdiao{
+    background-image: url(../res/qdiao.png);
+}
+.toolbar .ol-equipment button.ol-equipment-gdiao{
+    background-image: url(../res/gdiao.png);
+}
+.toolbar .ol-equipment button.ol-equipment-ldiao{
+    background-image: url(../res/ldiao.png);
+}
+.ol-exit button{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 1em;
+    background-image:  url(../res/exit.png);
+}
+.ol-condition button{
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 1em;
+    background-image:  url(../res/condition.png);
 }

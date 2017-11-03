@@ -3,34 +3,21 @@
   <head>
     <meta charset="utf-8">
     <title>洋山港</title>
-    <!--jquery-->
-    <script src="dist/jquery.min.js"></script>
-    <<!--bootstrap-->
+    <!--bootstrap-->
     <link rel="stylesheet" href="dist/bootstrap.min.css">
-	<script src="dist/bootstrap.min.js"></script>
-    <!--ol-->
+     <!--ol-->
     <link rel="stylesheet" href="dist/ol.min.css">
-    <script src="dist/ol-debug.js"></script>
-    <!--proj4-->
-    <script src="dist/proj4.js"></script>
-    <!--ol-ex-->
-	<!--ol-ex-search-->
+    <!--ol-editor-->
+    <link rel="stylesheet" href="dist/ol.editor.css">
+    <!--ol-ex-search-->
 	<link rel="stylesheet"  href="dist/ex/control/searchcontrol.css">
-	<script src="dist/ex/control/searchcontrol.js"></script>
-	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
 	<!--ol-ex-overlay-->
 	<link rel="stylesheet"  href="dist/ex/control/popupoverlay.css">
 	<link rel="stylesheet"  href="dist/ex/control/popupoverlay.anim.css">
-	<script src="dist/ex/control/popupoverlay.js"></script>
-	<script src="dist/ex/control/videoPopupOverlay.js"></script>
-    <!--ol-editor-->
-    <link rel="stylesheet" href="dist/ol.editor.css">
-	<script src="dist/ol.editor.js"></script>
 	
     <!--custom css-->
     <link rel="stylesheet" type="text/css" href="dist/custom.css">
     <link rel="shortcut icon" href="favicon.ico">
-    <script type="text/javascript" src="dist/styles.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -71,62 +58,74 @@
      	<div id="statusbar" class="statusbar"></div>
     </div>
 	<!-- 脚本 -->
-	<script>
-		/*
-	 图层样式函数设置
-	 */
-	var styleFunction=function(feature,resolution){
-		var zoom=editor.getView().getZoom();
-		var style=null;
-		var properties=feature.getProperties();
-		if(properties.type===1){
-			
-			style=styles['car'];
+    <!--jquery-->
+    <script src="dist/jquery.min.js"></script>
+	<script src="dist/bootstrap.min.js"></script>
+    <!--proj4-->
+    <script src="dist/proj4.js"></script>
+    <!--ol-->
+    <script src="dist/ol-debug.js"></script>
+    <!--ol-editor-->
+    <script src="dist/ol.editor.js"></script>
+    <!--ol-ex-->
+	<script src="dist/ex/control/searchcontrol.js"></script>
+	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
+	<script src="dist/ex/control/popupoverlay.js"></script>
+	<!--video-->
+	<script src="dist/ex/control/videoPopupOverlay.js"></script>
+	<!--style-->
+    <script src="dist/styles.js"></script>
+    <!--mq-->
+    <script src="dist/rabbitmq/sockjs-0.3.js"></script>
+    <script src="dist/rabbitmq/stomp.js"></script>
 
-		}
-		else if(properties.type===2){
-			style=styles['camera'];
-		}
-		else{
-			style=styles['alarm'];
-		}
-		if (zoom===12) {
-			return [styles['point']];
-		}
-		else{
-			style.getImage().setScale(zoom/35);
-			return [style];
-		}
-		
-	};
+	<script>
+		styleFunction=function(feature,resolution){
+			var zoom=editor.getView().getZoom();
+			var style=null;
+			var properties=feature.getProperties();
+			if(properties.type===1){
+				
+				style=styles['car'];
+			}
+			else if(properties.type===2){
+				style=styles['camera'];
+			}
+			else if (properties.type===3) {
+				style=styles['agv'];
+			}
+			else if (properties.type===4) {
+				style=styles['qdiao'];
+			}
+			else if (properties.type===5) {
+				style=styles['gdiao'];
+			}
+			else if (properties.type===6) {
+				style=styles['ldiao'];
+			}
+			else if (properties.type===7) {
+				style=styles['alarm'];
+			}
+			else if (properties.type===8) {
+				style=styles['pos'];
+			}
+			else{
+				style=styles['pos'];
+			}
+			if (zoom===12) {
+				return [styles['point']];
+			}
+			else{
+				style.getImage().setScale(zoom/25);
+				return [style];
+			}
+			
+		};
 		//选择
 		var selectClick=new ol.interaction.Select({
 			
 		});
-		//
-		////加载图层
-		var camera=new ol.layer.Vector({
-			name:'相机',
-			source:new ol.source.Vector({
-				url:"data/camera.geojson",
-				format:new ol.format.GeoJSON({
-					featureProjection:'EPSG:3857'
-				})
-
-			}),
-			style:styleFunction,
-			wrapX: false
-		});
-		//加载图层
-		var jika=new ol.layer.Vector({
-			name:'集卡',
-			source:new ol.source.Vector({
-				url:"data/jika.geojson",
-				format:new ol.format.GeoJSON()
-			}),
-			style:styleFunction,
-			wrapX: false
-		});
+		
 	     var attributeManager=new ol.control.AttributeManager({ target: 'attributemanager' });
 	     //attributeManager.setMap(map);
 	    // proj4.defs("EPSG:23700","+title=HD72 EOV +proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
@@ -151,12 +150,12 @@
 	    //search
 	    var search = new ol.control.SearchFeature(
 		{	//target: $(".options").get(0),
-			source: camera.getSource(),//设置查询的图层
-			property: '编号'
+			// source: camera.getSource(),//设置查询的图层
+			// property: '编号'
 		});
 
 		// Popup overlay
-		var popup = new ol.Overlay.Popup (
+		var popup = new ol.Overlay.Video (
 		{	popupClass: "default", //"tooltips", "warning" "black" "default", "tips", "shadow",
 			closeBox: true,
 			onclose: function(){ console.log("关闭窗口!"); },
@@ -230,15 +229,14 @@
 						serverType: 'geoserver',
 	         	 })
 				}),
-				realTimeLayer,
-				camera,
-				jika
+				realTimeLayer
 	        ],
 	        //地图控件加载
 	        
 	        controls: [
 	        	//new ol.control.Add({target:'ysgceshi',tipLabel:'相机标定'}),
 	        	new ol.control.Exit(),
+	        	new ol.control.Condition(),
 	        	new ol.control.FullScreen(),
 	            new ol.control.Rotate(),
 	            new ol.control.ScaleLine(),
@@ -265,7 +263,9 @@
 	            }),
 	            search,
 	            new ol.control.Alarm({target:'equipments'}),
-	            new ol.control.Route({target:'equipments'})
+	            new ol.control.Route({target:'equipments'}),
+	            new ol.control.Equipments({target:'equipments'}),
+	            new ol.control.RealTime({target:'equipments'})
 	        ],
 	        loadTilesWhileAnimating: true,
 	        loadTilesWhileInteracting: true,
@@ -274,7 +274,7 @@
 	    //editor.getView().SetRotation(-14*Math.PI/180);
 	    //地图加载时，操作
 	    var showing = false;
-	    $(document).ready(function () {
+	    $(document).ready(function() {
 	        
 	        $(document).on('click', '#menubar>ul>li>a', function(e) {
 	            var elementToShow = $(this).attr('href');

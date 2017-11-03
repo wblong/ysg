@@ -3010,3 +3010,320 @@ ol.control.Exit = function (opt_options) {
 };
 
 ol.inherits(ol.control.Exit, ol.control.Control);
+
+/**
+ * @classdesc
+ * 
+ *  搜索条件
+ * @constructor
+ * @extends {ol.control.Control}
+ * @param {olx.control.ControlOptions} options Control options.
+ */
+ol.control.Condition = function (opt_options) {
+    
+    var options = opt_options || {};
+    var _this = this;
+
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'ol-condition ol-unselectable ol-control';
+    
+    var conditionButton = document.createElement('button');
+    conditionButton.title = options.tipLabel || '条件';
+    conditionButton.textContent = options.label || ' ';
+    conditionButton.setAttribute('id','condition');
+    controlDiv.appendChild(conditionButton);
+    
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+};
+
+ol.inherits(ol.control.Condition, ol.control.Control);
+
+/**
+ * @classdesc
+ * 
+ * 实时绘制
+ * @constructor
+ * @extends {ol.control.Control}
+ * @param {olx.control.ControlOptions} options Control options.
+ */
+ol.control.RealTime = function (opt_options) {
+    
+    var options = opt_options || {};
+    var _this = this;
+
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'ol-realtime ol-unselectable ol-control';
+    
+    var realTimeButton = document.createElement('button');
+    realTimeButton.title = options.tipLabel || '实时';
+    realTimeButton.textContent = options.label || ' ';
+    realTimeButton.setAttribute('id','realtime');
+    controlDiv.appendChild(realTimeButton);
+    
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+    var layer=null;
+    realTimeButton.addEventListener("click",function(evt){
+        if (layer) {
+            _this.getMap().removeLayer(layer);
+            layer=null;
+        }
+        else{
+            layer=new ol.layer.Vector({
+                source:new ol.source.Vector(),
+                name:"实时",
+                style:styleFunction
+            });
+            _this.getMap().addLayer(layer);
+            _this.receive(layer);
+        }
+    });
+};
+
+ol.inherits(ol.control.RealTime, ol.control.Control);
+ol.control.RealTime.prototype.createFeature=function(type,layer,xy){
+    var feature=new ol.Feature({
+        geometry:new ol.geom.Point(xy)
+    });
+    feature.set("type",type);
+    //绘制要素
+    layer.getSource().addFeature(feature);
+};
+ol.control.RealTime.prototype.receive=function(layer){
+    var _this=this;
+    var has_had_focus = false;
+    // Stomp.js boilerplate
+    if (location.search == '?ws') {
+        var ws = new WebSocket('ws://192.168.5.203:15674/ws');
+    } else {
+        var ws = new SockJS('http://192.168.5.203:15674/stomp');
+    }
+    // Init Client
+    var client = Stomp.over(ws);
+    // SockJS does not support heart-beat: disable heart-beats
+    client.heartbeat.outgoing = 0;
+    client.heartbeat.incoming = 0;
+    // Declare on_connect
+    var on_connect = function(x) {
+        client.subscribe("/exchange/broast", function(d) {
+            //清除画布
+             layer.getSource().clear();
+            //解析字符串
+            _this.parserData(d.body,layer);
+        });
+    };
+    // Declare on_error
+    var on_error =  function() {
+      console.log('error');
+    };
+    // Conect to RabbitMQ
+    client.connect('trkj', 'trkj', on_connect, on_error, '/');
+};
+
+ol.control.RealTime.prototype.parserData=function(data,layer){
+    var features=data.split(';');
+    for (var i = 0; i < features.length; i++) {
+             var feature=features[i].split(',');
+             var id=feature[0];
+             var lonlat=[parseFloat(feature[1]),parseFloat(feature[2])];
+             lonlat=ol.proj.transform(lonlat,'EPSG:4326','EPSG:3857');
+             var type=parseInt(feature[3]);
+             this.createFeature(type,layer,lonlat);
+    }
+};
+/**
+ * @classdesc
+ * 
+ *  设备显示
+ * @constructor
+ * @extends {ol.control.Control}
+ * @param {olx.control.ControlOptions} options Control options.
+ */
+ol.control.Equipments = function (opt_options) {
+    
+    var options = opt_options || {};
+    var _this = this;
+
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'ol-equipment ol-unselectable ol-control';
+    
+    var jikaButton = document.createElement('button');
+    jikaButton.title = options.tipLabel || '集卡';
+    jikaButton.textContent = options.label || ' ';
+    jikaButton.setAttribute('id','jika');
+    jikaButton.className='ol-equipment-jika';
+    controlDiv.appendChild(jikaButton);
+
+    var jikalayer=null;
+    jikaButton.addEventListener("click",function(evt){
+        if (jikalayer) {
+            _this.getMap().removeLayer(jikalayer);
+            jikalayer=null;
+        }
+        else{
+            jikalayer=new ol.layer.Vector({
+                name:"集卡",
+                source:new ol.source.Vector({
+                    url:"data/jika.geojson",
+                    format:new ol.format.GeoJSON()
+                }),
+                style:styleFunction,
+                wrapX: false
+            });
+            _this.getMap().addLayer(jikalayer);
+            
+        }
+    });
+
+    var cameraButton = document.createElement('button');
+    cameraButton.title = options.tipLabel || '摄像机';
+    cameraButton.textContent = options.label || ' ';
+    cameraButton.setAttribute('id','camera');
+    cameraButton.className='ol-equipment-camera';
+    controlDiv.appendChild(cameraButton);
+
+    var cameralayer=null;
+    cameraButton.addEventListener("click",function(evt){
+        if (cameralayer) {
+            _this.getMap().removeLayer(cameralayer);
+            cameralayer=null;
+        }
+        else{
+            cameralayer=new ol.layer.Vector({
+                name:"摄像机",
+                source:new ol.source.Vector({
+                    url:"data/camera.geojson",
+                    format:new ol.format.GeoJSON()
+                }),
+                style:styleFunction,
+                wrapX: false
+            });
+            _this.getMap().addLayer(cameralayer);
+            
+        }
+    });
+
+    var agvButton = document.createElement('button');
+    agvButton.title = options.tipLabel || 'AGV';
+    agvButton.textContent = options.label || ' ';
+    agvButton.setAttribute('id','agv');
+    agvButton.className='ol-equipment-agv';
+    controlDiv.appendChild(agvButton);
+
+    var agvlayer=null;
+    agvButton.addEventListener("click",function(evt){
+        if (agvlayer) {
+            _this.getMap().removeLayer(agvlayer);
+            agvlayer=null;
+        }
+        else{
+            agvlayer=new ol.layer.Vector({
+                name:"AGV",
+                source:new ol.source.Vector({
+                    url:"data/agv.geojson",
+                    format:new ol.format.GeoJSON()
+                }),
+                style:styleFunction,
+                wrapX: false
+            });
+            _this.getMap().addLayer(agvlayer);
+           
+        }
+    });
+
+    var qdiaoButton = document.createElement('button');
+    qdiaoButton.title = options.tipLabel || '桥吊';
+    qdiaoButton.textContent = options.label || ' ';
+    qdiaoButton.setAttribute('id','qdiao');
+    qdiaoButton.className='ol-equipment-qdiao';
+    controlDiv.appendChild(qdiaoButton);
+
+    var qdiaolayer=null;
+    qdiaoButton.addEventListener("click",function(evt){
+        if (qdiaolayer) {
+            _this.getMap().removeLayer(qdiaolayer);
+            qdiaolayer=null;
+        }
+        else{
+            qdiaolayer=new ol.layer.Vector({
+                name:"桥吊",
+                source:new ol.source.Vector({
+                    url:"data/qdiao.geojson",
+                    format:new ol.format.GeoJSON()
+                }),
+                style:styleFunction,
+                wrapX: false
+            });
+            _this.getMap().addLayer(qdiaolayer);
+            
+        }
+    });
+
+    var gdiaoButton = document.createElement('button');
+    gdiaoButton.title = options.tipLabel || '轨道吊';
+    gdiaoButton.textContent = options.label || ' ';
+    gdiaoButton.setAttribute('id','gdiao');
+    gdiaoButton.className='ol-equipment-gdiao';
+    controlDiv.appendChild(gdiaoButton);
+
+    var gdiaolayer=null;
+    gdiaoButton.addEventListener("click",function(evt){
+        if (gdiaolayer) {
+            _this.getMap().removeLayer(gdiaolayer);
+            gdiaolayer=null;
+        }
+        else{
+            gdiaolayer=new ol.layer.Vector({
+                name:"轨道吊",
+                source:new ol.source.Vector({
+                    url:"data/gdiao.geojson",
+                    format:new ol.format.GeoJSON()
+                }),
+                style:styleFunction,
+                wrapX: false
+            });
+            _this.getMap().addLayer(gdiaolayer);
+           
+        }
+    });
+
+    var ldiaoButton = document.createElement('button');
+    ldiaoButton.title = options.tipLabel || '龙门吊';
+    ldiaoButton.textContent = options.label || ' ';
+    ldiaoButton.setAttribute('id','ldiao');
+    ldiaoButton.className='ol-equipment-ldiao';
+    controlDiv.appendChild(ldiaoButton);
+    
+    var ldiaolayer=null;
+    ldiaoButton.addEventListener("click",function(evt){
+        if (ldiaolayer) {
+            _this.getMap().removeLayer(ldiaolayer);
+            ldiaolayer=null;
+        }
+        else{
+            ldiaolayer=new ol.layer.Vector({
+                name:"龙门吊",
+                source:new ol.source.Vector({
+                    url:"data/ldiao.geojson",
+                    format:new ol.format.GeoJSON()
+                }),
+                style:styleFunction,
+                wrapX: false
+            });
+            _this.getMap().addLayer(ldiaolayer);
+            
+        }
+    });
+
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+};
+
+ol.inherits(ol.control.Equipments, ol.control.Control);
