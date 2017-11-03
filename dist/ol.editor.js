@@ -2762,7 +2762,7 @@ ol.control.Alarm = function (opt_options) {
                         }
                         feature.properties=properties;
                         var geometry={};
-                        geometry.type="Point";
+                        geometry.type="7";
                         geometry.coordinates=[json["Longitude"],json["Latitude"]];
                         feature.geometry=geometry;
                         features.push(feature);
@@ -2865,7 +2865,7 @@ ol.control.Route=function(opt_options){
             layer=new ol.layer.Vector({
                 name:'轨迹',
                 source:new ol.source.Vector({
-                    url:'../data/route.geojson',
+                    url:'data/route.geojson',
                     format:new ol.format.GeoJSON()
                 }),
                 wrapX:false
@@ -2984,7 +2984,7 @@ ol.control.Route.prototype.setMap = function(map) {
 /**
  * @classdesc
  * 
- *  报警信息
+ *  退出
  * @constructor
  * @extends {ol.control.Control}
  * @param {olx.control.ControlOptions} options Control options.
