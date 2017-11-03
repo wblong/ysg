@@ -1,0 +1,15 @@
+/* popup style */
+	.ol-popup
+	{	max-width:300px;
+		min-width:100px;
+		min-height:1em;
+	}
+/* popup table*/
+	.ptable{
+
+		border:1px solid blue;
+	}
+	.ptable td{
+
+		border:1px solid blue;
+	}
