@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <link href="../dist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../dist/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <script src="../dist/jquery.min.js"></script>
+    <script src="../dist/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../dist/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../dist/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <title></title>
+</head>
+<body>
+    <form role="form">
+        <div class="form-group ">
+            <label for="name">开始时间:</label>
+            <input size="16" type="text" value="2012-06-15 14:45" readonly class="start_datetime">
+        </div>
+        <div class="form-group ">
+            <label for="name">结束时间:</label>
+            <input size="16" type="text" value="2012-06-15 14:45" readonly class="end_datetime">
+        </div>
+        <div class="checkbox">
+                <label>
+                    <input type="checkbox"> 摄像机
+                </label>
+                <label>
+                    <input type="checkbox"> 集卡
+                </label>
+                <label>
+                    <input type="checkbox"> AGV
+                </label>
+                <label>
+                    <input type="checkbox"> 桥吊
+                </label>
+                <label>
+                    <input type="checkbox"> 龙门吊
+                </label>
+                <label>
+                    <input type="checkbox"> 轨道吊
+                </label>
+                <label>
+                    <input type="checkbox"> 球机
+                </label>
+                <label>
+                    <input type="checkbox">枪机
+                </label>
+                <label>
+                    <input type="checkbox"> 轮胎吊
+                </label>
+            </div>
+        <button type="submit" class="btn btn-default">确定</button>
+        <button type="cancel" class="btn btn-default">取消</button>
+    </form>
+    <script type="text/javascript">
+         $(document).ready(function() {
+            $(".start_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii',  language:  'zh-CN'});
+            $(".end_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii',language:  'zh-CN'});
+         });
+        
+    </script>
+</body>
+</html>

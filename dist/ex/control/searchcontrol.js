@@ -25,7 +25,19 @@ ol.control.Search = function(options)
 
 	var element;
 	if (options.target) 
-	{	element = $("<div>").addClass((options.className||"")+ " ol-search");
+	{	
+		//element = $("<div>").addClass((options.className||"")+ " ol-search");
+		element = $("<div>").addClass((options.className||"") + ' ol-search ol-unselectable ol-control ol-collapsed');
+				this.button = $("<button>")
+							.attr('type','button')
+							.click (function()
+							{	element.toggleClass("ol-collapsed"); 
+								if (!element.hasClass("ol-collapsed")) 
+								{	$("input.search", element).focus();
+									$('li', element).removeClass('select');
+								}
+							})
+							.appendTo(element);
 	}
 	else
 	{	element = $("<div>").addClass((options.className||"") + ' ol-search ol-unselectable ol-control ol-collapsed');
@@ -117,7 +129,6 @@ ol.control.Search = function(options)
 
 };
 ol.inherits(ol.control.Search, ol.control.Control);
-
 /** Returns the text to be displayed in the menu
 *	@param {any} f feature to be displayed
 *	@return {string} the text to be displayed in the index, default f.name

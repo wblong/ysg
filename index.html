@@ -18,6 +18,8 @@
     <!--custom css-->
     <link rel="stylesheet" type="text/css" href="dist/custom.css">
     <link rel="shortcut icon" href="favicon.ico">
+    <!---->
+    <link href="dist/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -25,11 +27,15 @@
    
   </head>
   <body>
+  	<!-- <iframe src="http://localhost:1886/Scripts/selection/jsp/Selection.html" z-index=1000></iframe> -->
     <div class="application pinned-toolbar pinned-layermanager">
     	<!--菜单栏-->
 		<div id="menubar" class="menubar">
+				<!-- a.pin -->
         		<a href="#toolbar" class="pin active" title="Pin/unpin menubar"><i class="glyphicon glyphicon-pushpin"></i></a>
 				<ul>
+					<!-- <li id="exit" class="li-left"><img src="res/exit.png"></li>
+					<li id='condition' class="li-left"><img src="res/condition.png"></li> -->
 					<li class="active"><a href="#maptools" role="tab" data-toggle="tab"><img src="res/tools.png"></a></li>
 					<li><a href="#equipments" role="tab" data-toggle="tab"><img src="res/print.png"></a></li>
 				</ul>
@@ -43,7 +49,6 @@
 		<!--地图容器-->
 		<div class="map-container">
 			<!--图层管理器-->
-			
 			<div id="layermanager" class="layermanager pinned">
        		 	<div class="bar-title"><a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> 图层管理</div>
     		</div>
@@ -53,9 +58,73 @@
     		</div>
     		<!-- 地图 -->
 			<div id="map" class="map" tabindex="-1" style="cursor:default"></div>
+			<!-- 属性-->
+			<div id="classify">
+				<div class="bar-title"><a href="#" class="pin" title="Pin/unpin attribute manager"><i class="glyphicon glyphicon-pushpin"></i></a></div>
+			</div>
 		</div>
 		<!-- 状态栏 -->
      	<div id="statusbar" class="statusbar"></div>
+     	<!--查询条件对话框-->
+     	<div id="querydlg" class="modal fade" role='dialog' tabindex="-1">
+     		<div class="modal-dialog">
+				<div class="modal-content">
+					<form id='queryform'>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss='modal'>&times;</button>
+							<h4 class="modal-title"></h4>
+						</div>
+						<dir class="modal-body">
+							<div class="form-horizontal">
+								<div class="form-group">
+									 <label class="control-label input-sm col-sm-3">开始时间:</label>
+									 <div class="col-sm-3 input-append date form_datetime">
+										<input type="text" name="start_time"  class="form-control input-sm" value="" readonly="">
+										<span class="add-on"><i class="icon-th"></i></span>
+									 </div>
+								</div>
+								<div class="form-group">
+									 <label class="control-label input-sm col-sm-3">结束时间:</label>
+									  <div class="col-sm-3 input-append date form_datetime">
+									 	<input type="text" name="end_time"  class="form-control input-sm" value="" readonly="">
+									 	<span class="add-on"><i class="icon-th"></i></span>
+									  </div>
+								</div>
+								<div class="form-group">
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="camera">摄像机</label>
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="jika">集卡</label>
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="agv"> AGV</label>
+								</div>
+								<div class="form-group">
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="ldiao">龙门吊</label>
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="qdiao">桥吊</label>
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="gdiao">轨道吊</label>
+								</div>
+								<div class="form-group">
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="tirediao">轮胎吊</label>
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="qiuji">球机</label>
+									<label class="control-label input-sm col-sm-3">
+									<input type="checkbox"  name="qiangji">枪机</label>
+									
+								</div>
+							</div>
+						</dir>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-sm btn-primary">确定</button>
+							<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
+						</div>
+					</form>
+				</div>
+     		</div>
+     	</div>
     </div>
 	<!-- 脚本 -->
     <!--jquery-->
@@ -78,7 +147,9 @@
     <!--mq-->
     <script src="dist/rabbitmq/sockjs-0.3.js"></script>
     <script src="dist/rabbitmq/stomp.js"></script>
-
+    <!--bootstrap-->
+    <script src="dist/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="dist/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 	<script>
 		styleFunction=function(feature,resolution){
 			var zoom=editor.getView().getZoom();
@@ -141,7 +212,9 @@
 	    //动态图层
 	    var realTimeLayer=new ol.layer.Vector({
 	    	name:'动态图层',
-	    	source:new ol.source.Vector(),
+	    	source:new ol.source.Vector({
+                    url:"data/ldiao.geojson",
+                    format:new ol.format.GeoJSON()}),
 	    	style:styleFunction
 	    });
 	    realTimeLayer.set('type','geomcollection');
@@ -149,13 +222,13 @@
 
 	    //search
 	    var search = new ol.control.SearchFeature(
-		{	//target: $(".options").get(0),
-			// source: camera.getSource(),//设置查询的图层
-			// property: '编号'
+		{	
+			//target: $("#search").get(0),
+			source: realTimeLayer.getSource(),//设置查询的图层
+			property: 'id'
 		});
-
 		// Popup overlay
-		var popup = new ol.Overlay.Video (
+		var popup = new ol.Overlay.Popup (
 		{	popupClass: "default", //"tooltips", "warning" "black" "default", "tips", "shadow",
 			closeBox: true,
 			onclose: function(){ console.log("关闭窗口!"); },
@@ -251,17 +324,20 @@
 	            new ol.control.SelectionControls({ target: 'maptools' }),
 	            new ol.control.Measure({ target: 'maptools' }),
 	            new ol.control.Message({ target: 'statusbar' }),
+	            new ol.control.QueryField({target:'statusbar'}),
 	            new ol.control.MousePosition({
 	                target: 'statusbar',
 	                className: 'ol-mouse-position ol-control ol-unselectable',
 	                coordinateFormat: ol.coordinate.createStringXY(3)
 	            }),
+
 	            new ol.control.Rotation({ target: 'statusbar'}),
 	            new ol.control.Projection({
 	                target: 'statusbar',
 	                projections: ['EPSG:3857']
 	            }),
 	            search,
+
 	            new ol.control.Alarm({target:'equipments'}),
 	            new ol.control.Route({target:'equipments'}),
 	            new ol.control.Equipments({target:'equipments'}),
@@ -275,7 +351,26 @@
 	    //地图加载时，操作
 	    var showing = false;
 	    $(document).ready(function() {
-	        
+	    	//日期控件
+	    	$('.form_datetime').datetimepicker({format: 'yyyy-mm-dd,hh:ii:ss', 
+	    		  autoclose:true,
+	    		  todayBtn:true,
+	    		  pickerPosition:'bottom-right',
+	    		  language:'zh-CN'});
+	    	//传递参数调用后天方法
+	    	document.getElementById('queryform').addEventListener('submit', function (evt) {
+	    	        evt.preventDefault();//阻止提交网页
+	    	        console.log(this.start_time.value);
+	    	        console.log(this.end_time.value);
+	    	        console.log(this.jika.checked);
+	    	        console.log(this.camera.checked);
+	    			$('#querydlg').modal('hide');
+	    	    });
+	    	//关闭右键功能
+	        $(document).bind("contextmenu",function(e){
+	               return false;
+	           });
+	        //menubar的第一层ul第一层li第一层a
 	        $(document).on('click', '#menubar>ul>li>a', function(e) {
 	            var elementToShow = $(this).attr('href');
 	            if (!showing) {
@@ -293,9 +388,10 @@
 	            }
 	            $(elementToShow).addClass('active');
 	        });
-
+	        //menubar ul li a
 	        $(document).click(function(e) {
 	            var tabs = $('#menubar>ul>li>a');
+	            //选择除了.pinned以外的所有第一层div
 	            var containers = $('#toolbar:not(.pinned)>div');
 	            if ((!containers.is(e.target) && containers.has(e.target).length === 0)
 	                && (!tabs.is(e.target) && tabs.has(e.target).length === 0)
@@ -307,7 +403,7 @@
 	                showing = false;
 	            }
 	        });
-
+	        //pin
 	        $(document).on('click', 'a.pin', function(e) {
 	            e.preventDefault();
 	            $(this).toggleClass('active');
@@ -319,12 +415,7 @@
 	            $($(this).closest('.application')).toggleClass('pinned-' + $(this).attr('href').substr(1));
 	            editor.updateSize(); // soo static
 	        });
-
-	        $('#startscreen a[href=#back]').on('click', function(e){
-	            e.preventDefault();
-	            $('#startscreen').removeClass('active');
-	        });
-
+	        //tooltip
 	        $('#toolbar [title], #map [title], #statusbar [title]').tooltip({
 	            placement: 'auto bottom',
 	            container: 'body'
@@ -350,22 +441,24 @@
 		}
 
 		// Select feature when click on the reference index
-		var select = new ol.interaction.Select({});
+		// var select = new ol.interaction.Select({});
 		editor.addInteraction(select);
 		//On selected => show/hide popup
 		select.getFeatures().on(['add'], function(e)
 		{	
 			var feature = e.element;
-			var content = feature.getProperties();
-			var table="<table class='ptable'>";
-			Object.keys(content).forEach(function(key){
-				if (key!=='geometry') {
-					table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
-				}
-			});
-			table+="</table>";
-			content += feature.get("type");
-			popup.show(feature.getGeometry().getCoordinates(),table); 
+			if (feature.get('type')!==undefined) {
+				var content = feature.getProperties();
+				var table="<table class='table table-striped table-collapsed'>";
+				Object.keys(content).forEach(function(key){
+					if (key!=='geometry') {
+						table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
+					}
+				});
+				table+="</table>";
+				content += feature.get("type");
+				popup.show(feature.getGeometry().getCoordinates(),table); 
+			}
 		})
 		select.getFeatures().on(['remove'], function(e)
 		{	popup.hide(); 
@@ -377,18 +470,19 @@
 			// select.getFeatures().push (e.search);
 			var feature=e.search;
 			var p = feature.getGeometry().getFirstCoordinate();
-			editor.getView().animate({ center:p });
-			var content = feature.getProperties();
-			var table="<table class='ptable'>";
-			Object.keys(content).forEach(function(key){
-				if (key!=='geometry') {
-					table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
-				}
-			});
-			table+="</table>";
-			//content += feature.get("type");
-			popup.show(feature.getGeometry().getCoordinates(),table); 
-
+			if (feature.get('type')!==null) {
+				editor.getView().animate({ center:p });
+				var content = feature.getProperties();
+				var table="<table class='ptable'>";
+				Object.keys(content).forEach(function(key){
+					if (key!=='geometry') {
+						table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
+					}
+				});
+				table+="</table>";
+				//content += feature.get("type");
+				popup.show(p,table); 
+			}
 		});
 		</script>
 	</body>

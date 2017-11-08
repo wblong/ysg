@@ -4,6 +4,7 @@
 var styles;
 var editor;
 var styleFunction;
+var select = new ol.interaction.Select({});
 $(function(){
 		styles={
 		'alarm':new ol.style.Style({

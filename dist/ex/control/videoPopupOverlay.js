@@ -236,8 +236,8 @@ ol.Overlay.Video.prototype.videoPlay= function videoPlay()
  //ocx登录
  ol.Overlay.Video.prototype.login=function login()
  {
-     this.video.innerHTML = "<object clsid=\'{AC036352-03EB-4399-9DD0-602AB1D8B6B9}\' id=\'PreviewOcx\' width=\'300\' height=\'300\' name=\'ocx\' type=\'application/x-itst-activex\'></object>";
-
+     //this.video.innerHTML = "<object clsid=\'{AC036352-03EB-4399-9DD0-602AB1D8B6B9}\' id=\'PreviewOcx\' width=\'300\' height=\'300\' name=\'ocx\' type=\'application/x-itst-activex\'></object>";
+     video.innerHTML = "<object classid=\'clsid:AC036352-03EB-4399-9DD0-602AB1D8B6B9\' id=\'PreviewOcx\' width=\'300\' height=\'300\' name=\'ocx\'></object>";
      var userName = "admin";
      var pw = "trkj@88888";
      var ipAdd = "192.168.5.203";

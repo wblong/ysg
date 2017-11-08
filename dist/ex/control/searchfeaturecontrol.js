@@ -32,6 +32,28 @@ ol.control.SearchFeature = function(options)
 };
 ol.inherits(ol.control.SearchFeature, ol.control.Search);
 
+ol.control.SearchFeature.prototype.setMap=function(map){
+	    ol.control.Control.prototype.setMap.call(this, map);
+	    if (map === null) {
+	    	ol.Observable.unByKey(this.get('chgEventId'));
+	    } else {
+	    	this.set('chgEventId',map.getLayerManager().on('change:selected',function(){
+	    		var layer=map.getLayerManager().getSelectedLayer();
+	    		if (layer instanceof ol.layer.Vector) {
+	    			this.setSource(layer.getSource());
+	    		}
+	    	},this));
+	    	//
+	        map.setLayerSearch(this); // register global
+	    }
+};
+ol.control.SearchFeature.prototype.setSource=function(s){
+	this.source_=s;
+};
+
+ol.control.SearchFeature.prototype.setQueryField=function(f){
+	this.set('property',f);
+};
 /** Returns the text to be displayed in the menu
 *	@param {ol.Feature} f the feature
 *	@return {string} the text to be displayed in the index

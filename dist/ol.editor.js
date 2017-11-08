@@ -783,6 +783,7 @@ ol.control.LayerManager = function(opt_options) {
         element: controlDiv,
         target: options.target
     });
+    //设置属性
     this.setProperties({
         'element': layerContainer,
         'selected': null,
@@ -1682,7 +1683,7 @@ ol.interaction.Measure = function (opt_options) {
     tooltipElement.className = 'ol-tooltip ol-unselectable';
     var textOverlayElement = document.createElement('div');
     textOverlayElement.className = 'ol-tooltip ol-tooltip-arrow ol-unselectable';
-    
+
     ol.interaction.Interaction.call(this, {
         handleEvent: function (evt) {
             if (evt.dragging) {
@@ -1765,6 +1766,7 @@ ol.interaction.Measure = function (opt_options) {
             lineFeature.setGeometry(new ol.geom.LineString([[0, 0]]));
             polygonFeature.setGeometry(new ol.geom.Polygon([[[0, 0]]]));
             circleFeature.setGeometry(new ol.geom.Circle([0, 0], 0));
+            //this.getMap().removeInteraction(select);
         } else {
             session = null;
             this.get('overlay').setMap(null);
@@ -2646,12 +2648,24 @@ ol.inherits(ol.control.ZoomTo, ol.control.Control);/**
  */
 ol.Editor = function(options) {
     var options = options || {};
-    var attributeManager_, layerManager_;
+    var attributeManager_, layerManager_,layerSearch_;
     
     this.selectedFeatures = (options.selectedFeatures
         && options.selectedFeatures instanceof ol.Collection)
         ? options.selectedFeatures : new ol.Collection();
-    
+    //get or set
+    this.getLayerSearch=function(){
+        if (layerSearch_===undefined) {
+            layerSearch_=null;
+        }
+        return layerSearch_;
+    };
+    this.setLayerSearch=function(object){
+        if (object instanceof ol.control.Search) {
+            layerSearch_=object;
+        }
+        return layerSearch_;
+    };
     this.getLayerManager = function() {
         if (layerManager_ === undefined) {
             layerManager_ = null;
@@ -2679,7 +2693,7 @@ ol.Editor = function(options) {
         }
         return attributeManager_;
     };
-    
+    //sendMessage
     this.sendMessage = function(text) {
         var success = false;
         this.getControls().forEach( function(control) {
@@ -2762,7 +2776,7 @@ ol.control.Alarm = function (opt_options) {
                         }
                         feature.properties=properties;
                         var geometry={};
-                        geometry.type="7";
+                        geometry.type="Point";
                         geometry.coordinates=[json["Longitude"],json["Latitude"]];
                         feature.geometry=geometry;
                         features.push(feature);
@@ -3007,6 +3021,14 @@ ol.control.Exit = function (opt_options) {
         element: controlDiv,
         target: options.target
     });
+    exitButton.addEventListener('click',function(evt){
+
+        try{
+            bound.exit();
+        }catch(error){
+            console.log(error.message);
+        }
+    });
 };
 
 ol.inherits(ol.control.Exit, ol.control.Control);
@@ -3036,6 +3058,10 @@ ol.control.Condition = function (opt_options) {
     ol.control.Control.call(this, {
         element: controlDiv,
         target: options.target
+    });
+
+    conditionButton.addEventListener("click",function(evt){
+        $("#querydlg").modal();
     });
 };
 
@@ -3327,3 +3353,69 @@ ol.control.Equipments = function (opt_options) {
 };
 
 ol.inherits(ol.control.Equipments, ol.control.Control);
+
+/*
+*
+* @classdesc
+* @constructor
+* @extends
+* @param
+ */
+ol.control.QueryField=function(opt_options){
+    var options = opt_options || {};
+    var _this = this;
+    
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'ol-queryfield ol-unselectable ol-control';
+    
+    var queryFieldSelect = document.createElement('select');
+    queryFieldSelect.title = options.tipLabel || '设置查询字段';
+    queryFieldSelect.addEventListener('change', function(evt) {
+
+        var search =_this.getMap().getLayerSearch();
+        search.setQueryField(this.value);
+    });
+    controlDiv.appendChild(queryFieldSelect);
+    
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+    this.set('element',queryFieldSelect);
+
+};
+ol.inherits(ol.control.QueryField,ol.control.Control);
+//
+ol.control.QueryField.prototype.setMap=function(map){
+    ol.control.Control.prototype.setMap.call(this,map);
+    if (map === null) {
+        ol.Observable.unByKey(this.get('chgEventId'));
+    } else {
+        this.set('chgEventId', map.getLayerManager().on('change:selected', function () {
+            var layer = map.getLayerManager().getSelectedLayer();
+            if (layer instanceof ol.layer.Vector) {
+                var features=layer.getSource().getFeatures();
+                this.get('element').length=0;//清空选择项
+                if (features.length>0) {
+                    var attrs=features[0].getProperties();
+                    for(var i in attrs){
+                        if (typeof(attrs[i])!=='object') {
+                            this.addQueryField(i);
+                        }
+                    }
+                }
+
+            }
+            
+        }, this));
+    }
+};
+/*
+添加图层的查询字段
+ */
+ol.control.QueryField.prototype.addQueryField=function(field){
+    var newOption=document.createElement('option');
+    newOption.value=field;
+    newOption.textContent=field;
+    this.get('element').appendChild(newOption);
+};
