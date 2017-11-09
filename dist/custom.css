@@ -13,3 +13,29 @@
 
 		border:1px solid blue;
 	}
+/*对话框调整*/
+#querydlg .modal-dialog{
+	width: 300px;
+	margin: 115px 0 0 40px; /* PLAY THE WITH THE VALUES TO SEE GET THE DESIRED EFFECT */
+	/*background-color: #A6ADB3;*/
+}@media screen {
+	
+}
+
+#querydlg .modal-content{
+	background-color: #A6ADB3;
+
+}
+#querydlg .checkbox{
+
+}
+#querydlg .modal-body{
+
+}
+#querydlg .modal-footer{
+	background-color: #A6ADB3;
+	margin:0 auto;
+	text-align:center;
+}
+
+

@@ -1668,7 +1668,6 @@ ol.control.Measure.prototype.setMap = function(map) {
     }
 };
 
-
 ol.interaction.Measure = function (opt_options) {
   
     var options = opt_options || {};

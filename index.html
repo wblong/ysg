@@ -24,44 +24,141 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-   
+    <link rel="stylesheet" href="dist/ex/control/layerpopupcontrol.css">
+    <link rel="stylesheet" type="text/css" href="dist/ex/control/controlbar.css">
+    	<!-- 脚本 -->
+        <!--jquery-->
+        <script src="dist/jquery.min.js"></script>
+		<!--左侧UI-->
+		<link rel="stylesheet" type="text/css" href="dist/left_tab.css">
+        <script type="text/javascript" src="dist/left_tab.js"></script>
+		<!--上侧按钮-->
+		<link rel="stylesheet" type="text/css" href="dist/tab_btn.css">
+		<script type="text/javascript" src="dist/tab_btn.js"></script>
+
+
+    	<script src="dist/bootstrap.min.js"></script>
+        <!--proj4-->
+        <script src="dist/proj4.js"></script>
+        <!--ol-->
+        <script src="dist/ol-debug.js"></script>
+       
+        <!--ol-ex-->
+    	<script src="dist/ex/control/searchcontrol.js"></script>
+    	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
+    	<script src="dist/ex/control/popupoverlay.js"></script>
+    	<script type="text/javascript" src="dist/ex/control/layerswitchercontrol.js"></script>
+    	<script type="text/javascript" src="dist/ex/control/layerpopupcontrol.js"></script>
+    	<script type="text/javascript" src="dist/ex/control/controlbar.js"></script>
+    	<script type="text/javascript" src="dist/ex/control/buttoncontrol.js"></script>
+    	<script type="text/javascript" src="dist/ex/control/togglecontrol.js"></script>
+
+    	 <!--ol-editor-->
+        <script src="dist/ol.editor.js"></script>
+    	<!--video-->
+    	<script src="dist/ex/control/videoPopupOverlay.js"></script>
+    	<!--style-->
+        <script src="dist/styles.js"></script>
+        <!--mq-->
+        <script src="dist/rabbitmq/sockjs-0.3.js"></script>
+        <script src="dist/rabbitmq/stomp.js"></script>
+        <!--bootstrap-->
+        <script src="dist/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="dist/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+       
   </head>
   <body>
   	<!-- <iframe src="http://localhost:1886/Scripts/selection/jsp/Selection.html" z-index=1000></iframe> -->
-    <div class="application pinned-toolbar pinned-layermanager">
+    <div class="application">
     	<!--菜单栏-->
-		<div id="menubar" class="menubar">
-				<!-- a.pin -->
-        		<a href="#toolbar" class="pin active" title="Pin/unpin menubar"><i class="glyphicon glyphicon-pushpin"></i></a>
+		<!-- <div id="menubar" class="menubar">
 				<ul>
-					<!-- <li id="exit" class="li-left"><img src="res/exit.png"></li>
-					<li id='condition' class="li-left"><img src="res/condition.png"></li> -->
 					<li class="active"><a href="#maptools" role="tab" data-toggle="tab"><img src="res/tools.png"></a></li>
 					<li><a href="#equipments" role="tab" data-toggle="tab"><img src="res/print.png"></a></li>
 				</ul>
 		</div>
-		<!--工具条-->
+		
 		<div id="toolbar" class="toolbar tab-content pinned">
 			<div id="maptools" class="tab-pane active showing"></div>
 			<div id="equipments" class="tab-pane">
 			</div>
-		</div>
+		</div> -->
 		<!--地图容器-->
 		<div class="map-container">
 			<!--图层管理器-->
-			<div id="layermanager" class="layermanager pinned">
-       		 	<div class="bar-title"><a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> 图层管理</div>
+			<div id="layermanager" class="layermanager">
+       		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
+    		</div>
+    		<div id="tab-btn">
+    			<ul class="first">
+    				<li> <a href="#"><img src="res/measure-tools.png"></a>
+						<ul class="second">
+							<li><a href="#">长度</a></li>
+							<li><a href="#">面积</a></li>
+							<li><a href="#">角度</a></li>
+						</ul>
+    				</li>
+	    			
+    			</ul>
+    		</div>
+    		<div id="tab-query">
+    			<ul class="first">
+				  <li> 
+					   <a href="#">目录A</a>
+					   <ul class="second">
+							<li><a  href="##">二级目录A</a>
+								<div class="content">
+									<p>姓名：张三</p>
+									<p>驾照：3333333</p>
+									<p>手机:182333333</p>
+									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  			</div>	
+							</li>
+							<li><a  href="##">二级目录B</a>
+										<div class="content">
+											<p>姓名：张三</p>
+											<p>驾照：3333333</p>
+											<p>手机:182333333</p>
+											<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+											  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+							  			</div>	
+							</li>
+					   </ul>
+				  </li>
+				  <li> 
+					   <a href="#">目录B</a>
+					   <ul class="second">
+							<li><a  href="##">二级目录A</a>
+								<div class="content">
+									<p>姓名：张三</p>
+									<p>驾照：3333333</p>
+									<p>手机:182333333</p>
+									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  			</div>			
+							</li>
+							<li><a  href="##">二级目录B</a>	
+								<div class="content">
+									<p>姓名：李四</p>
+									<p>驾照：3333333</p>
+									<p>手机:182333333</p>
+									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  			</div>	
+							</li>
+					   </ul>
+				  </li>
+    			</ul>
     		</div>
     		<!--属性管理器-->
-			<div id="attributemanager" class="attributemanager">
+			<!-- <div id="attributemanager" class="attributemanager">
         		<div class="bar-title"><a href="#attributemanager" class="pin" title="Pin/unpin attribute manager"><i class="glyphicon glyphicon-pushpin"></i></a> 属性管理</div>
-    		</div>
+    		</div> -->
     		<!-- 地图 -->
 			<div id="map" class="map" tabindex="-1" style="cursor:default"></div>
-			<!-- 属性-->
-			<div id="classify">
-				<div class="bar-title"><a href="#" class="pin" title="Pin/unpin attribute manager"><i class="glyphicon glyphicon-pushpin"></i></a></div>
-			</div>
+			
 		</div>
 		<!-- 状态栏 -->
      	<div id="statusbar" class="statusbar"></div>
@@ -70,53 +167,55 @@
      		<div class="modal-dialog">
 				<div class="modal-content">
 					<form id='queryform'>
-						<div class="modal-header">
+						<!-- <div class="modal-header">
 							<button type="button" class="close" data-dismiss='modal'>&times;</button>
 							<h4 class="modal-title"></h4>
-						</div>
-						<dir class="modal-body">
+						</div> -->
+						<div class="modal-body">
 							<div class="form-horizontal">
 								<div class="form-group">
 									 <label class="control-label input-sm col-sm-3">开始时间:</label>
-									 <div class="col-sm-3 input-append date form_datetime">
+									 <div class="col-sm-8 input-append date form_datetime">
 										<input type="text" name="start_time"  class="form-control input-sm" value="" readonly="">
 										<span class="add-on"><i class="icon-th"></i></span>
 									 </div>
 								</div>
 								<div class="form-group">
 									 <label class="control-label input-sm col-sm-3">结束时间:</label>
-									  <div class="col-sm-3 input-append date form_datetime">
+									  <div class="col-sm-8 input-append date form_datetime">
 									 	<input type="text" name="end_time"  class="form-control input-sm" value="" readonly="">
 									 	<span class="add-on"><i class="icon-th"></i></span>
 									  </div>
 								</div>
-								<div class="form-group">
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="camera">摄像机</label>
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="jika">集卡</label>
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="agv"> AGV</label>
-								</div>
-								<div class="form-group">
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="ldiao">龙门吊</label>
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="qdiao">桥吊</label>
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="gdiao">轨道吊</label>
-								</div>
-								<div class="form-group">
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="tirediao">轮胎吊</label>
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="qiuji">球机</label>
-									<label class="control-label input-sm col-sm-3">
-									<input type="checkbox"  name="qiangji">枪机</label>
-									
+								<div class="checkbox">
+									<div class="form-group">
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="camera">摄像机</label>
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="jika">集卡</label>
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="agv"> AGV</label>
+									</div>
+									<div class="form-group">
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="ldiao">龙门吊</label>
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="qdiao">桥吊</label>
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="gdiao">轨道吊</label>
+									</div>
+									<div class="form-group">
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="tirediao">轮胎吊</label>
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="qiuji">球机</label>
+										<label class="control-label input-sm col-sm-3">
+										<input type="checkbox"  name="qiangji">枪机</label>
+										
+									</div>
 								</div>
 							</div>
-						</dir>
+						</div>
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-sm btn-primary">确定</button>
 							<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
@@ -126,30 +225,7 @@
      		</div>
      	</div>
     </div>
-	<!-- 脚本 -->
-    <!--jquery-->
-    <script src="dist/jquery.min.js"></script>
-	<script src="dist/bootstrap.min.js"></script>
-    <!--proj4-->
-    <script src="dist/proj4.js"></script>
-    <!--ol-->
-    <script src="dist/ol-debug.js"></script>
-    <!--ol-editor-->
-    <script src="dist/ol.editor.js"></script>
-    <!--ol-ex-->
-	<script src="dist/ex/control/searchcontrol.js"></script>
-	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
-	<script src="dist/ex/control/popupoverlay.js"></script>
-	<!--video-->
-	<script src="dist/ex/control/videoPopupOverlay.js"></script>
-	<!--style-->
-    <script src="dist/styles.js"></script>
-    <!--mq-->
-    <script src="dist/rabbitmq/sockjs-0.3.js"></script>
-    <script src="dist/rabbitmq/stomp.js"></script>
-    <!--bootstrap-->
-    <script src="dist/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="dist/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+	
 	<script>
 		styleFunction=function(feature,resolution){
 			var zoom=editor.getView().getZoom();
@@ -308,21 +384,22 @@
 	        
 	        controls: [
 	        	//new ol.control.Add({target:'ysgceshi',tipLabel:'相机标定'}),
+	        	//new ol.control.LayerPopup(),
 	        	new ol.control.Exit(),
 	        	new ol.control.Condition(),
-	        	new ol.control.FullScreen(),
+	        	//new ol.control.FullScreen(),
 	            new ol.control.Rotate(),
 	            new ol.control.ScaleLine(),
 	            new ol.control.ZoomSlider(),
-	            new ol.control.Attribution({ collapsible: false }),
+	            //new ol.control.Attribution({ collapsible: false }),
 	            new ol.control.LayerManager({ target: 'layermanager' }),
 	            attributeManager,
-	            new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
-	            new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
-	            new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
-	            new ol.control.ZoomToSelection({ target: 'maptools' }),
-	            new ol.control.SelectionControls({ target: 'maptools' }),
-	            new ol.control.Measure({ target: 'maptools' }),
+	           // new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
+	           // new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
+	           // new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
+	           // new ol.control.ZoomToSelection({ target: 'maptools' }),
+	           // new ol.control.SelectionControls({ target: 'maptools' }),
+	           // new ol.control.Measure({ target: 'measure_tools' }),
 	            new ol.control.Message({ target: 'statusbar' }),
 	            new ol.control.QueryField({target:'statusbar'}),
 	            new ol.control.MousePosition({
@@ -351,6 +428,50 @@
 	    //地图加载时，操作
 	    var showing = false;
 	    $(document).ready(function() {
+	    	    document.getElementById('queryform').addEventListener('submit', function (evt) {
+	    	            evt.preventDefault();//阻止提交网页
+	    	            //首先清除原有的所有要素
+	    	            $('#tab-query').empty();
+	    	            if (this.jika.checked) {
+	    	            	//创建一级目录
+	    	            	var root_div=$('#tab-query');
+	    	            	var root_ul=$('<ul>').addClass('ce');
+	    	            	
+	    	            	var li=$('<li>');
+	    	            	var a=$('<a>').attr('href','#').text("集卡");
+	    	            	a.click(function(){
+
+	    	            		 $(this).addClass("xz").parents().siblings().find("a").removeClass("xz");
+	    	            				 $(this).parents().siblings().find(".er").hide(300);
+	    	            				 $(this).siblings(".er").toggle(300);
+	    	            				 $(this).parents().siblings().find(".ce > li > .er").hide().parents().siblings().find(".thr_nr").hide();
+	    	            				 $(".thr_nr").hide();
+	    	            	});
+	    	            	$('<img>').addClass('more').attr('src','res/more.png').appendTo(a);
+	    	            	a.appendTo(li);
+	    	            	//创建二级目录
+	    	            	var ul_1=$("<ul>").addClass('er');
+	    	            	var li_1=$("<li>").addClass('e_li');
+	    	            	$('<a>').attr("href","##").text("编号1").appendTo(li_1);
+	    	            	li_1.appendTo(ul_1);
+	    	            	
+	    	            	ul_1.appendTo(li);
+	    	            	
+	    	            	
+	    	            	li.prependTo(root_ul);
+	    	            	$('<div>').addClass('clear').appendTo(root_ul);
+	    	            	root_ul.appendTo(root_div);
+
+	    	            	console.log("test");
+	    	            	
+	    	            }
+	    	            console.log(this.start_time.value);
+	    	            console.log(this.end_time.value);
+	    	            console.log(this.jika.checked);
+	    	            console.log(this.camera.checked);
+	    	    		$('#querydlg').modal('hide');
+	    	        });
+	    	   
 	    	//日期控件
 	    	$('.form_datetime').datetimepicker({format: 'yyyy-mm-dd,hh:ii:ss', 
 	    		  autoclose:true,
@@ -358,14 +479,7 @@
 	    		  pickerPosition:'bottom-right',
 	    		  language:'zh-CN'});
 	    	//传递参数调用后天方法
-	    	document.getElementById('queryform').addEventListener('submit', function (evt) {
-	    	        evt.preventDefault();//阻止提交网页
-	    	        console.log(this.start_time.value);
-	    	        console.log(this.end_time.value);
-	    	        console.log(this.jika.checked);
-	    	        console.log(this.camera.checked);
-	    			$('#querydlg').modal('hide');
-	    	    });
+	    	
 	    	//关闭右键功能
 	        $(document).bind("contextmenu",function(e){
 	               return false;

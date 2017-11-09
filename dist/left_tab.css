@@ -1,0 +1,85 @@
+/* tab-query CSS Document */
+#tab-query *{
+	margin:0px;padding:0px;
+}
+#tab-query li{width:150px;height: 42px;list-style-type:none;}
+
+#tab-query {
+	margin-top: 40px;
+	margin-left: calc(-150px + 3px);
+    height: 100%;
+    position: absolute;
+	top: 0;
+	left:0;
+	background-color: #A6ADB3;
+	z-index:997;
+	transition: all 0.5s ease-in-out;
+   }
+
+#tab-query:hover{
+	margin-left: 0;
+	transition: all 0.5s ease-in-out;
+}
+#tab-query .first{
+
+	padding-top: 10px;
+	display:block;
+	width: 150px;
+	position: relative;
+}
+#tab-query .first>li{
+
+	border-bottom: 1px solid rgb(40,40,40);
+
+}
+
+#tab-query .first>li a{ 
+	background:url(../res/more.png) no-repeat 120px center;
+	padding: 10px 10px 10px 20px;
+	color:white;
+	display:block;
+	
+}
+#tab-query .second{
+	display:none;
+	float: left;  
+	/*important*/
+}
+
+#tab-query .second>li{
+	background:rgb(118,128,140);
+	border-bottom: 1px solid rgb(140,140,140);
+	position:relative;
+
+}
+#tab-query .second>li:hover{
+	background:rgb(66,72,83);
+}
+#tab-query .second>li a{
+	background:url(../res/more1.png) no-repeat 120px center;
+	padding:10px 10px 10px 20px;
+	color:white;
+	display:block;
+}
+
+#tab-query .second>li a:hover{
+	background-color: rgb(66,72,83);
+}
+#tab-query .content{
+
+	background:rgb(66,72,83);
+	width: 200px;
+	position: absolute;
+	left: 150px;
+	top:0;
+	padding: 10px;
+	font-size:10px;
+	display:block;
+	color: white;
+
+}
+#tab-query .content p{
+	margin-top: 5px;
+	margin-left: 5px;
+	word-wrap:break-word;
+}
