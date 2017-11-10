@@ -29,12 +29,11 @@
     	<!-- 脚本 -->
         <!--jquery-->
         <script src="dist/jquery.min.js"></script>
+        <script type="text/javascript" src="dist/String.js"></script>
 		<!--左侧UI-->
 		<link rel="stylesheet" type="text/css" href="dist/left_tab.css">
         <script type="text/javascript" src="dist/left_tab.js"></script>
-		<!--上侧按钮-->
-		<link rel="stylesheet" type="text/css" href="dist/tab_btn.css">
-		<script type="text/javascript" src="dist/tab_btn.js"></script>
+	
 
 
     	<script src="dist/bootstrap.min.js"></script>
@@ -70,44 +69,34 @@
   </head>
   <body>
   	<!-- <iframe src="http://localhost:1886/Scripts/selection/jsp/Selection.html" z-index=1000></iframe> -->
-    <div class="application">
+    <div class="application pinned-toolbar pinned-layermanager">
     	<!--菜单栏-->
-		<!-- <div id="menubar" class="menubar">
+		<div id="menubar" class="menubar">
+        		<a href="#toolbar" class="pin active" title="Pin/unpin menubar"><i class="glyphicon glyphicon-pushpin"></i></a>
 				<ul>
-					<li class="active"><a href="#maptools" role="tab" data-toggle="tab"><img src="res/tools.png"></a></li>
-					<li><a href="#equipments" role="tab" data-toggle="tab"><img src="res/print.png"></a></li>
+					<li class="active"><a href="#maptools" role="tab" data-toggle="tab">地图</a></li>
+					<li><a href="#equipments" role="tab" data-toggle="tab">设备</a></li>
 				</ul>
 		</div>
-		
+		<!--工具条-->
 		<div id="toolbar" class="toolbar tab-content pinned">
 			<div id="maptools" class="tab-pane active showing"></div>
 			<div id="equipments" class="tab-pane">
 			</div>
-		</div> -->
+		</div>
 		<!--地图容器-->
 		<div class="map-container">
 			<!--图层管理器-->
 			<div id="layermanager" class="layermanager">
        		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
     		</div>
-    		<div id="tab-btn">
-    			<ul class="first">
-    				<li> <a href="#"><img src="res/measure-tools.png"></a>
-						<ul class="second">
-							<li><a href="#">长度</a></li>
-							<li><a href="#">面积</a></li>
-							<li><a href="#">角度</a></li>
-						</ul>
-    				</li>
-	    			
-    			</ul>
-    		</div>
+    		
     		<div id="tab-query">
     			<ul class="first">
 				  <li> 
-					   <a href="#">目录A</a>
+					   <a href="#">摄像机</a>
 					   <ul class="second">
-							<li><a  href="##">二级目录A</a>
+							<li><a  href="##">西区全景</a>
 								<div class="content">
 									<p>姓名：张三</p>
 									<p>驾照：3333333</p>
@@ -116,7 +105,7 @@
 									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
 					  			</div>	
 							</li>
-							<li><a  href="##">二级目录B</a>
+							<li><a  href="##">西区球形机</a>
 										<div class="content">
 											<p>姓名：张三</p>
 											<p>驾照：3333333</p>
@@ -128,9 +117,9 @@
 					   </ul>
 				  </li>
 				  <li> 
-					   <a href="#">目录B</a>
+					   <a href="#">桥吊</a>
 					   <ul class="second">
-							<li><a  href="##">二级目录A</a>
+							<li><a  href="##">编号1</a>
 								<div class="content">
 									<p>姓名：张三</p>
 									<p>驾照：3333333</p>
@@ -139,7 +128,7 @@
 									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
 					  			</div>			
 							</li>
-							<li><a  href="##">二级目录B</a>	
+							<li><a  href="##">编号2</a>	
 								<div class="content">
 									<p>姓名：李四</p>
 									<p>驾照：3333333</p>
@@ -150,6 +139,52 @@
 							</li>
 					   </ul>
 				  </li>
+				  <li> 
+					   <a href="#">集卡</a>
+					   <ul class="second">
+							<li><a  href="##">编号1</a>
+								<div class="content">
+									<p>姓名：张三</p>
+									<p>驾照：3333333</p>
+									<p>手机:182333333</p>
+									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  			</div>			
+							</li>
+							<li><a  href="##">编号2</a>	
+								<div class="content">
+									<p>姓名：李四</p>
+									<p>驾照：3333333</p>
+									<p>手机:182333333</p>
+									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  			</div>	
+							</li>
+					   </ul>
+				  </li>
+				    <li> 
+				  	   <a href="#">AGV</a>
+				  	   <ul class="second">
+				  			<li><a  href="##">编号1</a>
+				  				<div class="content">
+				  					<p>姓名：张三</p>
+				  					<p>驾照：3333333</p>
+				  					<p>手机:182333333</p>
+				  					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+				  					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+				  	  			</div>			
+				  			</li>
+				  			<li><a  href="##">编号2</a>	
+				  				<div class="content">
+				  					<p>姓名：李四</p>
+				  					<p>驾照：3333333</p>
+				  					<p>手机:182333333</p>
+				  					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+				  					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+				  	  			</div>	
+				  			</li>
+				  	   </ul>
+				    </li>
     			</ul>
     		</div>
     		<!--属性管理器-->
@@ -394,12 +429,13 @@
 	            //new ol.control.Attribution({ collapsible: false }),
 	            new ol.control.LayerManager({ target: 'layermanager' }),
 	            attributeManager,
-	           // new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
-	           // new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
-	           // new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
-	           // new ol.control.ZoomToSelection({ target: 'maptools' }),
-	           // new ol.control.SelectionControls({ target: 'maptools' }),
-	           // new ol.control.Measure({ target: 'measure_tools' }),
+	            //new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
+	            new ol.control.Zoom({ target: 'maptools', zoomInLabel: ' ', zoomOutLabel: ' ',zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
+	            new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
+	            new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
+	            new ol.control.ZoomToSelection({ target: 'maptools' }),
+	            new ol.control.SelectionControls({ target: 'maptools' }),
+	            new ol.control.Measure({ target: 'maptools' }),
 	            new ol.control.Message({ target: 'statusbar' }),
 	            new ol.control.QueryField({target:'statusbar'}),
 	            new ol.control.MousePosition({
@@ -430,50 +466,68 @@
 	    $(document).ready(function() {
 	    	    document.getElementById('queryform').addEventListener('submit', function (evt) {
 	    	            evt.preventDefault();//阻止提交网页
-	    	            //首先清除原有的所有要素
-	    	            $('#tab-query').empty();
-	    	            if (this.jika.checked) {
-	    	            	//创建一级目录
-	    	            	var root_div=$('#tab-query');
-	    	            	var root_ul=$('<ul>').addClass('ce');
-	    	            	
-	    	            	var li=$('<li>');
-	    	            	var a=$('<a>').attr('href','#').text("集卡");
-	    	            	a.click(function(){
-
-	    	            		 $(this).addClass("xz").parents().siblings().find("a").removeClass("xz");
-	    	            				 $(this).parents().siblings().find(".er").hide(300);
-	    	            				 $(this).siblings(".er").toggle(300);
-	    	            				 $(this).parents().siblings().find(".ce > li > .er").hide().parents().siblings().find(".thr_nr").hide();
-	    	            				 $(".thr_nr").hide();
-	    	            	});
-	    	            	$('<img>').addClass('more').attr('src','res/more.png').appendTo(a);
-	    	            	a.appendTo(li);
-	    	            	//创建二级目录
-	    	            	var ul_1=$("<ul>").addClass('er');
-	    	            	var li_1=$("<li>").addClass('e_li');
-	    	            	$('<a>').attr("href","##").text("编号1").appendTo(li_1);
-	    	            	li_1.appendTo(ul_1);
-	    	            	
-	    	            	ul_1.appendTo(li);
-	    	            	
-	    	            	
-	    	            	li.prependTo(root_ul);
-	    	            	$('<div>').addClass('clear').appendTo(root_ul);
-	    	            	root_ul.appendTo(root_div);
-
-	    	            	console.log("test");
-	    	            	
-	    	            }
 	    	            console.log(this.start_time.value);
 	    	            console.log(this.end_time.value);
 	    	            console.log(this.jika.checked);
 	    	            console.log(this.camera.checked);
+
+	    	            //首先清除原有的所有要素
+	    	            $('#tab-query .first').empty();
+	    	            if (this.jika.checked) {
+	    	            	//创建一级目录
+	    	            	var url="http://192.168.5.35:8012/api/Data/GetCurrentCars?sdt={0}&edt={1}".format(this.start_time.value,this.end_time.value);
+	    	            	console.log(url);
+	    	            	$.ajax({
+	    	            	            type:"get",//post
+	    	            	            url:url,
+	    	            	            dataType:"json",
+	    	            	            success: function(data){
+	    	            	               console.log(data);
+	    	            	               var ul_first=$('#tab-query .first');
+	    	            	               
+	    	            	               var li=$('<li>');
+	    	            	               var a=$('<a>').attr('href','#').text("集卡");
+	    	            	               a.click(function(){
+	    	            	               	    	 $("#tab-query .content").hide();
+	    	            	               	    	 // $(this).parents().siblings().children(".second").hide();
+	    	            	               		     $(this).siblings(".second").toggle();
+	    	            	               });
+	    	            	               a.appendTo(li);
+	    	            	               //创建二级目录
+	    	            	               var ul_second=$("<ul>").addClass('second');
+	    	            	               var li_second=$("<li>");
+	    	            	               $('<a>').attr("href","##").text(data[0]["CarNumber"]).click(function(){
+	    	            	               		 //隐藏其他的
+	    	            	               	    $("#tab-query .content").hide();
+	    	            	               	     $(this).siblings(".content").toggle();
+	    	            	               }).appendTo(li_second);
+	    	            	               var html='';
+	    	            	               Object.keys(data[0]).forEach(function(key){
+	    	            	               		if (typeof(data[0][key]!=="object")) {
+	    	            	               			html+="<p><b>{0}</b>: {1}</p>".format(key,data[0][key]);
+	    	            	               		}
+	    	            	               });
+	    	            	               var div_content=$("<div>").addClass('content').html(html).appendTo(li_second);
+	    	            	               li_second.appendTo(ul_second);
+	    	            	               ul_second.appendTo(li);
+	    	            	               li.prependTo(ul_first);
+	    	            	            },
+	    	            	            error:function(){  
+	    	            	               console.log('fail');  
+	    	            	            }  
+	    	            	        });
+
+	    	            	
+
+	    	            	console.log("test");
+	    	            	
+	    	            }
+	    	            
 	    	    		$('#querydlg').modal('hide');
 	    	        });
 	    	   
 	    	//日期控件
-	    	$('.form_datetime').datetimepicker({format: 'yyyy-mm-dd,hh:ii:ss', 
+	    	$('.form_datetime').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss ', 
 	    		  autoclose:true,
 	    		  todayBtn:true,
 	    		  pickerPosition:'bottom-right',

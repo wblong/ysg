@@ -169,7 +169,7 @@ a.pin.active i {
 .map-container {
 	position: relative;
 	width: 100%;
-    height: calc(100% - 30px); /* 30px, 25px */
+    height: calc(100% - 55px); /* 30px, 25px */
 	background: #e6e6e6;
 	overflow: hidden;
 }
@@ -248,8 +248,8 @@ a.pin.active i {
 
 .layermanager {
     margin-top: 200px;
-	margin-right: calc(-20% + 3px);
-    width: 20%;
+	margin-right: calc(-15% + 3px);
+    width: 15%;
     height: 50%;
     position: absolute;
 	top: 0;

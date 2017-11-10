@@ -22,14 +22,18 @@
 	padding-right: 10px;
 	padding-bottom: 5px;
 }
+#tab-btn .first>li{
+
+	position: relative;
+}
 #tab-btn .second{
 	display:none;
-	padding-left: 10px;
-	padding-top: 5px;
+	position: absolute;
+	top:25px;
+	left: 0px;
 }
 #tab-btn .second>li{
-	margin-top: 5px;
-	margin-left: 10px;
+	
 }
 #tab-btn .second>li a{
 	display:block;

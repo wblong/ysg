@@ -2,16 +2,18 @@
 #tab-query *{
 	margin:0px;padding:0px;
 }
-#tab-query li{width:150px;height: 42px;list-style-type:none;}
+#tab-query ul,li{list-style-type:none;}
+/*#tab-query li{width:149px;height: 42px;}*/
 
 #tab-query {
 	margin-top: 40px;
 	margin-left: calc(-150px + 3px);
-    height: 100%;
+	width: 150px;
+    height: 80%;
     position: absolute;
 	top: 0;
 	left:0;
-	background-color: #A6ADB3;
+	background-color:rgba(66,72,83,0.5);
 	z-index:997;
 	transition: all 0.5s ease-in-out;
    }
@@ -24,13 +26,11 @@
 
 	padding-top: 10px;
 	display:block;
-	width: 150px;
-	position: relative;
+	
 }
 #tab-query .first>li{
-
+   	display:block;
 	border-bottom: 1px solid rgb(40,40,40);
-
 }
 
 #tab-query .first>li a{ 
@@ -42,18 +42,19 @@
 }
 #tab-query .second{
 	display:none;
-	float: left;  
 	/*important*/
+	
 }
 
 #tab-query .second>li{
-	background:rgb(118,128,140);
+	background:rgba(118,128,140,0.5);
 	border-bottom: 1px solid rgb(140,140,140);
-	position:relative;
+	display: block;
+	position: relative;
 
 }
 #tab-query .second>li:hover{
-	background:rgb(66,72,83);
+	background:rgba(66,72,83,0.5);
 }
 #tab-query .second>li a{
 	background:url(../res/more1.png) no-repeat 120px center;
@@ -63,11 +64,11 @@
 }
 
 #tab-query .second>li a:hover{
-	background-color: rgb(66,72,83);
+	background-color: rgba(66,72,83,0.5);
 }
 #tab-query .content{
 
-	background:rgb(66,72,83);
+	background:rgba(66,72,83,0.5);
 	width: 200px;
 	position: absolute;
 	left: 150px;
@@ -82,4 +83,7 @@
 	margin-top: 5px;
 	margin-left: 5px;
 	word-wrap:break-word;
+}
+#tab-query .show{
+	display: block;
 }

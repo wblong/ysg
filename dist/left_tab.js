@@ -22,28 +22,30 @@
 // 		   </ul>
 // 	  </li>
 // 	</ul>
-// </div>
-
+// </div>   
   $(function(){
-        
+
   	    $("#tab-query .first>li>a").click(function(){
   	    	//隐藏其他
   	    	 $("#tab-query .content").hide();
-  	    	 $(this).parents().siblings().children(".second").hide();
+  	    	// $(this).parents().siblings().children(".second").hide();
   		     $(this).siblings(".second").toggle();
   		     
   		     
   		});
   	    $("#tab-query .second>li>a").click(function(){
   	    	 //隐藏其他的
-  	         $(this).parents().siblings().children(".content").hide();
+  	         $("#tab-query .content").hide();
   	         $(this).siblings(".content").toggle();
   			
   		});
   		$("#tab-query").hover(function(){
   		    
-  		    $("#tab-query .second").hide();
+  		   // $("#tab-query .second").hide();
   		    },function(){
   		    $("#tab-query .content").hide();
   		  });
+      $("#tab-query .content").click(function(){
+          alert("test");
+      });
   });
