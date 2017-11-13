@@ -171,7 +171,7 @@ ol.control.AttributeManager.prototype.createTable = function (layer, map) {
                     map.getView().animate({ center:p });
                     var overlay=map.getOverlayById('1');
                     var content = feature.getProperties();
-                    var table="<table class='ptable'>";
+                    var table="<table class='table table-striped table-collapsed'>";
                     Object.keys(content).forEach(function(key){
                         if (key!=='geometry') {
                             table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
@@ -184,19 +184,19 @@ ol.control.AttributeManager.prototype.createTable = function (layer, map) {
                 this.contentEditable = true;
                 this.focus();
             });
-            td.addEventListener('blur', function (evt) {
-                var tr = evt.target.parentNode;
-                if (this.contentEditable) {
-                    this.contentEditable = false;
-                    if (map instanceof ol.Editor) {
-                        var id = tr.getAttribute('data-id');
-                        var feature = layer.getSource().getFeatureById(id);
-                        var prop = [];
-                        prop[headers[j]] = this.childNodes[0];
-                        feature.setProperties(prop);
-                    }
-                }
-            });
+            // td.addEventListener('blur', function (evt) {
+            //     var tr = evt.target.parentNode;
+            //     if (this.contentEditable) {
+            //         this.contentEditable = false;
+            //         if (map instanceof ol.Editor) {
+            //             var id = tr.getAttribute('data-id');
+            //             var feature = layer.getSource().getFeatureById(id);
+            //             var prop = [];
+            //             prop[headers[j]] = this.childNodes[0];
+            //             feature.setProperties(prop);
+            //         }
+            //     }
+            // });
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
@@ -3194,7 +3194,7 @@ ol.control.Equipments = function (opt_options) {
             jikalayer=new ol.layer.Vector({
                 name:"集卡",
                 source:new ol.source.Vector({
-                    url:"data/jika.geojson",
+                    url:"data/jika_.geojson",
                     format:new ol.format.GeoJSON()
                 }),
                 style:styleFunction,
@@ -3222,7 +3222,7 @@ ol.control.Equipments = function (opt_options) {
             cameralayer=new ol.layer.Vector({
                 name:"摄像机",
                 source:new ol.source.Vector({
-                    url:"data/camera.geojson",
+                    url:"data/camera_.geojson",
                     format:new ol.format.GeoJSON()
                 }),
                 style:styleFunction,
@@ -3250,7 +3250,7 @@ ol.control.Equipments = function (opt_options) {
             agvlayer=new ol.layer.Vector({
                 name:"AGV",
                 source:new ol.source.Vector({
-                    url:"data/agv.geojson",
+                    url:"data/agv_.geojson",
                     format:new ol.format.GeoJSON()
                 }),
                 style:styleFunction,
@@ -3278,7 +3278,7 @@ ol.control.Equipments = function (opt_options) {
             qdiaolayer=new ol.layer.Vector({
                 name:"桥吊",
                 source:new ol.source.Vector({
-                    url:"data/qdiao.geojson",
+                    url:"data/qdiao_.geojson",
                     format:new ol.format.GeoJSON()
                 }),
                 style:styleFunction,
@@ -3306,7 +3306,7 @@ ol.control.Equipments = function (opt_options) {
             gdiaolayer=new ol.layer.Vector({
                 name:"轨道吊",
                 source:new ol.source.Vector({
-                    url:"data/gdiao.geojson",
+                    url:"data/gdiao_.geojson",
                     format:new ol.format.GeoJSON()
                 }),
                 style:styleFunction,
@@ -3334,7 +3334,7 @@ ol.control.Equipments = function (opt_options) {
             ldiaolayer=new ol.layer.Vector({
                 name:"龙门吊",
                 source:new ol.source.Vector({
-                    url:"data/ldiao.geojson",
+                    url:"data/ldiao_.geojson",
                     format:new ol.format.GeoJSON()
                 }),
                 style:styleFunction,
@@ -3374,6 +3374,7 @@ ol.control.QueryField=function(opt_options){
         var search =_this.getMap().getLayerSearch();
         search.setQueryField(this.value);
     });
+    //queryFieldSelect[0].selected=true;
     controlDiv.appendChild(queryFieldSelect);
     
     ol.control.Control.call(this, {

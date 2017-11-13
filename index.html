@@ -2,6 +2,7 @@
 <html lang="zh">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>洋山港</title>
     <!--bootstrap-->
     <link rel="stylesheet" href="dist/bootstrap.min.css">
@@ -56,8 +57,7 @@
         <script src="dist/ol.editor.js"></script>
     	<!--video-->
     	<script src="dist/ex/control/videoPopupOverlay.js"></script>
-    	<!--style-->
-        <script src="dist/styles.js"></script>
+    	
         <!--mq-->
         <script src="dist/rabbitmq/sockjs-0.3.js"></script>
         <script src="dist/rabbitmq/stomp.js"></script>
@@ -71,26 +71,26 @@
   	<!-- <iframe src="http://localhost:1886/Scripts/selection/jsp/Selection.html" z-index=1000></iframe> -->
     <div class="application pinned-toolbar pinned-layermanager">
     	<!--菜单栏-->
-		<div id="menubar" class="menubar">
+		<!-- <div id="menubar" class="menubar">
         		<a href="#toolbar" class="pin active" title="Pin/unpin menubar"><i class="glyphicon glyphicon-pushpin"></i></a>
 				<ul>
 					<li class="active"><a href="#maptools" role="tab" data-toggle="tab">地图</a></li>
 					<li><a href="#equipments" role="tab" data-toggle="tab">设备</a></li>
 				</ul>
-		</div>
+		</div> -->
 		<!--工具条-->
-		<div id="toolbar" class="toolbar tab-content pinned">
+		<!-- <div id="toolbar" class="toolbar tab-content pinned">
 			<div id="maptools" class="tab-pane active showing"></div>
 			<div id="equipments" class="tab-pane">
 			</div>
-		</div>
+		</div> -->
 		<!--地图容器-->
 		<div class="map-container">
 			<!--图层管理器-->
 			<div id="layermanager" class="layermanager">
        		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
     		</div>
-    		
+    		<!--左侧列表栏-->
     		<div id="tab-query">
     			<ul class="first">
 				  <li> 
@@ -185,12 +185,58 @@
 				  			</li>
 				  	   </ul>
 				    </li>
+				      <li> 
+				    	   <a href="#">球机</a>
+				    	   <ul class="second">
+				    			<li><a  href="##">西区全景</a>
+				    				<div class="content">
+				    					<p>姓名：张三</p>
+				    					<p>驾照：3333333</p>
+				    					<p>手机:182333333</p>
+				    					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+				    					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+				    	  			</div>	
+				    			</li>
+				    			<li><a  href="##">西区球形机</a>
+				    						<div class="content">
+				    							<p>姓名：张三</p>
+				    							<p>驾照：3333333</p>
+				    							<p>手机:182333333</p>
+				    							<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+				    							  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+				    			  			</div>	
+				    			</li>
+				    	   </ul>
+				      </li>
+				        <li> 
+				      	   <a href="#">枪机</a>
+				      	   <ul class="second">
+				      			<li><a  href="##">西区全景</a>
+				      				<div class="content">
+				      					<p>姓名：张三</p>
+				      					<p>驾照：3333333</p>
+				      					<p>手机:182333333</p>
+				      					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+				      					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+				      	  			</div>	
+				      			</li>
+				      			<li><a  href="##">西区球形机</a>
+				      						<div class="content">
+				      							<p>姓名：张三</p>
+				      							<p>驾照：3333333</p>
+				      							<p>手机:182333333</p>
+				      							<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+				      							  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+				      			  			</div>	
+				      			</li>
+				      	   </ul>
+				        </li>
     			</ul>
     		</div>
     		<!--属性管理器-->
-			<!-- <div id="attributemanager" class="attributemanager">
-        		<div class="bar-title"><a href="#attributemanager" class="pin" title="Pin/unpin attribute manager"><i class="glyphicon glyphicon-pushpin"></i></a> 属性管理</div>
-    		</div> -->
+			<div id="attributemanager" class="attributemanager">
+        		<div class="bar-title">属性管理</div>
+    		</div>
     		<!-- 地图 -->
 			<div id="map" class="map" tabindex="-1" style="cursor:default"></div>
 			
@@ -260,35 +306,37 @@
      		</div>
      	</div>
     </div>
-	
+	<!--style-->
+        <script src="dist/styles.js"></script>
 	<script>
+		//样式函数
 		styleFunction=function(feature,resolution){
 			var zoom=editor.getView().getZoom();
 			var style=null;
-			var properties=feature.getProperties();
-			if(properties.type===1){
+			var class_=feature.get('class');
+			if(class_==="1"||class_===1){
 				
 				style=styles['car'];
 			}
-			else if(properties.type===2){
+			else if(class_==="2"||class_===2){
 				style=styles['camera'];
 			}
-			else if (properties.type===3) {
+			else if (class_==="3"||class_===3) {
 				style=styles['agv'];
 			}
-			else if (properties.type===4) {
+			else if (class_==="4"||class_===4) {
 				style=styles['qdiao'];
 			}
-			else if (properties.type===5) {
+			else if (class_==="5"||class_===5) {
 				style=styles['gdiao'];
 			}
-			else if (properties.type===6) {
+			else if (class_==="6"||class_===6) {
 				style=styles['ldiao'];
 			}
-			else if (properties.type===7) {
+			else if (class_==="7"||class_===7) {
 				style=styles['alarm'];
 			}
-			else if (properties.type===8) {
+			else if (class_==="8"||class_===8) {
 				style=styles['pos'];
 			}
 			else{
@@ -324,11 +372,11 @@
 	    var realTimeLayer=new ol.layer.Vector({
 	    	name:'动态图层',
 	    	source:new ol.source.Vector({
-                    url:"data/ldiao.geojson",
+                    url:"data/ldiao_.geojson",
                     format:new ol.format.GeoJSON()}),
 	    	style:styleFunction
 	    });
-	    realTimeLayer.set('type','geomcollection');
+	    //realTimeLayer.set('class_','geomcollection');
 	    realTimeLayer.set('id','realTimeLayerID');
 
 	    //search
@@ -341,7 +389,7 @@
 		// Popup overlay
 		var popup = new ol.Overlay.Popup (
 		{	popupClass: "default", //"tooltips", "warning" "black" "default", "tips", "shadow",
-			closeBox: true,
+			closeBox: false,
 			onclose: function(){ console.log("关闭窗口!"); },
 			positioning: 'auto',
 			autoPan: true,
@@ -430,12 +478,12 @@
 	            new ol.control.LayerManager({ target: 'layermanager' }),
 	            attributeManager,
 	            //new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
-	            new ol.control.Zoom({ target: 'maptools', zoomInLabel: ' ', zoomOutLabel: ' ',zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
-	            new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
-	            new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
-	            new ol.control.ZoomToSelection({ target: 'maptools' }),
-	            new ol.control.SelectionControls({ target: 'maptools' }),
-	            new ol.control.Measure({ target: 'maptools' }),
+	            //new ol.control.Zoom({ target: 'maptools', zoomInLabel: ' ', zoomOutLabel: ' ',zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
+	           // new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
+	            //new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
+	            //new ol.control.ZoomToSelection({ target: 'maptools' }),
+	            //new ol.control.SelectionControls({ target: 'maptools' }),
+	            //new ol.control.Measure({ target: 'maptools' }),
 	            new ol.control.Message({ target: 'statusbar' }),
 	            new ol.control.QueryField({target:'statusbar'}),
 	            new ol.control.MousePosition({
@@ -451,10 +499,10 @@
 	            }),
 	            search,
 
-	            new ol.control.Alarm({target:'equipments'}),
-	            new ol.control.Route({target:'equipments'}),
-	            new ol.control.Equipments({target:'equipments'}),
-	            new ol.control.RealTime({target:'equipments'})
+	            //new ol.control.Alarm({target:'equipments'}),
+	            //new ol.control.Route({target:'equipments'}),
+	            //new ol.control.Equipments({target:'equipments'}),
+	            //new ol.control.RealTime({target:'equipments'})
 	        ],
 	        loadTilesWhileAnimating: true,
 	        loadTilesWhileInteracting: true,
@@ -482,35 +530,55 @@
 	    	            	            url:url,
 	    	            	            dataType:"json",
 	    	            	            success: function(data){
+	    	            	               var features=ConvertToGeoJSON(data);
+	    	            	               realTimeLayer.setSource(new ol.source.Vector({features:features}));
 	    	            	               console.log(data);
-	    	            	               var ul_first=$('#tab-query .first');
-	    	            	               
-	    	            	               var li=$('<li>');
-	    	            	               var a=$('<a>').attr('href','#').text("集卡");
-	    	            	               a.click(function(){
-	    	            	               	    	 $("#tab-query .content").hide();
-	    	            	               	    	 // $(this).parents().siblings().children(".second").hide();
-	    	            	               		     $(this).siblings(".second").toggle();
+	    	            	               features.forEach(function(feature){
+
+	    	            	               		var ul_first=$('#tab-query .first');
+	    	            	               		
+	    	            	               		var li=$('<li>');
+	    	            	               		var a=$('<a>').attr('href','#').text("集卡");
+	    	            	               		a.click(function(){
+	    	            	               			    	 $("#tab-query .content").hide(300);
+	    	            	               			    	 // $(this).parents().siblings().children(".second").hide();
+	    	            	               				     $(this).siblings(".second").toggle(300);
+	    	            	               		});
+	    	            	               		a.appendTo(li);
+	    	            	               		//创建二级目录
+	    	            	               		var ul_second=$("<ul>").addClass('second');
+	    	            	               		var li_second=$("<li>");
+	    	            	               		$('<a>').attr("href","##").text(data[0]["CarNumber"]).hover(function(){
+	    	            	               				 //隐藏其他的
+	    	            	               			    $("#tab-query .content").hide();
+	    	            	               			     $(this).siblings(".content").toggle();
+	    	            	               		}).click(function(){
+	    	            	               				var p = feature.getGeometry().getFirstCoordinate();
+	    	            	               				if (feature.get('class')!==null) {
+	    	            	               					editor.getView().animate({ center:p });
+	    	            	               					var content = feature.getProperties();
+	    	            	               					var table="<div class='content'>";
+	    	            	               					Object.keys(content).forEach(function(key){
+	    	            	               						if (key!=='geometry') {
+	    	            	               							table+="<p><b>{0}<b> : {1}</p>".format(key,feature.get(key));
+	    	            	               						}
+	    	            	               					});
+	    	            	               					table+="</div>";
+	    	            	               					//content += feature.get("type");
+	    	            	               					popup.show(p,table); 
+	    	            	               				}
+	    	            	               		}).appendTo(li_second);
+	    	            	               		var html='';
+	    	            	               		Object.keys(data[0]).forEach(function(key){
+	    	            	               				if (typeof(data[0][key]!=="object")) {
+	    	            	               					html+="<p><b>{0}</b>: {1}</p>".format(key,data[0][key]);
+	    	            	               				}
+	    	            	               		});
+	    	            	               		var div_content=$("<div>").addClass('content').html(html).appendTo(li_second);
+	    	            	               		li_second.appendTo(ul_second);
+	    	            	               		ul_second.appendTo(li);
+	    	            	               		li.prependTo(ul_first);
 	    	            	               });
-	    	            	               a.appendTo(li);
-	    	            	               //创建二级目录
-	    	            	               var ul_second=$("<ul>").addClass('second');
-	    	            	               var li_second=$("<li>");
-	    	            	               $('<a>').attr("href","##").text(data[0]["CarNumber"]).click(function(){
-	    	            	               		 //隐藏其他的
-	    	            	               	    $("#tab-query .content").hide();
-	    	            	               	     $(this).siblings(".content").toggle();
-	    	            	               }).appendTo(li_second);
-	    	            	               var html='';
-	    	            	               Object.keys(data[0]).forEach(function(key){
-	    	            	               		if (typeof(data[0][key]!=="object")) {
-	    	            	               			html+="<p><b>{0}</b>: {1}</p>".format(key,data[0][key]);
-	    	            	               		}
-	    	            	               });
-	    	            	               var div_content=$("<div>").addClass('content').html(html).appendTo(li_second);
-	    	            	               li_second.appendTo(ul_second);
-	    	            	               ul_second.appendTo(li);
-	    	            	               li.prependTo(ul_first);
 	    	            	            },
 	    	            	            error:function(){  
 	    	            	               console.log('fail');  
@@ -615,16 +683,15 @@
 		select.getFeatures().on(['add'], function(e)
 		{	
 			var feature = e.element;
-			if (feature.get('type')!==undefined) {
+			if (feature.get('class')!==undefined) {
 				var content = feature.getProperties();
-				var table="<table class='table table-striped table-collapsed'>";
+				var table="<div class='content'>";
 				Object.keys(content).forEach(function(key){
 					if (key!=='geometry') {
-						table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
+						table+="<p><b>{0}</b> : {1}</p>".format(key,feature.get(key));
 					}
 				});
-				table+="</table>";
-				content += feature.get("type");
+				table+="</div>";
 				popup.show(feature.getGeometry().getCoordinates(),table); 
 			}
 		})
@@ -638,16 +705,16 @@
 			// select.getFeatures().push (e.search);
 			var feature=e.search;
 			var p = feature.getGeometry().getFirstCoordinate();
-			if (feature.get('type')!==null) {
+			if (feature.get('class')!==null) {
 				editor.getView().animate({ center:p });
 				var content = feature.getProperties();
-				var table="<table class='ptable'>";
+				var table="<div class='content'>";
 				Object.keys(content).forEach(function(key){
 					if (key!=='geometry') {
-						table+="<tr><td>"+key+"</td>"+"<td>"+feature.get(key)+"</td></tr>";
+						table+="<p><b>{0}<b> : {1}</p>".format(key,feature.get(key));
 					}
 				});
-				table+="</table>";
+				table+="</div>";
 				//content += feature.get("type");
 				popup.show(p,table); 
 			}

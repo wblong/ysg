@@ -6,6 +6,7 @@ var editor;
 var styleFunction;
 var select = new ol.interaction.Select({});
 $(function(){
+		//样式json对象
 		styles={
 		'alarm':new ol.style.Style({
 			image:new ol.style.Icon({
@@ -95,5 +96,4 @@ $(function(){
          })
          })
 	};
-	
 });
