@@ -26,4 +26,5 @@
      "dblrightclick",    //鼠标右键双击
      "resize",           //调整大小
      "focus",            //获得焦点
-     "blur"           
+     "blur" ,
+9、菜单按钮：top:0.5em; size:1em;right:0.5em;0.5+2+0.5=3em +2.5em=5.5em        
