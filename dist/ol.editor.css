@@ -757,6 +757,20 @@ a.pin.active i {
     background-position: center center;
     background-image: url(../res/zoom-extent.png) ;
 }
+.ol-alarm{
+    z-index: 1;
+    right: 8em;
+    top:0.5em;
+    /*position: absolute;*/
+}
+.ol-alarm  button {
+    background-size: 1em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(../res/alarm.png);
+   
+}
+
 .ol-full-screen{
     z-index: 1;
     right: 3em;
