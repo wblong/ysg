@@ -42,7 +42,8 @@
         <script src="dist/proj4.js"></script>
         <!--ol-->
         <script src="dist/ol-debug.js"></script>
-       
+        <!--style-->
+        <script src="dist/styles.js"></script>
         <!--ol-ex-->
     	<script src="dist/ex/control/searchcontrol.js"></script>
     	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
@@ -71,7 +72,7 @@
   	<!-- <iframe src="http://localhost:1886/Scripts/selection/jsp/Selection.html" z-index=1000></iframe> -->
     <div class="application pinned-toolbar pinned-layermanager">
     	<!--菜单栏-->
-		<!-- <div id="menubar" class="menubar">
+	<!-- 	<div id="menubar" class="menubar">
         		<a href="#toolbar" class="pin active" title="Pin/unpin menubar"><i class="glyphicon glyphicon-pushpin"></i></a>
 				<ul>
 					<li class="active"><a href="#maptools" role="tab" data-toggle="tab">地图</a></li>
@@ -86,7 +87,6 @@
 		</div> -->
 		<!--地图容器-->
 		<div class="map-container">
-			<!--图层管理器-->
 			<div id="layermanager" class="layermanager">
        		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
     		</div>
@@ -306,51 +306,8 @@
      		</div>
      	</div>
     </div>
-	<!--style-->
-        <script src="dist/styles.js"></script>
+	<!--脚本函数-->
 	<script>
-		//样式函数
-		styleFunction=function(feature,resolution){
-			var zoom=editor.getView().getZoom();
-			var style=null;
-			var class_=feature.get('class');
-			if(class_==="1"||class_===1){
-				
-				style=styles['car'];
-			}
-			else if(class_==="2"||class_===2){
-				style=styles['camera'];
-			}
-			else if (class_==="3"||class_===3) {
-				style=styles['agv'];
-			}
-			else if (class_==="4"||class_===4) {
-				style=styles['qdiao'];
-			}
-			else if (class_==="5"||class_===5) {
-				style=styles['gdiao'];
-			}
-			else if (class_==="6"||class_===6) {
-				style=styles['ldiao'];
-			}
-			else if (class_==="7"||class_===7) {
-				style=styles['alarm'];
-			}
-			else if (class_==="8"||class_===8) {
-				style=styles['pos'];
-			}
-			else{
-				style=styles['pos'];
-			}
-			if (zoom===12) {
-				return [styles['point']];
-			}
-			else{
-				style.getImage().setScale(zoom/25);
-				return [style];
-			}
-			
-		};
 		//选择
 		var selectClick=new ol.interaction.Select({
 			
@@ -365,31 +322,58 @@
                     13585173.06488047, 3588705.080676691],
 	        worldExtent: [73,3, 135, 53]
 	    });
-	   
-
-	    //地图设置
 	    //动态图层
 	    var realTimeLayer=new ol.layer.Vector({
 	    	name:'动态图层',
 	    	source:new ol.source.Vector({
-                    url:"data/ldiao_.geojson",
+                    url:"data/camera_.geojson",
                     format:new ol.format.GeoJSON()}),
 	    	style:styleFunction
 	    });
 	    //realTimeLayer.set('class_','geomcollection');
 	    realTimeLayer.set('id','realTimeLayerID');
-
+	    //加载要素图层
+	    var bridgeCraneLayer=new ol.layer.Vector({
+	    	name:'桥吊',
+	    	source:new ol.source.Vector(),
+	    	style:styleFunction
+	    });
+	    loadData(bridgeCraneUrl,bridgeCraneLayer);
+	    var gantryCraneLayer=new ol.layer.Vector({
+	    	name:'龙门吊',
+	    	source:new ol.source.Vector(),
+	    	style:styleFunction
+	    });
+	    loadData(gantryCraneUrl,gantryCraneLayer);
+	    var trackCraneLayer=new ol.layer.Vector({
+	    	name:'轨道吊',
+	    	source:new ol.source.Vector(),
+	    	style:styleFunction
+	    });
+	    loadData(trackCraneUrl,trackCraneLayer);
+	    var carsLayer=new ol.layer.Vector({
+	    	name:'车辆',
+	    	source:new ol.source.Vector(),
+	    	style:styleFunction
+	    });
+	    loadData(carsUrl,carsLayer);
+	    var camerasLayer=new ol.layer.Vector({
+	    	name:'像机',
+	    	source:new ol.source.Vector(),
+	    	style:styleFunction
+	    });
+	    loadData(camerasUrl,camerasLayer);
 	    //search
 	    var search = new ol.control.SearchFeature(
 		{	
 			//target: $("#search").get(0),
 			source: realTimeLayer.getSource(),//设置查询的图层
-			property: 'id'
+			property: 'Id'
 		});
 		// Popup overlay
 		var popup = new ol.Overlay.Popup (
 		{	popupClass: "default", //"tooltips", "warning" "black" "default", "tips", "shadow",
-			closeBox: false,
+			closeBox: true,
 			onclose: function(){ console.log("关闭窗口!"); },
 			positioning: 'auto',
 			autoPan: true,
@@ -399,7 +383,6 @@
 		// map
 	    editor = new ol.Editor({
 	    	overlays:[popup],
-
 	        target: 'map',
 	        view: new ol.View({
 	            //projection: 'EPSG:4326',
@@ -461,16 +444,24 @@
 						serverType: 'geoserver',
 	         	 })
 				}),
-				realTimeLayer
+				realTimeLayer,
+				bridgeCraneLayer,
+				gantryCraneLayer,
+				trackCraneLayer,
+				carsLayer,
+				camerasLayer
+
 	        ],
 	        //地图控件加载
 	        
 	        controls: [
 	        	//new ol.control.Add({target:'ysgceshi',tipLabel:'相机标定'}),
-	        	//new ol.control.LayerPopup(),
+	        	new ol.control.LayerPopup(),
+	        	new ol.control.MenuBars(),
 	        	new ol.control.Exit(),
 	        	new ol.control.Condition(),
-	        	//new ol.control.FullScreen(),
+	        	new ol.control.MapTools(),
+	        	new ol.control.FullScreen(),
 	            new ol.control.Rotate(),
 	            new ol.control.ScaleLine(),
 	            new ol.control.ZoomSlider(),
@@ -518,77 +509,25 @@
 	    	            console.log(this.end_time.value);
 	    	            console.log(this.jika.checked);
 	    	            console.log(this.camera.checked);
-
 	    	            //首先清除原有的所有要素
 	    	            $('#tab-query .first').empty();
+	    	            //jika
 	    	            if (this.jika.checked) {
 	    	            	//创建一级目录
 	    	            	var url="http://192.168.5.35:8012/api/Data/GetCurrentCars?sdt={0}&edt={1}".format(this.start_time.value,this.end_time.value);
-	    	            	console.log(url);
+	    	            	//console.log(url);
 	    	            	$.ajax({
 	    	            	            type:"get",//post
 	    	            	            url:url,
 	    	            	            dataType:"json",
 	    	            	            success: function(data){
-	    	            	               var features=ConvertToGeoJSON(data);
-	    	            	               realTimeLayer.setSource(new ol.source.Vector({features:features}));
-	    	            	               console.log(data);
-	    	            	               features.forEach(function(feature){
-
-	    	            	               		var ul_first=$('#tab-query .first');
-	    	            	               		
-	    	            	               		var li=$('<li>');
-	    	            	               		var a=$('<a>').attr('href','#').text("集卡");
-	    	            	               		a.click(function(){
-	    	            	               			    	 $("#tab-query .content").hide(300);
-	    	            	               			    	 // $(this).parents().siblings().children(".second").hide();
-	    	            	               				     $(this).siblings(".second").toggle(300);
-	    	            	               		});
-	    	            	               		a.appendTo(li);
-	    	            	               		//创建二级目录
-	    	            	               		var ul_second=$("<ul>").addClass('second');
-	    	            	               		var li_second=$("<li>");
-	    	            	               		$('<a>').attr("href","##").text(data[0]["CarNumber"]).hover(function(){
-	    	            	               				 //隐藏其他的
-	    	            	               			    $("#tab-query .content").hide();
-	    	            	               			     $(this).siblings(".content").toggle();
-	    	            	               		}).click(function(){
-	    	            	               				var p = feature.getGeometry().getFirstCoordinate();
-	    	            	               				if (feature.get('class')!==null) {
-	    	            	               					editor.getView().animate({ center:p });
-	    	            	               					var content = feature.getProperties();
-	    	            	               					var table="<div class='content'>";
-	    	            	               					Object.keys(content).forEach(function(key){
-	    	            	               						if (key!=='geometry') {
-	    	            	               							table+="<p><b>{0}<b> : {1}</p>".format(key,feature.get(key));
-	    	            	               						}
-	    	            	               					});
-	    	            	               					table+="</div>";
-	    	            	               					//content += feature.get("type");
-	    	            	               					popup.show(p,table); 
-	    	            	               				}
-	    	            	               		}).appendTo(li_second);
-	    	            	               		var html='';
-	    	            	               		Object.keys(data[0]).forEach(function(key){
-	    	            	               				if (typeof(data[0][key]!=="object")) {
-	    	            	               					html+="<p><b>{0}</b>: {1}</p>".format(key,data[0][key]);
-	    	            	               				}
-	    	            	               		});
-	    	            	               		var div_content=$("<div>").addClass('content').html(html).appendTo(li_second);
-	    	            	               		li_second.appendTo(ul_second);
-	    	            	               		ul_second.appendTo(li);
-	    	            	               		li.prependTo(ul_first);
-	    	            	               });
+	    	            	            	QueryData(data,realTimeLayer,0);
 	    	            	            },
 	    	            	            error:function(){  
 	    	            	               console.log('fail');  
 	    	            	            }  
 	    	            	        });
-
-	    	            	
-
-	    	            	console.log("test");
-	    	            	
+	    	            	//console.log("test");
 	    	            }
 	    	            
 	    	    		$('#querydlg').modal('hide');
@@ -600,58 +539,57 @@
 	    		  todayBtn:true,
 	    		  pickerPosition:'bottom-right',
 	    		  language:'zh-CN'});
-	    	//传递参数调用后天方法
 	    	
 	    	//关闭右键功能
 	        $(document).bind("contextmenu",function(e){
 	               return false;
 	           });
 	        //menubar的第一层ul第一层li第一层a
-	        $(document).on('click', '#menubar>ul>li>a', function(e) {
-	            var elementToShow = $(this).attr('href');
-	            if (!showing) {
-	                showing = true;
-	                setTimeout(function() {
-	                    $(elementToShow).addClass('slide-out');
-	                }, 100);
-	            } else {
-	                if (!$(elementToShow).hasClass('showing')) {
-	                    $(elementToShow).addClass('showing');
-	                }
-	                if ($(elementToShow).hasClass('slide-out')) {
-	                    $(elementToShow).removeClass('slide-out');
-	                }
-	            }
-	            $(elementToShow).addClass('active');
-	        });
-	        //menubar ul li a
-	        $(document).click(function(e) {
-	            var tabs = $('#menubar>ul>li>a');
-	            //选择除了.pinned以外的所有第一层div
-	            var containers = $('#toolbar:not(.pinned)>div');
-	            if ((!containers.is(e.target) && containers.has(e.target).length === 0)
-	                && (!tabs.is(e.target) && tabs.has(e.target).length === 0)
-	            ) {
-	                containers.removeClass('slide-out');
-	                containers.removeClass('showing');
-	                containers.removeClass('active');
-	                $('.application:not(.pinned-toolbar) #menubar>ul>li').removeClass('active');
-	                showing = false;
-	            }
-	        });
-	        //pin
-	        $(document).on('click', 'a.pin', function(e) {
-	            e.preventDefault();
-	            $(this).toggleClass('active');
-	            var target = $(this).attr('href');
-	            $(target).toggleClass('pinned');
-	            if (target == '#toolbar') { // activate the first
-	                $('#menubar>ul>li>a[data-toggle=tab]').first().trigger('click');
-	            }
-	            $($(this).closest('.application')).toggleClass('pinned-' + $(this).attr('href').substr(1));
-	            editor.updateSize(); // soo static
-	        });
-	        //tooltip
+	        // $(document).on('click', '#menubar>ul>li>a', function(e) {
+	        //     var elementToShow = $(this).attr('href');
+	        //     if (!showing) {
+	        //         showing = true;
+	        //         setTimeout(function() {
+	        //             $(elementToShow).addClass('slide-out');
+	        //         }, 100);
+	        //     } else {
+	        //         if (!$(elementToShow).hasClass('showing')) {
+	        //             $(elementToShow).addClass('showing');
+	        //         }
+	        //         if ($(elementToShow).hasClass('slide-out')) {
+	        //             $(elementToShow).removeClass('slide-out');
+	        //         }
+	        //     }
+	        //     $(elementToShow).addClass('active');
+	        // });
+	        // //menubar ul li a
+	        // $(document).click(function(e) {
+	        //     var tabs = $('#menubar>ul>li>a');
+	        //     //选择除了.pinned以外的所有第一层div
+	        //     var containers = $('#toolbar:not(.pinned)>div');
+	        //     if ((!containers.is(e.target) && containers.has(e.target).length === 0)
+	        //         && (!tabs.is(e.target) && tabs.has(e.target).length === 0)
+	        //     ) {
+	        //         containers.removeClass('slide-out');
+	        //         containers.removeClass('showing');
+	        //         containers.removeClass('active');
+	        //         $('.application:not(.pinned-toolbar) #menubar>ul>li').removeClass('active');
+	        //         showing = false;
+	        //     }
+	        // });
+	        // //pin
+	        // $(document).on('click', 'a.pin', function(e) {
+	        //     e.preventDefault();
+	        //     $(this).toggleClass('active');
+	        //     var target = $(this).attr('href');
+	        //     $(target).toggleClass('pinned');
+	        //     if (target == '#toolbar') { // activate the first
+	        //         $('#menubar>ul>li>a[data-toggle=tab]').first().trigger('click');
+	        //     }
+	        //     $($(this).closest('.application')).toggleClass('pinned-' + $(this).attr('href').substr(1));
+	        //     editor.updateSize(); // soo static
+	        // });
+	        // //tooltip
 	        $('#toolbar [title], #map [title], #statusbar [title]').tooltip({
 	            placement: 'auto bottom',
 	            container: 'body'
@@ -683,17 +621,7 @@
 		select.getFeatures().on(['add'], function(e)
 		{	
 			var feature = e.element;
-			if (feature.get('class')!==undefined) {
-				var content = feature.getProperties();
-				var table="<div class='content'>";
-				Object.keys(content).forEach(function(key){
-					if (key!=='geometry') {
-						table+="<p><b>{0}</b> : {1}</p>".format(key,feature.get(key));
-					}
-				});
-				table+="</div>";
-				popup.show(feature.getGeometry().getCoordinates(),table); 
-			}
+			OutlineInfo(feature);
 		})
 		select.getFeatures().on(['remove'], function(e)
 		{	popup.hide(); 
@@ -701,23 +629,8 @@
 
 		search.on('select', function(e)
 		{	
-			// select.getFeatures().clear();
-			// select.getFeatures().push (e.search);
 			var feature=e.search;
-			var p = feature.getGeometry().getFirstCoordinate();
-			if (feature.get('class')!==null) {
-				editor.getView().animate({ center:p });
-				var content = feature.getProperties();
-				var table="<div class='content'>";
-				Object.keys(content).forEach(function(key){
-					if (key!=='geometry') {
-						table+="<p><b>{0}<b> : {1}</p>".format(key,feature.get(key));
-					}
-				});
-				table+="</div>";
-				//content += feature.get("type");
-				popup.show(p,table); 
-			}
+			OutlineInfo(feature);
 		});
 		</script>
 	</body>

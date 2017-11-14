@@ -14,9 +14,16 @@ html, body {
 	overflow: hidden;
 }
 .menubar {
+    top:0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 40px;
+    overflow: hidden;
 	width: 100%;
 	background: #585858;/*#2a579a;*/
-    position: relative;
+    position: absolute;
+    z-index: 1;
 }
 .menubar ul {
     margin: 0;
@@ -671,11 +678,15 @@ a.pin.active i {
 .toolbar .ol-equipment button.ol-equipment-ldiao{
     background-image: url(../res/ldiao.png);
 }
+.ol-exit{top:0.5em;left: 0.5em;z-index: 1} 
+.ol-condition{ top:0.5em;left: 3em ;z-index: 1}
+
+
 .ol-exit button{
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 1em;
     background-image:  url(../res/exit.png);
+
 }
 .ol-condition button{
 
@@ -683,4 +694,74 @@ a.pin.active i {
     background-position: center center;
     background-size: 1em;
     background-image:  url(../res/condition.png);
+}
+.ol-maptools{top:0.5em;right: 5.5em;z-index: 1}
+.ol-maptools button{
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.ol-maptools .maptools_button{
+   
+    background-size: 1em;
+    background-image:  url(../res/maptools.png);
+}
+.ol-maptools-panel{
+    display: none;
+    background-color: rgba(66,72,83,0.5);
+    margin-top: 15px;
+    margin-left: -2px;
+    position: absolute;
+    /*width: 29px;*/
+    top:1em;
+
+
+}
+.ol-maptools .ol-measure button.ol-measure-area {
+    background-size: 1em;
+    background-image: url(../res/area-measure.png);
+    
+}
+.ol-maptools .ol-measure button.ol-measure-length {
+    background-size: 1em;
+    background-image: url(../res/length-measure.png);
+     
+}
+.ol-maptools .ol-measure button.ol-measure-angle {
+    background-size: 1em;
+    background-image: url(../res/angle-measure.png);
+    
+}
+
+.ol-maptools .ol-zoom{
+    top:75px;
+    left: 0;
+}
+
+.ol-maptools button.ol-zoom-in {
+    background-size: 1em;
+    background-image: url(../res/zoom-in.png);
+   
+}
+.ol-maptools button.ol-zoom-out{
+    background-size: 1em;
+    background-image: url(../res/zoom-out.png) ;
+}
+.ol-maptools .ol-zoom-extent {
+    top:125px;
+    left: 0px;
+    
+}
+.ol-maptools .ol-zoom-extent button{
+    background-size: 1em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(../res/zoom-extent.png) ;
+}
+.ol-full-screen{
+    z-index: 1;
+    right: 3em;
+}
+.ol-rotate{
+    z-index:1;
+    right: 0.5em;
 }

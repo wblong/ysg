@@ -1568,7 +1568,8 @@ ol.control.LayerManager.prototype.getOtherCapabilities = function(form){
     if (form.format.value == 'xyz') {
         form.layer.appendChild(this.createOption(''));
     }
-};/**
+};
+/**
  * @classdesc
  * A button control which, when pressed, handles the measure interaction.
  * To style this control use the css selector `.ol-measure`.
@@ -1641,7 +1642,6 @@ ol.control.Measure = function (opt_options) {
             target: controlDiv
         })
     });
-    
 };
 //继承关系
 ol.inherits(ol.control.Measure, ol.control.Control);
@@ -3418,4 +3418,98 @@ ol.control.QueryField.prototype.addQueryField=function(field){
     newOption.value=field;
     newOption.textContent=field;
     this.get('element').appendChild(newOption);
+};
+/*
+*
+ */
+ol.control.MenuBars=function(opt_options){
+    var options = opt_options || {};
+    var _this = this;
+
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'menubar';
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+
+};
+ol.inherits(ol.control.MenuBars, ol.control.Control);
+/*
+地图工具
+ */
+ol.control.MapTools = function (opt_options) {
+    
+    var options = opt_options || {};
+    var _this = this;
+
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'ol-maptools ol-unselectable ol-control';
+    //创建工具条
+    var toolsDiv=document.createElement('div');
+    toolsDiv.className=options.className||'ol-maptools-panel';
+    //setAttribute
+    toolsDiv.setAttribute('id','maptools');
+
+
+    var maptoolsButton = document.createElement('button');
+    maptoolsButton.className="maptools_button";
+    maptoolsButton.title = options.tipLabel || '地图工具';
+    maptoolsButton.textContent = options.label || ' ';
+    controlDiv.appendChild(maptoolsButton);
+    controlDiv.appendChild(toolsDiv);
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+    maptoolsButton.addEventListener('click',function(evt){
+        $("#maptools").toggle();
+    });
+    // var eov = new ol.proj.Projection({
+    //     code: 'EPSG:3857',
+    //     extent: [13582066.888853556, 3587359.445355572,
+    //             13585173.06488047, 3588705.080676691],
+    //     worldExtent: [73,3, 135, 53]
+    // });
+    this.setProperties({
+        element: controlDiv,
+        measuretools: new ol.control.Measure({
+            target: toolsDiv,
+            measureLengthLabel:""
+        }),
+        zoomtools: new ol.control.Zoom({
+            target: toolsDiv,
+            zoomOutLabel:'', 
+            zoomInLabel: '',
+            zoomInTipLabel:'放大',
+            zoomOutTipLabel:'缩小' 
+        }),
+        zoomToExtent:new ol.control.ZoomToExtent({ target: toolsDiv, label: ' ',tipLabel:'全局' ,extent: new ol.proj.Projection({
+        code: 'EPSG:3857',
+        extent: [13582066.888853556, 3587359.445355572,
+                13585173.06488047, 3588705.080676691],
+        worldExtent: [73,3, 135, 53]
+        }).getExtent()})
+    });
+};
+
+ol.inherits(ol.control.MapTools, ol.control.Control);
+ol.control.MapTools.prototype.setMap = function(map) {
+    ol.control.Control.prototype.setMap.call(this, map);
+    if (map !== null) {
+        var _this = this;
+
+        var zoomtools=this.get('zoomtools');
+        map.addControl(zoomtools);
+        zoomtools.setMap(map);
+
+        var measuretools=this.get('measuretools');
+        map.addControl(measuretools);
+        measuretools.setMap(map);
+
+        var zoomToExtent=this.get('zoomToExtent');
+        map.addControl(zoomToExtent);
+        zoomToExtent.setMap(map);
+        
+    }
 };
