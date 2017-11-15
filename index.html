@@ -516,13 +516,14 @@
 	    	            //jika
 	    	            if (this.jika.checked) {
 	    	            	//创建一级目录
-	    	            	var url="http://192.168.5.35:8012/api/Data/GetCurrentCars?sdt={0}&edt={1}".format(this.start_time.value,this.end_time.value);
-	    	            	//console.log(url);
+	    	            	var url="http://192.168.5.239/api/Data/GetCurrentCars?sdt={0}&edt={1}".format(this.start_time.value,this.end_time.value);
+	    	            	console.log(url);
 	    	            	$.ajax({
 	    	            	            type:"get",//post
 	    	            	            url:url,
 	    	            	            dataType:"json",
 	    	            	            success: function(data){
+	    	            	            	console.log(data);
 	    	            	            	QueryData(data,realTimeLayer,0);
 	    	            	            },
 	    	            	            error:function(){  
@@ -620,14 +621,14 @@
 		// var select = new ol.interaction.Select({});
 		editor.addInteraction(select);
 		//On selected => show/hide popup
-		select.getFeatures().on(['add'], function(e)
-		{	
-			var feature = e.element;
-			OutlineInfo(feature);
-		})
-		select.getFeatures().on(['remove'], function(e)
-		{	popup.hide(); 
-		})
+		// select.getFeatures().on(['add'], function(e)
+		// {	
+		// 	var feature = e.element;
+		// 	OutlineInfo(feature);
+		// })
+		// select.getFeatures().on(['remove'], function(e)
+		// {	popup.hide(); 
+		// })
 
 		search.on('select', function(e)
 		{	

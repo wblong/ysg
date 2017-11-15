@@ -2748,7 +2748,9 @@ ol.control.Alarm = function (opt_options) {
     alarmButton.textContent = options.label || '';
 
     var layer=null;
-
+    this.getAlarmLayer=function(){
+        return layer;
+    };
     alarmButton.addEventListener('click', function (evt) {
         var url='http://192.168.5.239/api/Data/GetCurrentAlarms';
         $.ajax({
@@ -2827,21 +2829,37 @@ ol.control.Alarm = function (opt_options) {
         element: controlDiv,
         target: options.target
     });
+    this.setProperties({})
 };
 
 ol.inherits(ol.control.Alarm, ol.control.Control);
-// ol.control.Alarm.prototype.setMap = function(map) {
-//     ol.control.Control.prototype.setMap.call(this,map);
-//     if (map===null) {
-//         ol.Observable.unByKey(this.get('chgEventId'));
-//     }else{
-//         this.set('chgEventId',map.on('singleclick',function(evt){
-//             map.forEachFeatureAtPixel(evt.pixel,function(feature){
-//                 feature.dispatchEvent({type:'click',event:evt});
-//             })
-//         }),this);
-//     }
-// };
+ol.control.Alarm.prototype.setMap = function(map) {
+	var _this=this;
+    ol.control.Control.prototype.setMap.call(this,map);
+    if (map===null) {
+        ol.Observable.unByKey(this.get('chgEventId'));
+    }else{
+        var radius=0;
+        
+        this.set('chgEventId',map.on('postcompose',function(evt){
+            // 增大半径，最大20
+            // 设置样式
+            // radius++;
+            // radius=radius%10;
+            // var circle=_this.getAlarmLayer().getSource().getFeatures();
+            // if(circle.length>0){
+            //     circle[0].setStyle(new ol.style.Style({
+            //     image: new ol.style.Circle({
+            //         radius: radius,
+            //         fill: new ol.style.Fill({
+            //             color:"red",
+            //         })
+            //     })
+            //     }));
+            // }
+        }),this);
+    }
+};
 /**
  * @classdesc
  * 
