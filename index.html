@@ -30,11 +30,13 @@
     	<!-- 脚本 -->
         <!--jquery-->
         <script src="dist/jquery.min.js"></script>
-        <script type="text/javascript" src="dist/String.js"></script>
+        <script type="text/javascript" src="dist/ExtendFunc.js"></script>
 		<!--左侧UI-->
 		<link rel="stylesheet" type="text/css" href="dist/left_tab.css">
         <script type="text/javascript" src="dist/left_tab.js"></script>
-	
+		<!--UI时间类型过滤-->
+		<link rel="stylesheet" type="text/css" href="dist/date_filter.css">
+        <script type="text/javascript" src="dist/date_filter.js"></script>
 
 
     	<script src="dist/bootstrap.min.js"></script>
@@ -65,7 +67,7 @@
         <!--bootstrap-->
         <script src="dist/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
         <script src="dist/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-
+		<script type="text/javascript" src="dist/DatePicker/WdatePicker.js"></script>
        
   </head>
   <body>
@@ -89,6 +91,43 @@
 		<div class="map-container">
 			<div id="layermanager" class="layermanager">
        		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
+    		</div>
+    		<!--日期；类型控件-->
+    		<div id="query_condition">
+				<ul>
+					<li>
+						<button id="filter"></button>
+						<div class="content_panel">
+							<div>
+								<label>开始时间:</label>
+								<input type="text" id="start_time"  class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
+								
+							</div>
+							<div>
+								 <label>结束时间:</label>
+								 <input type="text" id="end_time" class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
+								 
+							</div>
+							<div class="checkbutton">
+								<div>
+									<label><input type="checkbox"  name="camera">摄像机</label>
+									<label><input type="checkbox"  name="jika">集卡</label>
+									<label><input type="checkbox"  name="agv"> AGV</label>
+								</div>
+								<div>
+									<label><input type="checkbox"  name="ldiao">龙门吊</label>
+									<label><input type="checkbox"  name="qdiao">桥吊</label>
+									<label><input type="checkbox"  name="gdiao">轨道吊</label>
+								</div>
+								<div>
+									<label><input type="checkbox"  name="tirediao">轮胎吊</label>
+									<label><input type="checkbox"  name="qiuji">球机</label>
+									<label><input type="checkbox"  name="qiangji">枪机</label>
+								</div>
+						    </div>
+						</div>
+					</li>
+				</ul>
     		</div>
     		<!--左侧列表栏-->
     		<div id="tab-query">
@@ -238,7 +277,9 @@
         		<div class="bar-title">属性管理</div>
     		</div>
     		<!-- 地图 -->
-			<div id="map" class="map" tabindex="-1" style="cursor:default"></div>
+			<div id="map" class="map" tabindex="-1" style="cursor:default">
+
+			</div>
 			
 		</div>
 		<!-- 状态栏 -->
@@ -503,44 +544,6 @@
 	    //地图加载时，操作
 	    var showing = false;
 	    $(document).ready(function() {
-	    	    document.getElementById('queryform').addEventListener('submit', function (evt) {
-	    	            evt.preventDefault();//阻止提交网页
-	    	            console.log(this.start_time.value);
-	    	            console.log(this.end_time.value);
-	    	            console.log(this.jika.checked);
-	    	            console.log(this.camera.checked);
-	    	            //首先清除原有的所有要素
-	    	            $('#tab-query .first').empty();
-	    	            //jika
-	    	            if (this.jika.checked) {
-	    	            	//创建一级目录
-	    	            	var url="http://192.168.5.239/api/Data/GetCurrentCars?sdt={0}&edt={1}".format(this.start_time.value,this.end_time.value);
-	    	            	console.log(url);
-	    	            	$.ajax({
-	    	            	            type:"get",//post
-	    	            	            url:url,
-	    	            	            dataType:"json",
-	    	            	            success: function(data){
-	    	            	            	console.log(data);
-	    	            	            	QueryData(data,realTimeLayer,0);
-	    	            	            },
-	    	            	            error:function(){  
-	    	            	               console.log('fail');  
-	    	            	            }  
-	    	            	        });
-	    	            	//console.log("test");
-	    	            }
-	    	            
-	    	    		$('#querydlg').modal('hide');
-	    	        });
-	    	   
-	    	//日期控件
-	    	$('.form_datetime').datetimepicker({format: 'yyyy-mm-ddThh:ii:ss ', 
-	    		  autoclose:true,
-	    		  todayBtn:true,
-	    		  pickerPosition:'bottom-right',
-	    		  language:'zh-CN'});
-	    	
 	    	//关闭右键功能
 	        $(document).bind("contextmenu",function(e){
 	               return false;

@@ -1,0 +1,38 @@
+#query_condition *{
+	margin:0px;padding:0px;
+	font-size: 8px;
+}
+#query_condition label{
+	margin-left: 15px;
+	color: white;
+}
+#filter{
+	width: 25px;
+	height: 25px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url("../res/condition.png");
+}
+/*定位*/
+#query_condition {
+	position: absolute;
+	top:0.5em;
+	left: 8em;
+	z-index: 1;
+}
+/*日期类型设计面板*/
+#query_condition .content_panel{
+	background-color: rgb(166,173,179);
+	width: 280px;
+	height: 144px;
+	display: none;
+	position: relative;
+	padding: 5px;
+}
+#query_condition .content_panel div{
+	margin-top: 5px;
+}
+#query_condition .checkbutton{
+	margin-top: 20px;
+	margin-left: 15px;
+}
