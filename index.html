@@ -15,10 +15,6 @@
 	<!--ol-ex-overlay-->
 	<link rel="stylesheet"  href="dist/ex/control/popupoverlay.css">
 	<link rel="stylesheet"  href="dist/ex/control/popupoverlay.anim.css">
-	
-    <!--custom css-->
-    <link rel="stylesheet" type="text/css" href="dist/custom.css">
-    <link rel="shortcut icon" href="favicon.ico">
     <!---->
     <link href="dist/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
@@ -30,21 +26,20 @@
     	<!-- 脚本 -->
         <!--jquery-->
         <script src="dist/jquery.min.js"></script>
-        <script type="text/javascript" src="dist/ExtendFunc.js"></script>
-		<!--左侧UI-->
-		<link rel="stylesheet" type="text/css" href="dist/left_tab.css">
-        <script type="text/javascript" src="dist/left_tab.js"></script>
-		<!--UI时间类型过滤-->
-		<link rel="stylesheet" type="text/css" href="dist/date_filter.css">
-        <script type="text/javascript" src="dist/date_filter.js"></script>
-
+        <!--字符串格式化和日期格式化函数-->
+        <script type="text/javascript" src="dist/exfunc.js"></script>
+        
+        <!--UI 条件过滤、搜索框、日期控件-->
+		<link rel="stylesheet" type="text/css" href="dist/top_ui_bar.css">
+        <script type="text/javascript" src="dist/top_ui_bar.js"></script>
+		<script type="text/javascript" src="dist/DatePicker/WdatePicker.js"></script>
 
     	<script src="dist/bootstrap.min.js"></script>
         <!--proj4-->
         <script src="dist/proj4.js"></script>
         <!--ol-->
         <script src="dist/ol-debug.js"></script>
-        <!--style-->
+        <!--style 显示样式控制-->
         <script src="dist/styles.js"></script>
         <!--ol-ex-->
     	<script src="dist/ex/control/searchcontrol.js"></script>
@@ -64,213 +59,16 @@
         <!--mq-->
         <script src="dist/rabbitmq/sockjs-0.3.js"></script>
         <script src="dist/rabbitmq/stomp.js"></script>
-        <!--bootstrap-->
-        <script src="dist/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="dist/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-		<script type="text/javascript" src="dist/DatePicker/WdatePicker.js"></script>
-       
+        <!--配置信息-->
+		<script src="dist/config.js"></script>
   </head>
   <body>
-  	<!-- <iframe src="http://localhost:1886/Scripts/selection/jsp/Selection.html" z-index=1000></iframe> -->
     <div class="application pinned-toolbar pinned-layermanager">
-    	<!--菜单栏-->
-	<!-- 	<div id="menubar" class="menubar">
-        		<a href="#toolbar" class="pin active" title="Pin/unpin menubar"><i class="glyphicon glyphicon-pushpin"></i></a>
-				<ul>
-					<li class="active"><a href="#maptools" role="tab" data-toggle="tab">地图</a></li>
-					<li><a href="#equipments" role="tab" data-toggle="tab">设备</a></li>
-				</ul>
-		</div> -->
-		<!--工具条-->
-		<!-- <div id="toolbar" class="toolbar tab-content pinned">
-			<div id="maptools" class="tab-pane active showing"></div>
-			<div id="equipments" class="tab-pane">
-			</div>
-		</div> -->
 		<!--地图容器-->
 		<div class="map-container">
+			<!--图层管理-->
 			<div id="layermanager" class="layermanager">
        		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
-    		</div>
-    		<!--日期；类型控件-->
-    		<div id="query_condition">
-				<ul>
-					<li>
-						<button id="filter"></button>
-						<div class="content_panel">
-							<div>
-								<label>开始时间:</label>
-								<input type="text" id="start_time"  class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
-								
-							</div>
-							<div>
-								 <label>结束时间:</label>
-								 <input type="text" id="end_time" class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
-								 
-							</div>
-							<div class="checkbutton">
-								<div>
-									<label><input type="checkbox"  name="camera">摄像机</label>
-									<label><input type="checkbox"  name="jika">集卡</label>
-									<label><input type="checkbox"  name="agv"> AGV</label>
-								</div>
-								<div>
-									<label><input type="checkbox"  name="ldiao">龙门吊</label>
-									<label><input type="checkbox"  name="qdiao">桥吊</label>
-									<label><input type="checkbox"  name="gdiao">轨道吊</label>
-								</div>
-								<div>
-									<label><input type="checkbox"  name="tirediao">轮胎吊</label>
-									<label><input type="checkbox"  name="qiuji">球机</label>
-									<label><input type="checkbox"  name="qiangji">枪机</label>
-								</div>
-						    </div>
-						</div>
-					</li>
-				</ul>
-    		</div>
-    		<!--左侧列表栏-->
-    		<div id="tab-query">
-    			<ul class="first">
-				  <li> 
-					   <a href="#">摄像机</a>
-					   <ul class="second">
-							<li><a  href="##">西区全景</a>
-								<div class="content">
-									<p>姓名：张三</p>
-									<p>驾照：3333333</p>
-									<p>手机:182333333</p>
-									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-					  			</div>	
-							</li>
-							<li><a  href="##">西区球形机</a>
-										<div class="content">
-											<p>姓名：张三</p>
-											<p>驾照：3333333</p>
-											<p>手机:182333333</p>
-											<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-											  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-							  			</div>	
-							</li>
-					   </ul>
-				  </li>
-				  <li> 
-					   <a href="#">桥吊</a>
-					   <ul class="second">
-							<li><a  href="##">编号1</a>
-								<div class="content">
-									<p>姓名：张三</p>
-									<p>驾照：3333333</p>
-									<p>手机:182333333</p>
-									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-					  			</div>			
-							</li>
-							<li><a  href="##">编号2</a>	
-								<div class="content">
-									<p>姓名：李四</p>
-									<p>驾照：3333333</p>
-									<p>手机:182333333</p>
-									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-					  			</div>	
-							</li>
-					   </ul>
-				  </li>
-				  <li> 
-					   <a href="#">集卡</a>
-					   <ul class="second">
-							<li><a  href="##">编号1</a>
-								<div class="content">
-									<p>姓名：张三</p>
-									<p>驾照：3333333</p>
-									<p>手机:182333333</p>
-									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-					  			</div>			
-							</li>
-							<li><a  href="##">编号2</a>	
-								<div class="content">
-									<p>姓名：李四</p>
-									<p>驾照：3333333</p>
-									<p>手机:182333333</p>
-									<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-									  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-					  			</div>	
-							</li>
-					   </ul>
-				  </li>
-				    <li> 
-				  	   <a href="#">AGV</a>
-				  	   <ul class="second">
-				  			<li><a  href="##">编号1</a>
-				  				<div class="content">
-				  					<p>姓名：张三</p>
-				  					<p>驾照：3333333</p>
-				  					<p>手机:182333333</p>
-				  					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-				  					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-				  	  			</div>			
-				  			</li>
-				  			<li><a  href="##">编号2</a>	
-				  				<div class="content">
-				  					<p>姓名：李四</p>
-				  					<p>驾照：3333333</p>
-				  					<p>手机:182333333</p>
-				  					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-				  					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-				  	  			</div>	
-				  			</li>
-				  	   </ul>
-				    </li>
-				      <li> 
-				    	   <a href="#">球机</a>
-				    	   <ul class="second">
-				    			<li><a  href="##">西区全景</a>
-				    				<div class="content">
-				    					<p>姓名：张三</p>
-				    					<p>驾照：3333333</p>
-				    					<p>手机:182333333</p>
-				    					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-				    					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-				    	  			</div>	
-				    			</li>
-				    			<li><a  href="##">西区球形机</a>
-				    						<div class="content">
-				    							<p>姓名：张三</p>
-				    							<p>驾照：3333333</p>
-				    							<p>手机:182333333</p>
-				    							<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-				    							  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-				    			  			</div>	
-				    			</li>
-				    	   </ul>
-				      </li>
-				        <li> 
-				      	   <a href="#">枪机</a>
-				      	   <ul class="second">
-				      			<li><a  href="##">西区全景</a>
-				      				<div class="content">
-				      					<p>姓名：张三</p>
-				      					<p>驾照：3333333</p>
-				      					<p>手机:182333333</p>
-				      					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-				      					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-				      	  			</div>	
-				      			</li>
-				      			<li><a  href="##">西区球形机</a>
-				      						<div class="content">
-				      							<p>姓名：张三</p>
-				      							<p>驾照：3333333</p>
-				      							<p>手机:182333333</p>
-				      							<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
-				      							  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
-				      			  			</div>	
-				      			</li>
-				      	   </ul>
-				        </li>
-    			</ul>
     		</div>
     		<!--属性管理器-->
 			<div id="attributemanager" class="attributemanager">
@@ -278,74 +76,201 @@
     		</div>
     		<!-- 地图 -->
 			<div id="map" class="map" tabindex="-1" style="cursor:default">
+				<!--日期；类型控件-->
+				<div id="query_condition">
+					<ul>
+						<li>
+							<button id="filter"></button>
+							<div class="content_panel">
+								<div>
+									<label>开始时间:</label>
+									<input type="text" id="start_time"  class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
+									
+								</div>
+								<div>
+									 <label>结束时间:</label>
+									 <input type="text" id="end_time" class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
+									 
+								</div>
+								<div class="checkbutton">
+									<div>
+										<label><input type="checkbox"  id="camera" checked="true">摄像机</label>
+										<label><input type="checkbox"  id="jika">集卡</label>
+										<label><input type="checkbox"  id="agv"> AGV</label>
+									</div>
+									<div>
+										<label><input type="checkbox"  id="ldiao">龙门吊</label>
+										<label><input type="checkbox"  id="qdiao">桥吊</label>
+										<label><input type="checkbox"  id="gdiao">轨道吊</label>
+									</div>
+									<div>
+										<label><input type="checkbox"  id="tirediao">轮胎吊</label>
+										<label><input type="checkbox"  id="qiuji">球机</label>
+										<label><input type="checkbox"  id="qiangji">枪机</label>
+									</div>
+							    </div>
+							</div>
+						</li>
+					</ul>
+				</div>
 
-			</div>
+    		<!--搜索框-->
+				<div id="search">
+					<div class="txt">
+						<input type="text" name=""><!-- 搜索按钮-->
+						<a href="#" class="btn_query"><img src="res/search.png" ></a><!--搜索按钮-->
+					</div>		
+				</div>
+			<!--查询结果栏-->
+	    		<div id="tab-query">
+	    			<ul class="first">
+					  <li> 
+						   <a href="#">摄像机</a>
+						   <ul class="second">
+								<li><a  href="##">西区全景</a>
+									<div class="content">
+										<p>姓名：张三</p>
+										<p>驾照：3333333</p>
+										<p>手机:182333333</p>
+										<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+										  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+						  			</div>	
+								</li>
+								<li><a  href="##">西区球形机</a>
+											<div class="content">
+												<p>姓名：张三</p>
+												<p>驾照：3333333</p>
+												<p>手机:182333333</p>
+												<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+												  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+								  			</div>	
+								</li>
+						   </ul>
+					  </li>
+					  <li> 
+						   <a href="#">桥吊</a>
+						   <ul class="second">
+								<li><a  href="##">编号1</a>
+									<div class="content">
+										<p>姓名：张三</p>
+										<p>驾照：3333333</p>
+										<p>手机:182333333</p>
+										<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+										  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+						  			</div>			
+								</li>
+								<li><a  href="##">编号2</a>	
+									<div class="content">
+										<p>姓名：李四</p>
+										<p>驾照：3333333</p>
+										<p>手机:182333333</p>
+										<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+										  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+						  			</div>	
+								</li>
+						   </ul>
+					  </li>
+					  <li> 
+						   <a href="#">集卡</a>
+						   <ul class="second">
+								<li><a  href="##">编号1</a>
+									<div class="content">
+										<p>姓名：张三</p>
+										<p>驾照：3333333</p>
+										<p>手机:182333333</p>
+										<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+										  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+						  			</div>			
+								</li>
+								<li><a  href="##">编号2</a>	
+									<div class="content">
+										<p>姓名：李四</p>
+										<p>驾照：3333333</p>
+										<p>手机:182333333</p>
+										<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+										  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+						  			</div>	
+								</li>
+						   </ul>
+					  </li>
+					    <li> 
+					  	   <a href="#">AGV</a>
+					  	   <ul class="second">
+					  			<li><a  href="##">编号1</a>
+					  				<div class="content">
+					  					<p>姓名：张三</p>
+					  					<p>驾照：3333333</p>
+					  					<p>手机:182333333</p>
+					  					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+					  					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  	  			</div>			
+					  			</li>
+					  			<li><a  href="##">编号2</a>	
+					  				<div class="content">
+					  					<p>姓名：李四</p>
+					  					<p>驾照：3333333</p>
+					  					<p>手机:182333333</p>
+					  					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+					  					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					  	  			</div>	
+					  			</li>
+					  	   </ul>
+					    </li>
+					      <li> 
+					    	   <a href="#">球机</a>
+					    	   <ul class="second">
+					    			<li><a  href="##">西区全景</a>
+					    				<div class="content">
+					    					<p>姓名：张三</p>
+					    					<p>驾照：3333333</p>
+					    					<p>手机:182333333</p>
+					    					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+					    					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					    	  			</div>	
+					    			</li>
+					    			<li><a  href="##">西区球形机</a>
+					    						<div class="content">
+					    							<p>姓名：张三</p>
+					    							<p>驾照：3333333</p>
+					    							<p>手机:182333333</p>
+					    							<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+					    							  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					    			  			</div>	
+					    			</li>
+					    	   </ul>
+					      </li>
+					        <li> 
+					      	   <a href="#">枪机</a>
+					      	   <ul class="second">
+					      			<li><a  href="##">西区全景</a>
+					      				<div class="content">
+					      					<p>姓名：张三</p>
+					      					<p>驾照：3333333</p>
+					      					<p>手机:182333333</p>
+					      					<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+					      					  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					      	  			</div>	
+					      			</li>
+					      			<li><a  href="##">西区球形机</a>
+					      						<div class="content">
+					      							<p>姓名：张三</p>
+					      							<p>驾照：3333333</p>
+					      							<p>手机:182333333</p>
+					      							<p>desc:tesgghaglafahidfidfdifhdifhdif djfhdfdif
+					      							  hdifhdifhdi fidfhidi dhfdihdfhdihidfhdihihdi</p>
+					      			  			</div>	
+					      			</li>
+					      	   </ul>
+					        </li>
+	    			</ul>
+	    			
+	    		</div><!--查询结果栏-->
+
+			</div><!-- 地图 -->
 			
-		</div>
+		</div><!--地图容器-->
 		<!-- 状态栏 -->
      	<div id="statusbar" class="statusbar"></div>
-     	<!--查询条件对话框-->
-     	<div id="querydlg" class="modal fade" role='dialog' tabindex="-1">
-     		<div class="modal-dialog">
-				<div class="modal-content">
-					<form id='queryform'>
-						<!-- <div class="modal-header">
-							<button type="button" class="close" data-dismiss='modal'>&times;</button>
-							<h4 class="modal-title"></h4>
-						</div> -->
-						<div class="modal-body">
-							<div class="form-horizontal">
-								<div class="form-group">
-									 <label class="control-label input-sm col-sm-3">开始时间:</label>
-									 <div class="col-sm-8 input-append date form_datetime">
-										<input type="text" name="start_time"  class="form-control input-sm" value="" readonly="">
-										<span class="add-on"><i class="icon-th"></i></span>
-									 </div>
-								</div>
-								<div class="form-group">
-									 <label class="control-label input-sm col-sm-3">结束时间:</label>
-									  <div class="col-sm-8 input-append date form_datetime">
-									 	<input type="text" name="end_time"  class="form-control input-sm" value="" readonly="">
-									 	<span class="add-on"><i class="icon-th"></i></span>
-									  </div>
-								</div>
-								<div class="checkbox">
-									<div class="form-group">
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="camera">摄像机</label>
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="jika">集卡</label>
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="agv"> AGV</label>
-									</div>
-									<div class="form-group">
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="ldiao">龙门吊</label>
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="qdiao">桥吊</label>
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="gdiao">轨道吊</label>
-									</div>
-									<div class="form-group">
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="tirediao">轮胎吊</label>
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="qiuji">球机</label>
-										<label class="control-label input-sm col-sm-3">
-										<input type="checkbox"  name="qiangji">枪机</label>
-										
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-sm btn-primary">确定</button>
-							<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">取消</button>
-						</div>
-					</form>
-				</div>
-     		</div>
-     	</div>
     </div>
 	<!--脚本函数-->
 	<script>
@@ -354,8 +279,7 @@
 			
 		});
 		
-	     var attributeManager=new ol.control.AttributeManager({ target: 'attributemanager' });
-	     //attributeManager.setMap(map);
+	    var attributeManager=new ol.control.AttributeManager({ target: 'attributemanager' });
 	    // proj4.defs("EPSG:23700","+title=HD72 EOV +proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
 	    var eov = new ol.proj.Projection({
 	        code: 'EPSG:3857',
@@ -379,18 +303,21 @@
 	    	source:new ol.source.Vector(),
 	    	style:styleFunction
 	    });
+
 	    loadData(bridgeCraneUrl,bridgeCraneLayer);
 	    var gantryCraneLayer=new ol.layer.Vector({
 	    	name:'龙门吊',
 	    	source:new ol.source.Vector(),
 	    	style:styleFunction
 	    });
+
 	    loadData(gantryCraneUrl,gantryCraneLayer);
 	    var trackCraneLayer=new ol.layer.Vector({
 	    	name:'轨道吊',
 	    	source:new ol.source.Vector(),
 	    	style:styleFunction
 	    });
+
 	    loadData(trackCraneUrl,trackCraneLayer);
 	    var carsLayer=new ol.layer.Vector({
 	    	name:'车辆',
@@ -398,6 +325,7 @@
 	    	style:styleFunction
 	    });
 	    loadData(carsUrl,carsLayer);
+
 	    var camerasLayer=new ol.layer.Vector({
 	    	name:'像机',
 	    	source:new ol.source.Vector(),
@@ -411,6 +339,7 @@
 			source: realTimeLayer.getSource(),//设置查询的图层
 			property: 'Id'
 		});
+
 		// Popup overlay
 		var popup = new ol.Overlay.Popup (
 		{	popupClass: "default", //"tooltips", "warning" "black" "default", "tips", "shadow",
@@ -421,6 +350,7 @@
 			autoPanAnimation: { duration: 100 },
 			id:'1'
 		});
+
 		// map
 	    editor = new ol.Editor({
 	    	overlays:[popup],
@@ -439,24 +369,10 @@
 	                name: 'OpenStreetMap',
 	                source: new ol.source.OSM()
 	            }),
-	        //     new ol.layer.Tile({
-	        // 		visible: false,
-	        // 		name:'ysg-tile',
-	        // 		source: new ol.source.TileWMS({
-	        //   			url: 'http://localhost:8080/geoserver/ysg/wms',
-			      //     params: {'FORMAT': 'image/png', 
-			      //              'VERSION': '1.1.1',
-			      //              tiled: true,
-			      //           STYLES: '',
-			      //           LAYERS: 'ysg:jizhuangxiang',
-			      //        tilesOrigin: 13582132.823772825 + "," + 3587341.8755370886
-			      //     }
-			      //   })
-			      // }),
 	            new ol.layer.Image({
 	            	name:'洋山港-边界',
 					source: new ol.source.ImageWMS({
-						url: 'http://192.168.5.239:8080/geoserver/ysg/wms',
+						url: MapServerIP+'ysg/wms',
 						params: {'LAYERS': 'ysg:bianjie1','VERSION':'1.1.0'},
 						serverType: 'geoserver',
 	         	 })
@@ -464,7 +380,7 @@
 				 new ol.layer.Image({
 	            	name:'洋山港-集装箱',
 					source: new ol.source.ImageWMS({
-						url: 'http://192.168.5.239:8080/geoserver/ysg/wms',
+						url: MapServerIP+'ysg/wms',
 						params: {'LAYERS': 'ysg:jizhuangxiang','VERSION':'1.1.0'},
 						serverType: 'geoserver',
 	         	 })
@@ -472,7 +388,7 @@
 				  new ol.layer.Image({
 	            	name:'洋山港-道路',
 					source: new ol.source.ImageWMS({
-						url: 'http://192.168.5.239:8080/geoserver/ysg/wms',
+						url: MapServerIP+'ysg/wms',
 						params: {'LAYERS': 'ysg:road','VERSION':'1.1.0'},
 						serverType: 'geoserver',
 	         	 })
@@ -480,7 +396,7 @@
 				   new ol.layer.Image({
 	            	name:'洋山港-设备',
 					source: new ol.source.ImageWMS({
-						url: 'http://192.168.5.239:8080/geoserver/ysg/wms',
+						url: MapServerIP+'ysg/wms',
 						params: {'LAYERS': 'ysg:shebei','VERSION':'1.1.0'},
 						serverType: 'geoserver',
 	         	 })
@@ -494,12 +410,11 @@
 
 	        ],
 	        //地图控件加载
-	        
 	        controls: [
 	        	new ol.control.LayerPopup(),
 	        	//new ol.control.MenuBars(),
 	        	new ol.control.Exit(),
-	        	new ol.control.Condition(),
+	        	//new ol.control.Condition(),
 	        	new ol.control.Alarm(),
 	        	new ol.control.MapTools(),
 	        	new ol.control.FullScreen(),
@@ -517,7 +432,7 @@
 	            //new ol.control.SelectionControls({ target: 'maptools' }),
 	            //new ol.control.Measure({ target: 'maptools' }),
 	            new ol.control.Message({ target: 'statusbar' }),
-	            new ol.control.QueryField({target:'statusbar'}),
+	            //new ol.control.QueryField({target:'statusbar'}),
 	            new ol.control.MousePosition({
 	                target: 'statusbar',
 	                className: 'ol-mouse-position ol-control ol-unselectable',
@@ -529,8 +444,7 @@
 	                target: 'statusbar',
 	                projections: ['EPSG:3857']
 	            }),
-	            search,
-
+	           // search,
 	            //new ol.control.Alarm({target:'equipments'}),
 	            //new ol.control.Route({target:'equipments'}),
 	            //new ol.control.Equipments({target:'equipments'}),
@@ -540,60 +454,32 @@
 	        loadTilesWhileInteracting: true,
 	        logo: false
 	    });
-	    //editor.getView().SetRotation(-14*Math.PI/180);
 	    //地图加载时，操作
 	    var showing = false;
+	    // Select feature when click on the reference index
+	    // var select = new ol.interaction.Select({});
+	    editor.addInteraction(select);
+	    //On selected => show/hide popup
+	    // select.getFeatures().on(['add'], function(e)
+	    // {	
+	    // 	var feature = e.element;
+	    // 	OutlineInfo(feature);
+	    // })
+	    // select.getFeatures().on(['remove'], function(e)
+	    // {	popup.hide(); 
+	    // })
+	    search.on('select', function(e)
+	    {	
+	    	var feature=e.search;
+	    	OutlineInfo(feature);
+	    });
+
 	    $(document).ready(function() {
 	    	//关闭右键功能
 	        $(document).bind("contextmenu",function(e){
 	               return false;
 	           });
-	        //menubar的第一层ul第一层li第一层a
-	        // $(document).on('click', '#menubar>ul>li>a', function(e) {
-	        //     var elementToShow = $(this).attr('href');
-	        //     if (!showing) {
-	        //         showing = true;
-	        //         setTimeout(function() {
-	        //             $(elementToShow).addClass('slide-out');
-	        //         }, 100);
-	        //     } else {
-	        //         if (!$(elementToShow).hasClass('showing')) {
-	        //             $(elementToShow).addClass('showing');
-	        //         }
-	        //         if ($(elementToShow).hasClass('slide-out')) {
-	        //             $(elementToShow).removeClass('slide-out');
-	        //         }
-	        //     }
-	        //     $(elementToShow).addClass('active');
-	        // });
-	        // //menubar ul li a
-	        // $(document).click(function(e) {
-	        //     var tabs = $('#menubar>ul>li>a');
-	        //     //选择除了.pinned以外的所有第一层div
-	        //     var containers = $('#toolbar:not(.pinned)>div');
-	        //     if ((!containers.is(e.target) && containers.has(e.target).length === 0)
-	        //         && (!tabs.is(e.target) && tabs.has(e.target).length === 0)
-	        //     ) {
-	        //         containers.removeClass('slide-out');
-	        //         containers.removeClass('showing');
-	        //         containers.removeClass('active');
-	        //         $('.application:not(.pinned-toolbar) #menubar>ul>li').removeClass('active');
-	        //         showing = false;
-	        //     }
-	        // });
-	        // //pin
-	        // $(document).on('click', 'a.pin', function(e) {
-	        //     e.preventDefault();
-	        //     $(this).toggleClass('active');
-	        //     var target = $(this).attr('href');
-	        //     $(target).toggleClass('pinned');
-	        //     if (target == '#toolbar') { // activate the first
-	        //         $('#menubar>ul>li>a[data-toggle=tab]').first().trigger('click');
-	        //     }
-	        //     $($(this).closest('.application')).toggleClass('pinned-' + $(this).attr('href').substr(1));
-	        //     editor.updateSize(); // soo static
-	        // });
-	        // //tooltip
+	        //tooltip
 	        $('#toolbar [title], #map [title], #statusbar [title]').tooltip({
 	            placement: 'auto bottom',
 	            container: 'body'
@@ -602,6 +488,7 @@
 	  		var myurl=GetQueryString("minx");
 			if(myurl !=null)
 			{
+			   var userID=GetQueryString('userID');
 			   var minx=GetQueryString('minx');
 			   var miny=GetQueryString('miny');
 			   var maxx=GetQueryString('maxx');
@@ -609,33 +496,6 @@
 			   editor.getView().fit([minx,miny,maxx,maxy]);
 			}
 	    });
-
-	    //通过URL获取参数
-		function GetQueryString(name)
-		{
-		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-		     var r = window.location.search.substr(1).match(reg);
-		     if(r!=null)return  unescape(r[2]); return null;
-		}
-
-		// Select feature when click on the reference index
-		// var select = new ol.interaction.Select({});
-		editor.addInteraction(select);
-		//On selected => show/hide popup
-		// select.getFeatures().on(['add'], function(e)
-		// {	
-		// 	var feature = e.element;
-		// 	OutlineInfo(feature);
-		// })
-		// select.getFeatures().on(['remove'], function(e)
-		// {	popup.hide(); 
-		// })
-
-		search.on('select', function(e)
-		{	
-			var feature=e.search;
-			OutlineInfo(feature);
-		});
 		</script>
 	</body>
 </html>

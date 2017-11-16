@@ -1,0 +1,172 @@
+/*
+*============================条件查询
+ */
+#query_condition *{
+	margin:0px;
+	padding:0px;
+	font-size: 10px;
+
+}
+#query_condition label{
+	margin-left: 15px;
+	color: white;
+	text-decoration:none;
+}
+#filter{
+	width: 25px;
+	height: 25px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url("../res/condition.png");
+}
+/*定位*/
+#query_condition {
+	position: absolute;
+	top:0.5em;
+	left: 3em;
+	z-index: 1;
+}
+/*日期类型设计面板*/
+#query_condition .content_panel{
+	background-color: rgba(66,72,83,0.5);
+	width: 280px;
+	height: 144px;
+	display: none;
+	position: relative;
+	padding: 5px;
+}
+#query_condition .content_panel div{
+	margin-top: 5px;
+}
+#query_condition .checkbutton{
+	margin-top: 20px;
+	margin-left: 15px;
+}
+/*
+=====================搜索框
+ */
+#search *{
+	margin: 0px;
+	padding: 0px;
+}
+#search{
+	position: absolute;
+	top:0.5em;
+	left: 5.5em;
+	z-index: 1;
+	width: 200px;
+}
+#search .txt{
+	position: relative;
+}
+#search .txt input{
+	width: 80px;
+	height: 25px;
+	border-radius:15px;
+	float: left;
+	padding: 5px;
+}
+#search .btn_query{
+	position: absolute;
+	top:0.08em;
+	left: 4em;
+}
+/*
+* =================================查询结果显示
+*
+ */
+
+ /* tab-query CSS Document */
+ #tab-query *{
+ 	margin:0px;padding:0px;
+ }
+ #tab-query a{
+ 	text-decoration:none;
+ 	/*outline:none;*/
+ 	/*blr:expression(this.onFocus=this.blur());*/
+ }
+ #tab-query ul,li{list-style-type:none;}
+ /*#tab-query li{width:149px;height: 42px;}*/
+
+ #tab-query {
+ 	margin-top: 40px;
+ 	margin-left: 5.5em;
+ 	width: 150px;
+    height: 80%;
+    position: absolute;
+ 	top: 0;
+ 	left:0;
+ 	background-color:rgba(66,72,83,0.5);
+ 	z-index:997;
+ 	display: none;
+    }
+
+ /*#tab-query:hover{
+ 	margin-left: 0;
+ 	transition: all 0.5s ease-in-out;
+ }*/
+ #tab-query .first{
+
+ 	padding-top: 10px;
+ 	display:block;
+ 	
+ }
+ #tab-query .first>li{
+    	display:block;
+ 	border-bottom: 1px solid rgb(40,40,40);
+ }
+
+ #tab-query .first>li a{ 
+ 	/*background:url(../res/more.png) no-repeat 120px center;*/
+ 	padding: 10px 10px 10px 20px;
+ 	color:white;
+ 	display:block;
+ 	
+ }
+ #tab-query .second{
+ 	display:none;
+ 	/*important*/
+ 	
+ }
+
+ #tab-query .second>li{
+ 	background:rgba(118,128,140,0.5);
+ 	border-bottom: 1px solid rgb(140,140,140);
+ 	display: block;
+ 	position: relative;
+
+ }
+ #tab-query .second>li:hover{
+ 	background:rgba(66,72,83,0.5);
+ }
+ #tab-query .second>li a{
+ 	background:url(../res/more1.png) no-repeat 120px center;
+ 	padding:10px 10px 10px 20px;
+ 	color:white;
+ 	display:block;
+ }
+
+ #tab-query .second>li a:hover{
+ 	background-color: rgba(66,72,83,0.5);
+ }
+ #tab-query .content{
+
+ 	background:rgba(66,72,83,0.5);
+ 	width: 200px;
+ 	position: absolute;
+ 	left: 150px;
+ 	top:0;
+ 	padding: 10px;
+ 	font-size:10px;
+ 	display:block;
+ 	color: white;
+
+ }
+ #tab-query .content p{
+ 	margin-top: 5px;
+ 	margin-left: 5px;
+ 	word-wrap:break-word;
+ }
+ #tab-query .show{
+ 	display: block;
+ }
