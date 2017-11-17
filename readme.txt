@@ -140,4 +140,6 @@
 			</UserStyle>
 		  </NamedLayer>
 		</StyledLayerDescriptor>
-
+12、投影到UTM下的WGS84.123度带，也就是北半球的51N 
+13、WGS_1984_Web_Mercator_Auxiliary_Sphere 
+    Projection:	Mercator_Auxiliary_Sphere
