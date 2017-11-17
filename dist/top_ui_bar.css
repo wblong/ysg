@@ -1,20 +1,76 @@
 /*
+全屏
+ */
+/*
+地图工具
+ */
+
+
+/*
+退出
+ */
+.ol-exit{
+	top:0.5em;
+	left: 0;
+	z-index:1;
+	position: absolute;
+}
+.ol-exit button{
+	width: 36px;
+	height: 36px;
+	background:transparent;
+	border: none;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url("../res/exit01.png");
+}
+/*
+图层管理
+
+ */
+#layer_manager *{
+	margin: 0px;
+	padding: 0px;
+}
+#layer_manager {
+	
+	top:0.5em;
+	right: 144px;
+	z-index: 1;
+	position: absolute;
+	
+}
+#layer_manager button{
+	width: 36px;
+	height: 36px;
+	background:transparent;
+	border: none;
+	background-image: url("../res/layer02.png");
+	background-repeat: no-repeat;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+/*
 *============================条件查询
  */
 #query_condition *{
 	margin:0px;
 	padding:0px;
-	font-size: 10px;
+	color: #fff;
 
 }
-#query_condition label{
-	margin-left: 15px;
-	color: white;
-	text-decoration:none;
+#query_condition input{
+	color: #000;
+	margin-left: 10px;
+	margin-right: 5px;
 }
+
 #filter{
-	width: 25px;
-	height: 25px;
+
+	width: 36px;
+	height: 36px;
+	background:transparent;
+	border: none;
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-image: url("../res/condition.png");
@@ -23,7 +79,7 @@
 #query_condition {
 	position: absolute;
 	top:0.5em;
-	left: 3em;
+	left: 36px;
 	z-index: 1;
 }
 /*日期类型设计面板*/
@@ -52,7 +108,7 @@
 #search{
 	position: absolute;
 	top:0.5em;
-	left: 5.5em;
+	left: 72px;
 	z-index: 1;
 	width: 200px;
 }
@@ -65,10 +121,11 @@
 	border-radius:15px;
 	float: left;
 	padding: 5px;
+	margin-top: 5px;
 }
 #search .btn_query{
 	position: absolute;
-	top:0.08em;
+	top:0.5em;
 	left: 4em;
 }
 /*

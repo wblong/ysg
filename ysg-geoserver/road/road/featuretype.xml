@@ -1,0 +1,74 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--543549de:15f5c7da232:-7ff6</id>
+  <name>road</name>
+  <nativeName>road</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--543549de:15f5c7da232:-7ffe</id>
+  </namespace>
+  <title>road</title>
+  <keywords>
+    <string>features</string>
+    <string>road</string>
+  </keywords>
+  <nativeCRS class="projected">PROJCS[&quot;WGS_1984_Web_Mercator&quot;, &#xd;
+  GEOGCS[&quot;GCS_WGS_1984_Major_Auxiliary_Sphere&quot;, &#xd;
+    DATUM[&quot;D_WGS_1984_Major_Auxiliary_Sphere&quot;, &#xd;
+      SPHEROID[&quot;WGS_1984_Major_Auxiliary_Sphere&quot;, 6378137.0, 0.0]], &#xd;
+    PRIMEM[&quot;Greenwich&quot;, 0.0], &#xd;
+    UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+    AXIS[&quot;Longitude&quot;, EAST], &#xd;
+    AXIS[&quot;Latitude&quot;, NORTH]], &#xd;
+  PROJECTION[&quot;Mercator_2SP&quot;], &#xd;
+  PARAMETER[&quot;standard_parallel_1&quot;, 0.0], &#xd;
+  PARAMETER[&quot;latitude_of_origin&quot;, 0.0], &#xd;
+  PARAMETER[&quot;central_meridian&quot;, 0.0], &#xd;
+  PARAMETER[&quot;false_easting&quot;, 0.0], &#xd;
+  PARAMETER[&quot;false_northing&quot;, 0.0], &#xd;
+  UNIT[&quot;m&quot;, 1.0], &#xd;
+  AXIS[&quot;x&quot;, EAST], &#xd;
+  AXIS[&quot;y&quot;, NORTH]]</nativeCRS>
+  <srs>EPSG:3857</srs>
+  <nativeBoundingBox>
+    <minx>1.3581309404007597E7</minx>
+    <maxx>1.358654995426027E7</maxx>
+    <miny>3586637.575903371</miny>
+    <maxy>3589793.1319731865</maxy>
+    <crs class="projected">PROJCS[&quot;WGS_1984_Web_Mercator&quot;, &#xd;
+  GEOGCS[&quot;GCS_WGS_1984_Major_Auxiliary_Sphere&quot;, &#xd;
+    DATUM[&quot;D_WGS_1984_Major_Auxiliary_Sphere&quot;, &#xd;
+      SPHEROID[&quot;WGS_1984_Major_Auxiliary_Sphere&quot;, 6378137.0, 0.0]], &#xd;
+    PRIMEM[&quot;Greenwich&quot;, 0.0], &#xd;
+    UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+    AXIS[&quot;Longitude&quot;, EAST], &#xd;
+    AXIS[&quot;Latitude&quot;, NORTH]], &#xd;
+  PROJECTION[&quot;Mercator_2SP&quot;], &#xd;
+  PARAMETER[&quot;standard_parallel_1&quot;, 0.0], &#xd;
+  PARAMETER[&quot;latitude_of_origin&quot;, 0.0], &#xd;
+  PARAMETER[&quot;central_meridian&quot;, 0.0], &#xd;
+  PARAMETER[&quot;false_easting&quot;, 0.0], &#xd;
+  PARAMETER[&quot;false_northing&quot;, 0.0], &#xd;
+  UNIT[&quot;m&quot;, 1.0], &#xd;
+  AXIS[&quot;x&quot;, EAST], &#xd;
+  AXIS[&quot;y&quot;, NORTH]]</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>122.00297815976212</minx>
+    <maxx>122.05005482365384</maxx>
+    <miny>30.64427835801649</miny>
+    <maxy>30.66866344253063</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="cachingEnabled">false</entry>
+  </metadata>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--543549de:15f5c7da232:-7ff7</id>
+  </store>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+</featureType>

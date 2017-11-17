@@ -254,30 +254,18 @@ a.pin.active i {
 }
 
 .layermanager {
-    margin-top: 200px;
-	margin-right: calc(-15% + 3px);
-    width: 15%;
+    width: 180px;
     height: 50%;
     position: absolute;
-	top: 0;
-	right:0;
+	top: 42px;
+	right: 0px;
     box-sizing: border-box;
 	border-right: 3px solid #bfbfbf;
-	background: rgba(230,230,230,0.8) /*url(../res/logo.png)*/ no-repeat left bottom;
+	background: rgb(167,171,179) /*url(../res/logo.png)*/ no-repeat left bottom;
 	z-index: 998;
-    color: #585858;
-    transition: all 0.5s ease-in-out;
-}
-.layermanager:hover {
-	margin-right: 0;
-    transition: all 0.5s ease-in-out;
-}
-.layermanager.pinned {
-
-	background: #e6e6e6 /*url(../res/logo.png)*/ no-repeat left bottom;
-    margin-left: 0;
-    position: static;
-    float: left;
+    color: #fff;
+    display: none;
+    padding: 5px;
 }
 .layermanager .ol-layercontainer {
     position: relative;
@@ -295,13 +283,17 @@ a.pin.active i {
     overflow: hidden;
 }
 .ol-layer:hover {
+    
     background-color: #c2c2c2;
 }
 .ol-layer.active {
-    background-color: #c2c2c2;
+    background-color: rgb(66,71,83);
 	border: 1px solid #959595;
     min-height: 2em;
     height: auto;
+}
+.ol-layer span{
+    padding-left:  2px;
 }
 .ol-layer span:first-of-type {
     position: absolute;

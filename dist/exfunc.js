@@ -28,4 +28,16 @@ function GetQueryString(name)
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
      var r = window.location.search.substr(1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
-}
+};
+//比较两个时间的大小
+function CompareDate(d1,d2)
+{
+  return ((new Date(d1.replace(/-/g,"\/"))) > (new Date(d2.replace(/-/g,"\/"))));
+};
+//测试
+$(function(){
+    
+    // var current_time = "2007-1-31 8:30:51";
+    // var stop_time =    "2007-1-31 8:30:50";
+    // console.log("{0}大于{1}?{2}".format(current_time,stop_time,CompareDate(current_time,stop_time)));
+});

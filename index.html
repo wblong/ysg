@@ -26,6 +26,13 @@
     	<!-- 脚本 -->
         <!--jquery-->
         <script src="dist/jquery.min.js"></script>
+    	<script src="dist/bootstrap.min.js"></script>
+        <!--proj4-->
+        <script src="dist/proj4.js"></script>
+        <!--ol-->
+        <script src="dist/ol-debug.js"></script>
+      	  <!--style 显示样式控制-->
+        <script src="dist/styles.js"></script>
         <!--字符串格式化和日期格式化函数-->
         <script type="text/javascript" src="dist/exfunc.js"></script>
         
@@ -34,13 +41,7 @@
         <script type="text/javascript" src="dist/top_ui_bar.js"></script>
 		<script type="text/javascript" src="dist/DatePicker/WdatePicker.js"></script>
 
-    	<script src="dist/bootstrap.min.js"></script>
-        <!--proj4-->
-        <script src="dist/proj4.js"></script>
-        <!--ol-->
-        <script src="dist/ol-debug.js"></script>
-        <!--style 显示样式控制-->
-        <script src="dist/styles.js"></script>
+    	
         <!--ol-ex-->
     	<script src="dist/ex/control/searchcontrol.js"></script>
     	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
@@ -66,16 +67,23 @@
     <div class="application pinned-toolbar pinned-layermanager">
 		<!--地图容器-->
 		<div class="map-container">
-			<!--图层管理-->
-			<div id="layermanager" class="layermanager">
-       		 	<div class="bar-title"><!-- <a href="#layermanager" class="pin active" title="Pin/unpin layer manager"><i class="glyphicon glyphicon-pushpin"></i></a> --> 图层管理</div>
-    		</div>
+			
     		<!--属性管理器-->
-			<div id="attributemanager" class="attributemanager">
+			<!-- <div id="attributemanager" class="attributemanager">
         		<div class="bar-title">属性管理</div>
-    		</div>
+    		</div> -->
     		<!-- 地图 -->
 			<div id="map" class="map" tabindex="-1" style="cursor:default">
+				<!--图层管理按钮-->
+				<div id="layer_manager">
+					<div class="layer_manager">
+						<button id="layer_manager_btn"></button>
+					</div>	
+
+				</div>
+				<!--图层管理-->
+				<div id="layermanager" class="layermanager">
+	    		</div>
 				<!--日期；类型控件-->
 				<div id="query_condition">
 					<ul>
@@ -83,30 +91,30 @@
 							<button id="filter"></button>
 							<div class="content_panel">
 								<div>
-									<label>开始时间:</label>
-									<input type="text" id="start_time"  class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
+									开始时间:
+									<input type="text" id="start_time"  class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})">
 									
 								</div>
 								<div>
-									 <label>结束时间:</label>
-									 <input type="text" id="end_time" class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-ddTHH:mm:ss',readOnly:true})">
+									 结束时间:
+									 <input type="text" id="end_time" class="Wdate" onFocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd HH:mm:ss',readOnly:true})">
 									 
 								</div>
 								<div class="checkbutton">
 									<div>
-										<label><input type="checkbox"  id="camera" checked="true">摄像机</label>
-										<label><input type="checkbox"  id="jika">集卡</label>
-										<label><input type="checkbox"  id="agv"> AGV</label>
+										<input type="checkbox"  id="camera" >像机
+										<input type="checkbox"  id="jika" checked="true">车辆
+										<input type="checkbox"  id="agv"> AGV
 									</div>
 									<div>
-										<label><input type="checkbox"  id="ldiao">龙门吊</label>
-										<label><input type="checkbox"  id="qdiao">桥吊</label>
-										<label><input type="checkbox"  id="gdiao">轨道吊</label>
+										<input type="checkbox"  id="ldiao">龙门吊
+										<input type="checkbox"  id="qdiao">桥吊
+										<input type="checkbox"  id="gdiao">轨道吊
 									</div>
 									<div>
-										<label><input type="checkbox"  id="tirediao">轮胎吊</label>
-										<label><input type="checkbox"  id="qiuji">球机</label>
-										<label><input type="checkbox"  id="qiangji">枪机</label>
+										<input type="checkbox"  id="tirediao">轮胎吊
+										<input type="checkbox"  id="qiuji">球机
+										<input type="checkbox"  id="qiangji">枪机
 									</div>
 							    </div>
 							</div>
@@ -117,7 +125,7 @@
     		<!--搜索框-->
 				<div id="search">
 					<div class="txt">
-						<input type="text" name=""><!-- 搜索按钮-->
+						<input type="text" id="query_string"><!-- 搜索按钮-->
 						<a href="#" class="btn_query"><img src="res/search.png" ></a><!--搜索按钮-->
 					</div>		
 				</div>
@@ -279,7 +287,7 @@
 			
 		});
 		
-	    var attributeManager=new ol.control.AttributeManager({ target: 'attributemanager' });
+	    //var attributeManager=new ol.control.AttributeManager({ target: 'attributemanager' });
 	    // proj4.defs("EPSG:23700","+title=HD72 EOV +proj=somerc +lat_0=47.14439372222222 +lon_0=19.04857177777778 +k_0=0.99993 +x_0=650000 +y_0=200000 +ellps=GRS67 +towgs84=52.17,-71.82,-14.9,0,0,0,0 +units=m +no_defs");
 	    var eov = new ol.proj.Projection({
 	        code: 'EPSG:3857',
@@ -319,13 +327,13 @@
 	    });
 
 	    loadData(trackCraneUrl,trackCraneLayer);
+
 	    var carsLayer=new ol.layer.Vector({
 	    	name:'车辆',
 	    	source:new ol.source.Vector(),
 	    	style:styleFunction
 	    });
 	    loadData(carsUrl,carsLayer);
-
 	    var camerasLayer=new ol.layer.Vector({
 	    	name:'像机',
 	    	source:new ol.source.Vector(),
@@ -369,6 +377,14 @@
 	                name: 'OpenStreetMap',
 	                source: new ol.source.OSM()
 	            }),
+			   new ol.layer.Image({
+            	name:'洋山港-设备',
+				source: new ol.source.ImageWMS({
+					url: MapServerIP+'ysg/wms',
+					params: {'LAYERS': 'ysg:total','VERSION':'1.1.0'},
+					serverType: 'geoserver',
+		     	 })
+				}),
 	            new ol.layer.Image({
 	            	name:'洋山港-边界',
 					source: new ol.source.ImageWMS({
@@ -401,6 +417,7 @@
 						serverType: 'geoserver',
 	         	 })
 				}),
+
 				realTimeLayer,
 				bridgeCraneLayer,
 				gantryCraneLayer,
@@ -411,19 +428,18 @@
 	        ],
 	        //地图控件加载
 	        controls: [
-	        	new ol.control.LayerPopup(),
 	        	//new ol.control.MenuBars(),
 	        	new ol.control.Exit(),
 	        	//new ol.control.Condition(),
-	        	new ol.control.Alarm(),
+	        	//new ol.control.Alarm(),
 	        	new ol.control.MapTools(),
-	        	new ol.control.FullScreen(),
+	        	//new ol.control.FullScreen(),
 	            //new ol.control.Rotate(),
 	            new ol.control.ScaleLine(),
-	            new ol.control.ZoomSlider(),
+	            //new ol.control.ZoomSlider(),
 	            //new ol.control.Attribution({ collapsible: false }),
 	            new ol.control.LayerManager({ target: 'layermanager' }),
-	            attributeManager,
+	            //attributeManager,
 	            //new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
 	            //new ol.control.Zoom({ target: 'maptools', zoomInLabel: ' ', zoomOutLabel: ' ',zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
 	           // new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
@@ -454,20 +470,22 @@
 	        loadTilesWhileInteracting: true,
 	        logo: false
 	    });
+		//加载实时数据
+		receiveData();
 	    //地图加载时，操作
 	    var showing = false;
 	    // Select feature when click on the reference index
 	    // var select = new ol.interaction.Select({});
 	    editor.addInteraction(select);
 	    //On selected => show/hide popup
-	    // select.getFeatures().on(['add'], function(e)
-	    // {	
-	    // 	var feature = e.element;
-	    // 	OutlineInfo(feature);
-	    // })
-	    // select.getFeatures().on(['remove'], function(e)
-	    // {	popup.hide(); 
-	    // })
+	    select.getFeatures().on(['add'], function(e)
+	    {	
+	    	var feature = e.element;
+	    	OutlineInfo(feature);
+	    })
+	    select.getFeatures().on(['remove'], function(e)
+	    {	popup.hide(); 
+	    })
 	    search.on('select', function(e)
 	    {	
 	    	var feature=e.search;

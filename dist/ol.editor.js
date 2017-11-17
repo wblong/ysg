@@ -839,7 +839,7 @@ ol.control.LayerManager.prototype.createLayerDiv = function (layer) {
     
     var layerDiv = document.createElement('div');
     layerDiv.className = 'ol-layer ol-unselectable';
-    layerDiv.title = '拖拽改变顺序';
+   // layerDiv.title = '拖拽改变顺序';
     layerDiv.id = layer.get('id');
     layerDiv.draggable = true;
     layerDiv.addEventListener('dragstart', function (evt) {
@@ -1071,7 +1071,16 @@ ol.control.LayerManager.prototype.createLayerDiv = function (layer) {
     
     return this;
 };
-
+ol.control.LayerManager.prototype.getLayerByName=function(name){
+    var layers=this.getMap().getLayers().getArray();
+    if (typeof name !== 'string') {return false;}
+    for(var i=0;i<layers.length;i+=1){
+        if (layers[i].get('name')===name) {
+            return layers[i];
+        }
+    }
+    return false;
+};
 ol.control.LayerManager.prototype.getLayer = function (id) {
     var layers = this.getMap().getLayers().getArray();
     if (typeof id !== 'string') return false;
@@ -3026,7 +3035,7 @@ ol.control.Exit = function (opt_options) {
     var _this = this;
 
     var controlDiv = document.createElement('div');
-    controlDiv.className = options.className || 'ol-exit ol-unselectable ol-control';
+    controlDiv.className = options.className || 'ol-exit';
     
     var exitButton = document.createElement('button');
     exitButton.title = options.tipLabel || '退出';

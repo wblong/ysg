@@ -1,0 +1,22 @@
+<dataStore>
+  <id>DataStoreInfoImpl--543549de:15f5c7da232:-7ff7</id>
+  <name>road</name>
+  <type>Shapefile</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--543549de:15f5c7da232:-7fff</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="charset">GBK</entry>
+    <entry key="filetype">shapefile</entry>
+    <entry key="create spatial index">true</entry>
+    <entry key="memory mapped buffer">false</entry>
+    <entry key="timezone">Asia/Shanghai</entry>
+    <entry key="enable spatial index">true</entry>
+    <entry key="namespace">www.ysg.com</entry>
+    <entry key="cache and reuse memory maps">true</entry>
+    <entry key="url">file://C:\data\road.shp</entry>
+    <entry key="fstype">shape</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

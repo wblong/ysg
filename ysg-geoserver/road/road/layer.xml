@@ -1,0 +1,15 @@
+<layer>
+  <name>road</name>
+  <id>LayerInfoImpl--543549de:15f5c7da232:-7ff5</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--543549de:15f5c7da232:-7fee</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--543549de:15f5c7da232:-7ff6</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

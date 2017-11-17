@@ -79,13 +79,14 @@ ol.control.SearchFeature.prototype.getSearchString = function (f)
 * @api
 */
 ol.control.SearchFeature.prototype.autocomplete = function (s, cback)
-{	var result = [];
+{	
+	var result = [];
 	// regexp
-	s = s.replace(/^\*/,'');
-	var rex = new RegExp(s, 'i');
+	s = s.replace(/^\*/,'');//去掉开始的星号
+	var rex = new RegExp(s, 'i');//忽略字母的大小
 	// The source
 	var features = this.source_.getFeatures();
-	var max = this.get('maxItems')
+	var max = this.get('maxItems');
 	for (var i=0, f; f=features[i]; i++)
 	{	if (rex.test(this.getSearchString(f)))
 		{	result.push(f);
