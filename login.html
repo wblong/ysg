@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+         /*#logonDiv{
+            width: 200px;
+            height: 200px;
+            background-color: aquamarine;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            margin: auto;
+        }*/
+        .username {
+            position: relative;
+            left: 25%;
+            top:25%;
+        }
+
+        .password {
+            position: relative;
+            left: 25%;
+            top: 20%;
+        }
+        .logon {
+            position: relative;
+            margin-left: 48%;
+            margin-top: 15%;
+            font-size:17px;
+            width:80px;
+        }
+        #logonDiv{
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f000000',endColorstr='#3f000000');
+
+            background-color:rgba(128, 128, 128,0.7)
+            
+        }
+        input{
+            position:relative;
+             padding: 4px 0px;
+             font-size: 15px;
+             border:solid 1.5px white;
+             color: white;
+             width:150px;
+             height:20px;
+             background-color:rgba(128, 128, 128,0.1);
+             margin-bottom:30px;
+           
+
+        }
+       input:focus{color:#FFF;
+       }
+
+
+    </style>
+       <script src="dist/jquery.min.js"></script>
+    <script src="dist/md5.js"></script>
+    <script type="text/javascript">
+        //var context=request.getSession().getServletContext();
+        function log() {
+            // var username = $("#user")[0].value;
+            // var password = hex_md5($("#pass")[0].value);
+            // if (username != "" && password != "") {
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: '/Scripts/jsp/Validate.ashx?Method=validation',
+            //         dataType: 'text',
+            //         cache: false,
+            //         data:"username="+username+"&password="+password,
+            //         success: function (msg) {    
+            //                 //跳转地图页面
+            //             if (msg == "error") {
+            //                 alert("输入的用户名或密码有误!");
+            //             }
+            //                 else
+            //             {
+            //                 window.open(msg);
+            //             }
+
+            //         },
+            //         error:function(err)
+            //         {
+            //             alert(err.toString());
+            //         }
+
+
+            //     });
+
+            // }
+            window.location.href='index.html';
+        }
+
+    </script>
+</head>
+<body >
+    <p style="z-index:1000;position:absolute;color: black; font-size: 25px; font-weight: 800;text-align:center;left:45%">洋山港系统登录界面</p>
+    <img style="width:100%; height:100%;" src="res/ysg.jpg">
+    <div id="logonDiv" style="position:absolute;width:500px;height:300px;left:42%;top:45%">
+        <p style="z-index:1000; color: white;font-size:25px;font-weight:800" class=" username">用户名：<input id="user" type="text" value="" /></p>
+        <p style="color: white; font-size: 25px;font-weight:800" class="password">密&nbsp;&nbsp;&thinsp;&thinsp;码：<input id="pass" type="password" value="" /></p>
+        <input class="logon" style="font-size:22px;height:35px;border:1px solid white" type="button" value="登&nbsp;&nbsp;&nbsp;录" onclick="log()" />
+    </div>
+</body>
+</html>

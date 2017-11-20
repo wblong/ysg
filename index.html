@@ -373,10 +373,10 @@
                 rotation:-15*Math.PI/180.0
 	        }),
 	        layers: [
-	            // new ol.layer.Tile({
-	            //     name: 'OpenStreetMap',
-	            //     source: new ol.source.OSM()
-	            // }),
+	            new ol.layer.Tile({
+	                name: 'OpenStreetMap',
+	                source: new ol.source.OSM()
+	            }),
 			 //   new ol.layer.Image({
     //         	name:'洋山港-设备',
 				// source: new ol.source.ImageWMS({
@@ -400,6 +400,13 @@
 						serverType: 'geoserver',
 	         	 })
 				}),
+	             new ol.layer.Image({
+	             	name:'洋山港-边界',
+	 				source: new ol.source.ImageWMS({
+	 					url:'http://localhost:8080/geoserver/ysg/wms',
+	 					params: {'LAYERS': 'ysg:xian_zhuan','VERSION':'1.1.0'}
+	          	 })
+	 			}),
 				//  new ol.layer.Tile({
 				//         visible: false,
 				//         source: new ol.source.TileWMS({

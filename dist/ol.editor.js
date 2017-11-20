@@ -3050,7 +3050,8 @@ ol.control.Exit = function (opt_options) {
     exitButton.addEventListener('click',function(evt){
 
         try{
-            bound.exit();
+           // bound.exit();
+            window.location.href='login.html';
         }catch(error){
             console.log(error.message);
         }
