@@ -1,29 +1,29 @@
 /*
 GIS服务
  */
-var MapServerIP="http://192.168.5.239:8080/geoserver/";
+var MapServerIP="http://localhost:8080/geoserver/";
 /*
 WebAPI Data
  */
 //桥吊
-var bridgeCraneUrl="http://192.168.5.239/api/Data/GetBridgeCrane";
-//龙门吊
-var gantryCraneUrl="http://192.168.5.239/api/Data/GetTrackCrane";
-//轨道吊
-var trackCraneUrl="http://192.168.5.239/api/Data/GetTrackCrane";
-//车辆
-var carsUrl="http://192.168.5.239/api/Data/GetCurrentCars";
-//相机信息
-var camerasUrl="http://192.168.5.239/api/Data/GetCameras";
-//报警信息
-var alarmUrl="http://192.168.5.239/api/Data/GetCurrentAlarms";
-/*
-MQ
- */
-var websocket="ws://192.168.5.203:15674/ws";
-var MQ="http://192.168.5.203:15674/stomp";
-var MQ_user='trkj';
-var MQ_passwd='trkj';
+// var bridgeCraneUrl="http://192.168.5.239/api/Data/GetBridgeCrane";
+// //龙门吊
+// var gantryCraneUrl="http://192.168.5.239/api/Data/GetTrackCrane";
+// //轨道吊
+// var trackCraneUrl="http://192.168.5.239/api/Data/GetTrackCrane";
+// //车辆
+// var carsUrl="http://192.168.5.239/api/Data/GetCurrentCars";
+// //相机信息
+// var camerasUrl="http://192.168.5.239/api/Data/GetCameras";
+// //报警信息
+// var alarmUrl="http://192.168.5.239/api/Data/GetCurrentAlarms";
+// /*
+// MQ
+//  */
+// var websocket="ws://192.168.5.203:15674/ws";
+// var MQ="http://192.168.5.203:15674/stomp";
+// var MQ_user='trkj';
+// var MQ_passwd='trkj';
 /*
 测试数据
  */

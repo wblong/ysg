@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../dist/ol.css">
+	<script type="text/javascript" src="../dist/ol.js"></script>
+</head>
+<body>
+ <div id="map"></div>
+ <script type="text/javascript">
+   var map=new ol.Map({
+   	target:"map",
+   	view: new ol.View({
+	            //projection: 'EPSG:4326',
+	            extent: [13582065, 3587358,13585174, 3588706],
+	            center: [13583806.359,3588119.431],
+	            zoom: 14,
+	        }),
+	 layers: [
+	 	new ol.layer.Image({
+	            	name:'洋山港-边界',
+					source: new ol.source.ImageWMS({
+						url: 'http://localhost:8080/geoserver/ysg/wms',
+						params: {'LAYERS': 'ysg:bound','VERSION':'1.1.0'}
+	         	 })
+				}),
+	 				 new ol.layer.Image({
+	 	            	name:'洋山港-集装箱',
+	 					source: new ol.source.ImageWMS({
+	 						url: 'localhost:8080/geoserver/ysg/wms',
+	 						params: {'LAYERS': 'ysg:container','VERSION':'1.1.0'},
+	 						serverType: 'geoserver',
+	 	         	 })
+	 				})
+	 ]
+   });
+ </script>
+</body>
+</html>

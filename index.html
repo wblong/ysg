@@ -305,41 +305,41 @@
 	    });
 	    //realTimeLayer.set('class_','geomcollection');
 	    realTimeLayer.set('id','realTimeLayerID');
-	    //加载要素图层
-	    var bridgeCraneLayer=new ol.layer.Vector({
-	    	name:'桥吊',
-	    	source:new ol.source.Vector(),
-	    	style:styleFunction
-	    });
+	    // //加载要素图层
+	    // var bridgeCraneLayer=new ol.layer.Vector({
+	    // 	name:'桥吊',
+	    // 	source:new ol.source.Vector(),
+	    // 	style:styleFunction
+	    // });
 
-	    loadData(bridgeCraneUrl,bridgeCraneLayer);
-	    var gantryCraneLayer=new ol.layer.Vector({
-	    	name:'龙门吊',
-	    	source:new ol.source.Vector(),
-	    	style:styleFunction
-	    });
+	    // loadData(bridgeCraneUrl,bridgeCraneLayer);
+	    // var gantryCraneLayer=new ol.layer.Vector({
+	    // 	name:'龙门吊',
+	    // 	source:new ol.source.Vector(),
+	    // 	style:styleFunction
+	    // });
 
-	    loadData(gantryCraneUrl,gantryCraneLayer);
-	    var trackCraneLayer=new ol.layer.Vector({
-	    	name:'轨道吊',
-	    	source:new ol.source.Vector(),
-	    	style:styleFunction
-	    });
+	    // loadData(gantryCraneUrl,gantryCraneLayer);
+	    // var trackCraneLayer=new ol.layer.Vector({
+	    // 	name:'轨道吊',
+	    // 	source:new ol.source.Vector(),
+	    // 	style:styleFunction
+	    // });
 
-	    loadData(trackCraneUrl,trackCraneLayer);
+	    // loadData(trackCraneUrl,trackCraneLayer);
 
-	    var carsLayer=new ol.layer.Vector({
-	    	name:'车辆',
-	    	source:new ol.source.Vector(),
-	    	style:styleFunction
-	    });
-	    loadData(carsUrl,carsLayer);
-	    var camerasLayer=new ol.layer.Vector({
-	    	name:'像机',
-	    	source:new ol.source.Vector(),
-	    	style:styleFunction
-	    });
-	    loadData(camerasUrl,camerasLayer);
+	    // var carsLayer=new ol.layer.Vector({
+	    // 	name:'车辆',
+	    // 	source:new ol.source.Vector(),
+	    // 	style:styleFunction
+	    // });
+	    // loadData(carsUrl,carsLayer);
+	    // var camerasLayer=new ol.layer.Vector({
+	    // 	name:'像机',
+	    // 	source:new ol.source.Vector(),
+	    // 	style:styleFunction
+	    // });
+	    // loadData(camerasUrl,camerasLayer);
 	    //search
 	    var search = new ol.control.SearchFeature(
 		{	
@@ -358,7 +358,7 @@
 			autoPanAnimation: { duration: 100 },
 			id:'1'
 		});
-
+		var format = 'image/jpeg';
 		// map
 	    editor = new ol.Editor({
 	    	overlays:[popup],
@@ -373,57 +373,69 @@
                 rotation:-15*Math.PI/180.0
 	        }),
 	        layers: [
-	            new ol.layer.Tile({
-	                name: 'OpenStreetMap',
-	                source: new ol.source.OSM()
-	            }),
-			   new ol.layer.Image({
-            	name:'洋山港-设备',
-				source: new ol.source.ImageWMS({
-					url: MapServerIP+'ysg/wms',
-					params: {'LAYERS': 'ysg:total','VERSION':'1.1.0'},
-					serverType: 'geoserver',
-		     	 })
-				}),
+	            // new ol.layer.Tile({
+	            //     name: 'OpenStreetMap',
+	            //     source: new ol.source.OSM()
+	            // }),
+			 //   new ol.layer.Image({
+    //         	name:'洋山港-设备',
+				// source: new ol.source.ImageWMS({
+				// 	url: MapServerIP+'ysg/wms',
+				// 	params: {'LAYERS': 'ysg:total','VERSION':'1.1.0'},
+				// 	serverType: 'geoserver',
+		  //    	 })
+				// }),
 	            new ol.layer.Image({
 	            	name:'洋山港-边界',
 					source: new ol.source.ImageWMS({
-						url: MapServerIP+'ysg/wms',
-						params: {'LAYERS': 'ysg:bianjie1','VERSION':'1.1.0'},
-						serverType: 'geoserver',
+						url:'http://localhost:8080/geoserver/ysg/wms',
+						params: {'LAYERS': 'ysg:bound','VERSION':'1.1.0'}
 	         	 })
 				}),
 				 new ol.layer.Image({
 	            	name:'洋山港-集装箱',
 					source: new ol.source.ImageWMS({
-						url: MapServerIP+'ysg/wms',
-						params: {'LAYERS': 'ysg:jizhuangxiang','VERSION':'1.1.0'},
+						url: 'http://localhost:8080/geoserver/ysg/wms',
+						params: {'LAYERS': 'ysg:container','VERSION':'1.1.0'},
 						serverType: 'geoserver',
 	         	 })
 				}),
-				  new ol.layer.Image({
-	            	name:'洋山港-道路',
-					source: new ol.source.ImageWMS({
-						url: MapServerIP+'ysg/wms',
-						params: {'LAYERS': 'ysg:road','VERSION':'1.1.0'},
-						serverType: 'geoserver',
-	         	 })
-				}),
-				   new ol.layer.Image({
-	            	name:'洋山港-设备',
-					source: new ol.source.ImageWMS({
-						url: MapServerIP+'ysg/wms',
-						params: {'LAYERS': 'ysg:shebei','VERSION':'1.1.0'},
-						serverType: 'geoserver',
-	         	 })
-				}),
+				//  new ol.layer.Tile({
+				//         visible: false,
+				//         source: new ol.source.TileWMS({
+				//           url: 'http://localhost:8080/geoserver/ysg/wms',
+				//           params: {'FORMAT': format, 
+				//                    'VERSION': '1.1.0',
+				//                    tiled: true,
+				//                 STYLES: '',
+				//                 LAYERS: 'ysg:container',
+				//              tilesOrigin: 13582132.823772825 + "," + 3587341.8755370886
+				//           }
+				//         })
+				//       }),
+				//   new ol.layer.Image({
+	   //          	name:'洋山港-道路',
+				// 	source: new ol.source.ImageWMS({
+				// 		url: MapServerIP+'ysg/wms',
+				// 		params: {'LAYERS': 'ysg:road','VERSION':'1.1.0'},
+				// 		serverType: 'geoserver',
+	   //       	 })
+				// }),
+				//    new ol.layer.Image({
+	   //          	name:'洋山港-设备',
+				// 	source: new ol.source.ImageWMS({
+				// 		url: MapServerIP+'ysg/wms',
+				// 		params: {'LAYERS': 'ysg:shebei','VERSION':'1.1.0'},
+				// 		serverType: 'geoserver',
+	   //       	 })
+				// }),
 
-				realTimeLayer,
-				bridgeCraneLayer,
-				gantryCraneLayer,
-				trackCraneLayer,
-				carsLayer,
-				camerasLayer
+				realTimeLayer
+				// bridgeCraneLayer,
+				// gantryCraneLayer,
+				// trackCraneLayer,
+				// carsLayer,
+				// camerasLayer
 
 	        ],
 	        //地图控件加载
@@ -471,7 +483,7 @@
 	        logo: false
 	    });
 		//加载实时数据
-		receiveData();
+		//receiveData();
 	    //地图加载时，操作
 	    var showing = false;
 	    // Select feature when click on the reference index
