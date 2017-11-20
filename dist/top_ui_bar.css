@@ -1,4 +1,15 @@
 /*
+    上部工具条
+*/
+.top_toolbar{
+    position:absolute;
+    top: 0;
+    background-color:rgba(118,128,140,0.5);
+    height:36px;
+    z-index:1;
+    width:100%;
+}
+/*
 全屏
  */
 /*
@@ -10,7 +21,7 @@
 退出
  */
 .ol-exit{
-	top:0.5em;
+	top:0;
 	left: 0;
 	z-index:1;
 	position: absolute;
@@ -34,7 +45,7 @@
 }
 #layer_manager {
 	
-	top:0.5em;
+	top:0;
 	right: 144px;
 	z-index: 1;
 	position: absolute;
@@ -73,12 +84,12 @@
 	border: none;
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-image: url("../res/condition.png");
+	background-image: url("../res/condition02.png");
 }
 /*定位*/
 #query_condition {
 	position: absolute;
-	top:0.5em;
+	top:0;
 	left: 36px;
 	z-index: 1;
 }
@@ -107,7 +118,7 @@
 }
 #search{
 	position: absolute;
-	top:0.5em;
+	top:0;
 	left: 72px;
 	z-index: 1;
 	width: 200px;

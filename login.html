@@ -8,17 +8,15 @@
             margin: 0px;
             padding: 0px;
         }
-         /*#logonDiv{
-            width: 200px;
-            height: 200px;
-            background-color: aquamarine;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-            margin: auto;
-        }*/
+         body{
+              background:url(res/ysg.jpg) no-repeat center center fixed;
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;
+            }
+         
+        
         .username {
             position: relative;
             left: 25%;
@@ -38,8 +36,13 @@
             width:80px;
         }
         #logonDiv{
+            z-index:1000;
+            position:absolute;
+            width:500px;
+            height:300px;
+            left:42%;
+            top:45%;
             filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f000000',endColorstr='#3f000000');
-
             background-color:rgba(128, 128, 128,0.7)
             
         }
@@ -58,8 +61,6 @@
         }
        input:focus{color:#FFF;
        }
-
-
     </style>
        <script src="dist/jquery.min.js"></script>
     <script src="dist/md5.js"></script>
@@ -101,12 +102,14 @@
     </script>
 </head>
 <body >
-    <p style="z-index:1000;position:absolute;color: black; font-size: 25px; font-weight: 800;text-align:center;left:45%">洋山港系统登录界面</p>
-    <img style="width:100%; height:100%;" src="res/ysg.jpg">
-    <div id="logonDiv" style="position:absolute;width:500px;height:300px;left:42%;top:45%">
-        <p style="z-index:1000; color: white;font-size:25px;font-weight:800" class=" username">用户名：<input id="user" type="text" value="" /></p>
-        <p style="color: white; font-size: 25px;font-weight:800" class="password">密&nbsp;&nbsp;&thinsp;&thinsp;码：<input id="pass" type="password" value="" /></p>
-        <input class="logon" style="font-size:22px;height:35px;border:1px solid white" type="button" value="登&nbsp;&nbsp;&nbsp;录" onclick="log()" />
+   <div style="width:100%;height:100%;">
+        <p style="z-index:1000;position:absolute;color: black; font-size: 25px; font-weight: 800;text-align:center;left:45%">洋山港系统登录界面</p >
+        <!--< img style="width:100%; height:100%;" src="res/ysg.jpg">-->
+        <div id="logonDiv" style="">
+            <p style=" color: white;font-size:25px;font-weight:800" class=" username">用户名：<input id="user" type="text" value="" /></p >
+            <p style="color: white; font-size: 25px;font-weight:800" class="password">密&nbsp;&nbsp;&thinsp;&thinsp;码：<input id="pass" type="password" value="" /></p >
+            <input class="logon" style="font-size:22px;height:35px; border:1px solid white" type="button" value="登&nbsp;&nbsp;录" onclick="log()" />
+        </div>
     </div>
 </body>
 </html>

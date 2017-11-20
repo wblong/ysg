@@ -234,13 +234,15 @@ a.pin.active i {
     color: #959595;
 }
 .map .ol-zoomslider {
-	right: .5em;
-	left: auto;
+	left: .5em;
+	right: auto;
 	top: 50%;
 	margin-top: -100px;
+    background:#76808C;
+    opacity:0.5;
 }
 .map .ol-zoomslider-thumb {
-    background: #959595 !important;
+    background:rgba(0,0,0,1);
 }
 
 .bar-title {
