@@ -1,3 +1,4 @@
+
 /*
     上部工具条
 */
@@ -15,7 +16,65 @@
 /*
 地图工具
  */
-
+#map_tools{
+    top :0;
+    right:108px;
+    z-index:1;
+    position:absolute;
+}
+#map_tools button{
+    width:36px;
+    height:36px;
+    background:transparent;
+	border: none;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: url("../res/maptools01.png");
+}
+.maptool_panel{
+	width: 144px;
+    height: 50%;
+    position: absolute;
+	top: 36px;
+	right: 2px;
+	background: rgb(167,171,179);
+	z-index: 1;
+    display: none;
+}
+.mapcontrol button{
+    height:36px;
+    width:144px;
+    background:transparent;
+    margin-left:10px;
+    border:none;
+    color:#fff;
+    outline:none;
+}
+.mapcontrol button.ol-measure-length{
+   background-image:url(../res/measure_length.png);
+   background-repeat:no-repeat;
+   background-position:left center;
+}
+.mapcontrol button.ol-measure-area{
+   background-image:url(../res/measure_area.png);
+   background-repeat:no-repeat;
+   background-position:left center;
+}
+.mapcontrol button.ol-measure-angle{
+   background-image:url(../res/measure_angle.png);
+   background-repeat:no-repeat;
+   background-position:left center;
+}
+.mapcontrol button.ol-zoom-extent{
+    background-image:url(../res/zoom_extent.png);
+    background-repeat:no-repeat;
+    background-position:left center;
+}
+.mapcontrol button.ol-save-extent {
+    background-image:url(../res/save_extent.png);
+    background-repeat:no-repeat;
+    background-position:left center;
+    }
 
 /*
 退出

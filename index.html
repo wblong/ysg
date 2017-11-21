@@ -36,12 +36,6 @@
         <!--字符串格式化和日期格式化函数-->
         <script type="text/javascript" src="dist/exfunc.js"></script>
         
-        <!--UI 条件过滤、搜索框、日期控件-->
-		<link rel="stylesheet" type="text/css" href="dist/top_ui_bar.css">
-        <script type="text/javascript" src="dist/top_ui_bar.js"></script>
-		<script type="text/javascript" src="dist/DatePicker/WdatePicker.js"></script>
-
-    	
         <!--ol-ex-->
     	<script src="dist/ex/control/searchcontrol.js"></script>
     	<script src="dist/ex/control/searchfeaturecontrol.js"></script>
@@ -62,6 +56,10 @@
         <script src="dist/rabbitmq/stomp.js"></script>
         <!--配置信息-->
 		<script src="dist/config.js"></script>
+		<!--UI 条件过滤、搜索框、日期控件-->
+		<link rel="stylesheet" type="text/css" href="dist/top_ui_bar.css">
+        <script type="text/javascript" src="dist/top_ui_bar.js"></script>
+		<script type="text/javascript" src="dist/DatePicker/WdatePicker.js"></script>
   </head>
   <body>
     <div class="application pinned-toolbar pinned-layermanager">
@@ -79,7 +77,15 @@
 					<div class="layer_manager">
 						<button id="layer_manager_btn"></button>
 					</div>	
-
+				</div>
+				<!--地图工具按钮-->
+				<div id="map_tools">
+					<div class="map_tools">
+						<button id="map_tools_btn"></button>
+					</div>
+				</div>
+				<!--地图按钮面板-->
+				<div id="maptool_panel" class="maptool_panel">
 				</div>
 				<!--图层管理-->
 				<div id="layermanager" class="layermanager">
@@ -373,10 +379,10 @@
                 rotation:-15*Math.PI/180.0
 	        }),
 	        layers: [
-	            new ol.layer.Tile({
-	                name: 'OpenStreetMap',
-	                source: new ol.source.OSM()
-	            }),
+	            // new ol.layer.Tile({
+	            //     name: 'OpenStreetMap',
+	            //     source: new ol.source.OSM()
+	            // }),
 			 //   new ol.layer.Image({
     //         	name:'洋山港-设备',
 				// source: new ol.source.ImageWMS({
@@ -385,6 +391,16 @@
 				// 	serverType: 'geoserver',
 		  //    	 })
 				// }),
+				new ol.layer.Image({
+					name:'洋山港影像',
+			        source: new ol.source.ImageWMS({
+			          url: 'http://localhost:8080/geoserver/ysg/wms',
+			          params: {'FORMAT': format,
+			                   'VERSION': '1.1.1',  
+			                LAYERS: 'ysg:ysg_img',
+			          }
+			        })
+				      }),
 	            new ol.layer.Image({
 	            	name:'洋山港-边界',
 					source: new ol.source.ImageWMS({
@@ -451,7 +467,7 @@
 	        	new ol.control.Exit(),
 	        	//new ol.control.Condition(),
 	        	//new ol.control.Alarm(),
-	        	new ol.control.MapTools(),
+	        	//new ol.control.MapTools(),
 	        	//new ol.control.FullScreen(),
 	            //new ol.control.Rotate(),
 	            new ol.control.ScaleLine(),
@@ -459,13 +475,17 @@
 	            //new ol.control.Attribution({ collapsible: false }),
 	            new ol.control.LayerManager({ target: 'layermanager' }),
 	            //attributeManager,
-	            //new ol.control.Zoom({ target: 'maptools',zoomOutLabel:'', zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
-	            //new ol.control.Zoom({ target: 'maptools', zoomInLabel: ' ', zoomOutLabel: ' ',zoomInTipLabel:'放大',zoomOutTipLabel:'缩小' }),
+	            new ol.control.Measure({ target: 'maptool_panel',className:'mapcontrol',
+	            	measureLengthLabel:"长度",measureAreaLabel:"面积" ,measureAngleLabel:"角度"}),
+	            // new ol.control.Zoom({ target: 'maptool_panel',className:'mapcontrol',
+	            // 	zoomOutLabel:'缩小',zoomOutTipLabel:'缩小',zoomOutTipLabel:'缩小' }),
+	            // new ol.control.Zoom({ target: 'maptool_panel',className:'mapcontrol',
+	            // 	 zoomInLabel: '放大',zoomInTipLabel:'放大',zoomInTipLabel:'放大' }),
 	           // new ol.control.ZoomHistory({ target: 'maptools' , backTipLabel:'向前',nextTipLabel:'向后'}), 
-	            //new ol.control.ZoomToExtent({ target: 'maptools', label: ' ',tipLabel:'全局' ,extent: eov.getExtent()}),
+	            new ol.control.ZoomToExtent({ target: 'maptool_panel',className:'mapcontrol', label: '全局',tipLabel:'全局' ,extent: eov.getExtent()}),
+	            new ol.control.SaveExtent({target: 'maptool_panel',className:'mapcontrol',extentLabel: '范围'}),
 	            //new ol.control.ZoomToSelection({ target: 'maptools' }),
 	            //new ol.control.SelectionControls({ target: 'maptools' }),
-	            //new ol.control.Measure({ target: 'maptools' }),
 	            new ol.control.Message({ target: 'statusbar' }),
 	            //new ol.control.QueryField({target:'statusbar'}),
 	            new ol.control.MousePosition({
@@ -497,14 +517,14 @@
 	    // var select = new ol.interaction.Select({});
 	    editor.addInteraction(select);
 	    //On selected => show/hide popup
-	    select.getFeatures().on(['add'], function(e)
-	    {	
-	    	var feature = e.element;
-	    	OutlineInfo(feature);
-	    })
-	    select.getFeatures().on(['remove'], function(e)
-	    {	popup.hide(); 
-	    })
+	    // select.getFeatures().on(['add'], function(e)
+	    // {	
+	    // 	var feature = e.element;
+	    // 	OutlineInfo(feature);
+	    // })
+	    // select.getFeatures().on(['remove'], function(e)
+	    // {	popup.hide(); 
+	    // })
 	    search.on('select', function(e)
 	    {	
 	    	var feature=e.search;
@@ -517,11 +537,12 @@
 	               return false;
 	           });
 	        //tooltip
-	        $('#toolbar [title], #map [title], #statusbar [title]').tooltip({
-	            placement: 'auto bottom',
-	            container: 'body'
-	        });
+	        // $('#toolbar [title], #map [title], #statusbar [title]').tooltip({
+	        //     placement: 'auto bottom',
+	        //     container: 'body'
+	        // });
 	        //通过URL获取参数，并执行相应的操作
+	        
 	  		var myurl=GetQueryString("minx");
 			if(myurl !=null)
 			{

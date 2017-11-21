@@ -19797,7 +19797,7 @@ ol.control.Zoom = function(opt_options) {
   var cssClasses = className + ' ' + ol.css.CLASS_UNSELECTABLE + ' ' +
       ol.css.CLASS_CONTROL;
   var element = document.createElement('div');
-  element.className = cssClasses;
+  element.className =cssClasses;
   element.appendChild(inElement);
   element.appendChild(outElement);
 
@@ -32760,6 +32760,7 @@ ol.control.ZoomToExtent = function(opt_options) {
     options.tipLabel : 'Fit to extent';
   var button = document.createElement('button');
   button.setAttribute('type', 'button');
+  button.className= 'ol-zoom-extent';
   button.title = tipLabel;
   button.appendChild(
       typeof label === 'string' ? document.createTextNode(label) : label
@@ -32770,6 +32771,7 @@ ol.control.ZoomToExtent = function(opt_options) {
 
   var cssClasses = className + ' ' + ol.css.CLASS_UNSELECTABLE + ' ' +
       ol.css.CLASS_CONTROL;
+  var cssClasses = className;
   var element = document.createElement('div');
   element.className = cssClasses;
   element.appendChild(button);

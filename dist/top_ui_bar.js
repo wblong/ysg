@@ -27,6 +27,12 @@
    
     var showing=false;
     /*
+    按钮管理
+     */
+    $("#map_tools_btn").click(function(){
+      $(".maptool_panel").toggle();
+    });
+    /*
     图层管理
      */
     $("#layer_manager_btn").click(function(){

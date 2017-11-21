@@ -143,3 +143,8 @@
 12、投影到UTM下的WGS84.123度带，也就是北半球的51N 
 13、WGS_1984_Web_Mercator_Auxiliary_Sphere 
     Projection:	Mercator_Auxiliary_Sphere
+14、http://blog.csdn.net/yangzhai/article/details/58586723 加载栅格地图
+15、https://www.cnblogs.com/guaziren/p/3277548.html
+16、插件地址：http://ares.boundlessgeo.com/geoserver/2.11.x/ext-latest/
+17、https://www.cnblogs.com/escage/p/6513690.html
+18、http://blog.csdn.net/gisshixisheng/article/details/78148576

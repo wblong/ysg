@@ -2533,17 +2533,6 @@ ol.control.ZoomHistory = function(opt_options) {
     });
     nextButton.disabled = true;
     controlDiv.appendChild(nextButton);
-    
-    var extentButton=document.createElement('button');
-    extentButton.className=options.extentClassName||'ol-extent-hist';
-    extentButton.textContent=options.extentLabel||'';
-    extentButton.title=options.extentTipLabel||'当前范围';
-    extentButton.addEventListener('click',function(evt){
-        console.log(_this.getMap().getView().calculateExtent());
-    });
-    //extentButton.disabled=true;
-    controlDiv.appendChild(extentButton);
-
     ol.control.Control.call(this, {
         element: controlDiv,
         target: options.target
@@ -3052,6 +3041,7 @@ ol.control.Exit = function (opt_options) {
         try{
            // bound.exit();
             window.location.href='login.html';
+            delCookie("username");
         }catch(error){
             console.log(error.message);
         }
@@ -3540,4 +3530,62 @@ ol.control.MapTools.prototype.setMap = function(map) {
         zoomToExtent.setMap(map);
         
     }
+};
+
+//
+//
+
+ol.control.SaveExtent=function(opt_options){
+    var options = opt_options || {};
+    var _this = this;
+    
+    var controlDiv = document.createElement('div');
+    controlDiv.className = options.className || 'ol-saveextent';
+    
+    var extentButton=document.createElement('button');
+    extentButton.className=options.extentClassName||'ol-save-extent';
+    extentButton.innerHTML=options.extentLabel||'';
+
+    extentButton.title=options.extentTipLabel||'当前范围';
+    extentButton.addEventListener('click',function(evt){
+        var extent=_this.getMap().getView().calculateExtent();
+        var username=getCookie("username");
+        var url="http://172.16.60.86:8089/api/Data/SaveUserConfig?json={'UserId':'{0}','MinX':'{1}',\
+        'MinY':'{2}','MaxX':'{3}','MaxY':'{4}'}".format(username,extent[0],
+            extent[1],extent[2],extent[3]);
+        console.log(url);
+           $.ajax({
+                 type: 'get',
+                 url: url,
+                 dataType: 'json',
+                 cache: false,
+                 success: function (data) {    
+                 // var minx=data.MinX;
+                 // var miny=data.MinY;
+                 // var maxx=data.MaxX;
+                 // var maxy=data.MaxY;
+                 // console.log([minx,miny,maxx,maxy]);
+                 // window.location.href='index.html?minx={0}&miny={1}&maxx={2}&maxy={3}'.format(
+                 //  minx,miny,maxx,maxy);
+                    alert("保存成功！");
+                 },
+                 error:function(err)
+                 {
+                     alert(err.responseText);
+                 }
+
+             });
+    });
+    //extentButton.disabled=true;
+    controlDiv.appendChild(extentButton);
+    ol.control.Control.call(this, {
+        element: controlDiv,
+        target: options.target
+    });
+
+};
+ol.inherits(ol.control.SaveExtent,ol.control.Control);
+//
+ol.control.QueryField.prototype.setMap=function(map){
+    ol.control.Control.prototype.setMap.call(this,map);
 };

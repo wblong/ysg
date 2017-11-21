@@ -259,7 +259,7 @@ a.pin.active i {
     width: 180px;
     height: 50%;
     position: absolute;
-	top: 42px;
+	top: 36px;
 	right: 0px;
     box-sizing: border-box;
 	border-right: 3px solid #bfbfbf;
@@ -689,7 +689,7 @@ a.pin.active i {
     background-size: 1em;
     background-image:  url(../res/condition.png);
 }
-.ol-maptools{top:0.5em;right: 5.5em;z-index: 1}
+.ol-maptools{top:0;right:36px;z-index: 1}
 .ol-maptools button{
     background-repeat: no-repeat;
     background-position: center center;
